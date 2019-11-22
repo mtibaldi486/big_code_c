@@ -1,37 +1,36 @@
-# Variables:
-CC = gcc
-BIN = AperoCool
-SRC = main.c
-OBJ = main.o
+#change application name here (executable output name)
+TARGET=AperoCool
+INC=inc/cool.h
+# compiler
+CC=gcc
+# debug
+DEBUG=-g
+# optimisation
+OPT=-O0
+# warnings
+WARN=-Wall
+PTHREAD=-pthread
+CCFLAGS=$(DEBUG) $(OPT) $(WARN) $(PTHREAD) -pipe
 
-# Flags d'erreurs:
-ERROR_CFLAGS = -Wall -W -pedantic
+GTKLIB=`pkg-config --cflags --libs gtk+-3.0`
 
-# Flags pour le compilateur:
-GLIB_CFLAGS = $$(pkg-config --cflags glib-2.0)
-PANGO_CFLAGS = $$(pkg-config --cflags pango)
-GTK_CFLAGS = $$(pkg-config --cflags gtk+-2.0)
+# linker
+LD=gcc
+LDFLAGS=$(PTHREAD) $(GTKLIB) -export-dynamic
 
-CFLAGS = $(ERROR_FLAGS) $(GLIB_CFLAGS) $(PANGO_CFLAGS) $(GTK_CFLAGS)
+OBJS=main.o
 
-# Flags pour l'editeur de liens:
-GLIB_LDFLAGS = $$(pkg-config --libs glib-2.0)
-PANGO_LDFLAGS = $$(pkg-config --libs pango)
-GTK_LDFLAGS = $$(pkg-config --libs gtk+-2.0)
+all:$(OBJS)	$(INC)
+		$(LD) -o $(TARGET) $(OBJS) $(LDFLAGS)
 
-LDFLAGS = $(ERROR_FLAGS) $(GLIB_LDFLAGS) $(PANGO_LDFLAGS) $(GTK_LDFLAGS)
+main.o:src/main.c
+	$(CC) -c -rdynamic $(CCFLAGS) src/main.c $(GTKLIB) -o main.o
 
-
-# Construction du programme:
-all: $(BIN)
-
-$(BIN): $(SRC)
-	$(CC) $(CFLAGS) -c $(SRC)
-	$(CC) $(LDFLAGS) -o $(BIN) $(OBJ)
-
-
-# Nettoyage:
 clean:
-	rm -f *.o *~ core $(BIN)
+	rm -f *.o $(TARGET)
 
-re: clean all
+fclean:	clean
+	rm -f $(TARGET)
+
+re: fclean
+	make
