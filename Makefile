@@ -8,7 +8,7 @@ DEBUG=-g
 # optimisation
 OPT=-O0
 # warnings
-WARN=-Wall
+WARN=-Wall -Werror -Wall
 PTHREAD=-pthread
 CCFLAGS=$(DEBUG) $(OPT) $(WARN) $(PTHREAD) -pipe
 
