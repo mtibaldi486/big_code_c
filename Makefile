@@ -24,7 +24,7 @@ all:$(OBJS)	$(INC)
 		$(LD) -o $(TARGET) $(OBJS) $(LDFLAGS)
 
 main.o:src/main.c
-	$(CC) -c -rdynamic $(CCFLAGS) src/main.c $(GTKLIB) -o main.o
+	$(CC) -c $(CCFLAGS) src/main.c $(GTKLIB) -o main.o
 
 clean:
 	rm -f *.o $(TARGET)

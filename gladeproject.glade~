@@ -23,7 +23,7 @@
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
         <property name="always_show_image">True</property>
-        <signal name="clicked" handler="button_return_menu" object="generate_page" swapped="no"/>
+        <signal name="clicked" handler="button_return_menu" swapped="no"/>
       </object>
       <packing>
         <property name="x">76</property>
