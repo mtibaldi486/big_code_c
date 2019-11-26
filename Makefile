@@ -1,36 +1,28 @@
-#change application name here (executable output name)
-TARGET=AperoCool
-INC=inc/cool.h
-# compiler
-CC=gcc
-# debug
-DEBUG=-g
-# optimisation
-OPT=-O0
-# warnings
-WARN=-Wall -Werror -Wall
-PTHREAD=-pthread
-CCFLAGS=$(DEBUG) $(OPT) $(WARN) $(PTHREAD) -pipe
+SRCS = main.c gui_deplacement.c
 
+OBJS = $(SRCS:.c=.o)
+
+
+NAME = AperoCool
+CC  = gcc
+RM = rm -f
+PTHREAD=-pthread
+CFLAGS = -Wall -Wextra -Werror -c
+LDFLAGS=$(PTHREAD) $(GTKLIB) -export-dynamic
 GTKLIB=`pkg-config --cflags --libs gtk+-3.0`
 
-# linker
-LD=gcc
-LDFLAGS=$(PTHREAD) $(GTKLIB) -export-dynamic
+all: $(NAME)
 
-OBJS=main.o
+$(NAME):	$(OBJS)
+	$(CC) -o $(NAME) $(OBJS) $(LDFLAGS)
 
-all:$(OBJS)	$(INC)
-		$(LD) -o $(TARGET) $(OBJS) $(LDFLAGS)
-
-main.o:src/main.c
-	$(CC) -c $(CCFLAGS) src/main.c $(GTKLIB) -o main.o
+$(OBJS): $(addprefix src/, $(SRCS))
+	$(CC) $(CFLAGS) $(GTKLIB) $(addprefix	 src/, $(SRCS))
 
 clean:
-	rm -f *.o $(TARGET)
+		$(RM) $(OBJS)
 
-fclean:	clean
-	rm -f $(TARGET)
+fclean: clean
+		$(RM) $(NAME)
 
-re: fclean
-	make
+re: fclean all

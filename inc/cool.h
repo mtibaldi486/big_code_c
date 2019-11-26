@@ -19,12 +19,18 @@ typedef struct s_page
   GtkWidget    *cocktail_page;
 }              t_page;
 
+
+// GLOBAL Variables
+t_page       *page;
+
+GtkBuilder   *builder;
+GtkListBox    *box;
 /****************************************************************************/
 /*                     GUI_DEPLACEMENT_C                                    */
 /****************************************************************************/
-/*void go_to_menu(void);
+void go_to_menu(void);
 void goto_generate(void);
-void goto_ressource(void)
+void goto_ressource(void);
 void goto_cocktail(void);
 void goto_scanner(void);
 void goto_form(void);
@@ -32,6 +38,6 @@ void generate_to_menu(void);
 void ressource_to_menu(void);
 void cocktail_to_menu(void);
 void scanner_to_ressource(void);
-*/
+
 
 #endif
