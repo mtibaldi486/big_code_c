@@ -33,20 +33,6 @@ char *strjoin(char *s1, char *s2)
 	return (newstr);
 }
 
-void read_file(FILE *pf, char **str)
-{
-	char  buff[1024];
-
-  *str = calloc(1, 1);
-  if (ftell(pf))
-    fseek(pf, 0, SEEK_SET);
-  while (fread(buff, 1023, 1, pf), !feof(pf))
-  {
-    buff[1023] = 0;
-    *str = strjoin(*str, buff);
-  }
-}
-
 char	*ft_strnstr(const char *s1, const char *s2, size_t len)
 {
 	size_t			i;
@@ -68,9 +54,23 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t len)
 	return (NULL);
 }
 
+void read_file(FILE *pf, char **str)
+{
+	char  buff[1024];
+
+  *str = calloc(1, 1);
+  if (ftell(pf))
+    fseek(pf, 0, SEEK_SET);
+  while (fread(buff, 1023, 1, pf), !feof(pf))
+  {
+    buff[1023] = 0;
+    *str = strjoin(*str, buff);
+  }
+}
+
 char *parse_str(char *str)
 {
-  char *new;
+  char *new = NULL;
   char *add_del;
   long  del;
   int  i;
@@ -125,7 +125,7 @@ int main(void)
   curl = curl_easy_init();
   if(curl)
   {
-    curl_easy_setopt(curl, CURLOPT_URL, "http://fr.openfoodfacts.org/api/v0/product/5449000232311.json");
+    curl_easy_setopt(curl, CURLOPT_URL, "http://fr.openfoodfacts.org/api/v0/product/5010677850100.json");
     /* example.com is redirected, so we tell libcurl to follow redirection */
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
     res2 = curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)pf);
