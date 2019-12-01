@@ -2,6 +2,7 @@ NAME = AperoCool
 CC  = gcc
 RM = rm -f
 PTHREAD=-pthread
+INC = inc/cool.h
 CFLAGS = -Wall -Wextra -Werror -c -g
 ##GTKLIB
 GTKLIB=`pkg-config --cflags --libs gtk+-3.0`
@@ -12,13 +13,13 @@ LDFLAGS=$(PTHREAD) $(GTKLIB) -export-dynamic
 ##CURL LIB
 LDFLAGS += $(-L/home/dast/lib -L/usr/local/ssl/lib)
 LIBS = -lcurl -lnsl
-SRCS = main.c gui_deplacement.c scanner.c utils.c
+SRCS = main.c gui_deplacement.c scanner.c utils.c call_api.c
 
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME):	$(OBJS)
+$(NAME):	$(OBJS) $(INC)
 	$(CC) -o $(NAME) $(OBJS) $(LDFLAGS) $(LIBS)
 
 $(OBJS): $(addprefix src/,$(SRCS))

@@ -67,4 +67,12 @@ char          *strjoin(char *s1, char *s2);
 char          *ft_strnstr(const char *s1, const char *s2, size_t len);
 const char    *get_input_text(char*str);
 
+/****************************************************************************/
+/*                             CALL_API_C                                   */
+/****************************************************************************/
+void read_file(FILE *pf, char **str);
+char *parse_str(char *str, const char *handle);
+int call_api(FILE *pf);
+
+
 #endif
