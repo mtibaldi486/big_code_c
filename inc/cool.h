@@ -23,7 +23,7 @@ typedef struct s_page
 
 typedef struct s_prod
 {
-  const char   *id_product;
+  char   *id_product;
   char         *name;
   char         *brand;
   char         *quantity;
@@ -55,10 +55,9 @@ void    scanner_to_ressource(void);
 /****************************************************************************/
 int     add_box_product();
 int     get_id_product();
-void    read_file(FILE *pf, char **str);
-char    *parse_str(char *str, const char *handle);
-t_prod  *get_product_name(const char *id, t_prod *product);
-int     call_api(FILE *pf);
+t_prod  *get_product_name(char *id, t_prod *product);
+void    free_product(t_prod *product);
+char    *make_path(char *id);
 
 /****************************************************************************/
 /*                             UTILS_C                                      */
@@ -72,7 +71,7 @@ const char    *get_input_text(char*str);
 /****************************************************************************/
 void read_file(FILE *pf, char **str);
 char *parse_str(char *str, const char *handle);
-int call_api(FILE *pf);
+int call_api(FILE *pf, char *path);
 
 
 #endif

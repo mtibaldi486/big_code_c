@@ -3,7 +3,7 @@ CC  = gcc
 RM = rm -f
 PTHREAD=-pthread
 INC = inc/cool.h
-CFLAGS = -Wall -Wextra -Werror -c -g
+CFLAGS = -Wall -Wextra -c -g
 ##GTKLIB
 GTKLIB=`pkg-config --cflags --libs gtk+-3.0`
 LDFLAGS=$(PTHREAD) $(GTKLIB) -export-dynamic

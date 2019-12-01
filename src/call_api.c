@@ -1,6 +1,6 @@
 #include "../inc/cool.h"
 
-int call_api(FILE *pf)
+int call_api(FILE *pf, char *path)
 {
   CURL        *curl;
   CURLcode    res;
@@ -8,7 +8,7 @@ int call_api(FILE *pf)
   curl = curl_easy_init();
   if(curl)
   {
-    curl_easy_setopt(curl, CURLOPT_URL, "http://fr.openfoodfacts.org/api/v0/product/5010677850100.json");
+    curl_easy_setopt(curl, CURLOPT_URL, path);
     /* example.com is redirected, so we tell libcurl to follow redirection */
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)pf);
@@ -44,7 +44,8 @@ char *parse_str(char *str, const char *handle)
         str = strchr(str + i, ':');
         add_del = strchr(str + 2, '"');
         del = (add_del - str) - 2;
-        new = calloc(1, del);
+        if (!(new = calloc(1, del)))
+          return (NULL);
         strncpy(new, str + 2, del);
         *(new + del) = 0;
         return (new);
