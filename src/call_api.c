@@ -69,3 +69,54 @@ void read_file(FILE *pf, char **str)
     *str = strjoin(*str, buff);
   }
 }
+
+char  *make_path(char *id)
+{
+  char *path;
+
+  if (!(path = malloc(1 * 200)))
+    return (0);
+  memcpy((void *)path, (void *)"http://fr.openfoodfacts.org/api/v0/product/", 44);
+  *(path + 43) = 0;
+  strcat(path, id);
+  strcat(path, ".json");
+  return (path);
+}
+
+t_prod *get_product_name(char *id, t_prod *product)
+{
+  char    *str;
+  FILE    *pf;
+  char    *path;
+
+  if (!(pf = fopen("text.json", "w+")))
+    return (0);
+
+  path = make_path(id);
+  call_api(pf, path);
+  read_file(pf, &str);
+  if (!(product->name = parse_str(str, "\"product_name_fr\":")))
+  {
+    printf("IMPOSSIBLE DE TROUVER LE NOM \n");
+    free(str);
+    fclose(pf);
+    return (NULL);
+  }
+  if (!(product->brand = parse_str(str, "\"brands\":")))
+  {
+    printf("IMPOSSIBLE DE TROUVER La MARQUE \n");
+    free(str);
+    fclose(pf);
+    return (NULL);
+  }
+  if (!(product->quantity = parse_str(str, "\"quantity\":")))
+  {
+    printf("IMPOSSIBLE DE TROUVER La QUANTITE \n");
+    free(str);
+    fclose(pf);
+    return (NULL);
+  }
+  free(str);
+  fclose(pf);
+  return (product);
+}

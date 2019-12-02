@@ -49,3 +49,32 @@ void print_save_product(const char *array[200], int nb)
 
     return dst;
 }*/
+
+void lst_del(t_prod **product, t_prod **begin)
+{
+  t_prod *tmp;
+  t_prod *tmp2 = NULL;
+
+  tmp = begin;
+  while (tmp)
+  {
+    if (!strcmp(tmp->id_product, product->id_product))
+    {
+      if (tmp->next)
+      {
+        tmp2 = product->next;
+        free_product(product);
+        free(product);
+      }
+      else
+      {
+        free_product(product);
+        free(product);
+      }
+      return ;
+    }
+    tmp2 = tmp;
+    tmp = tmp->next;
+  }
+  return ;
+}

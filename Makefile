@@ -13,7 +13,8 @@ LDFLAGS=$(PTHREAD) $(GTKLIB) -export-dynamic
 ##CURL LIB
 LDFLAGS += $(-L/home/dast/lib -L/usr/local/ssl/lib)
 LIBS = -lcurl -lnsl
-SRCS = main.c gui_deplacement.c scanner.c utils.c call_api.c
+SRCS = main.c gui_deplacement.c scanner.c utils.c call_api.c \
+lst_prod.c
 
 OBJS = $(SRCS:.c=.o)
 
