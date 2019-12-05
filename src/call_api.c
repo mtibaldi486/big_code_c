@@ -68,6 +68,7 @@ void read_file(FILE *pf, char **str)
     buff[1023] = 0;
     *str = strjoin(*str, buff);
   }
+  remove("text.json");
 }
 
 char  *make_path(char *id)
