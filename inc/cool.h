@@ -9,6 +9,7 @@
 #include <gtk/gtkx.h>
 #include "gtk/gtk.h"
 #include <curl/curl.h>
+#include <mysql.h>
 
 typedef struct s_page
 {

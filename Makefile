@@ -5,16 +5,15 @@ PTHREAD=-pthread
 INC = inc/cool.h
 CFLAGS = -Wall -Wextra -c -g
 ##GTKLIB
-GTKLIB=`pkg-config --cflags --libs gtk+-3.0`
-LDFLAGS=$(PTHREAD) $(GTKLIB) -export-dynamic
-##JSON LIBS
-#CFLAGS += $(shell pkg-config --cflags json-c)
-#LDFLAGS += $(shell pkg-config --libs json-c)
+GTKLIB = `pkg-config --cflags --libs gtk+-3.0`
+LDFLAGS = $(PTHREAD) $(GTKLIB) -export-dynamic
+##MYSQL
+LDFLAGS += `mysql_config --cflags --libs`
+CFLAGS += `mysql_config --cflags --libs`
 ##CURL LIB
 LDFLAGS += $(-L/home/dast/lib -L/usr/local/ssl/lib)
 LIBS = -lcurl -lnsl
-SRCS = main.c gui_deplacement.c scanner.c utils.c call_api.c \
-lst_prod.c
+SRCS = test.c
 
 OBJS = $(SRCS:.c=.o)
 
