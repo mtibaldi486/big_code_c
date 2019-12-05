@@ -54,7 +54,7 @@ int get_id_product()
     gtk_entry_set_text(GTK_ENTRY(input_idproduct), "");
     display_inc_prod(lst_prod);
     display_lst_prod(begin);
-    display_ok();
+    display_ok(input_idproduct);
     return (0);
   }
   if (!(  get_product_name(product->id_product, product)))
@@ -66,10 +66,9 @@ int get_id_product()
   }
 
   add_box_product(product);
-  display_ok();
+  display_ok(input_idproduct);
   //free_product(product);
   display_lst_prod(begin);
-  gtk_entry_set_text(GTK_ENTRY(input_idproduct), "");
   return (0);
 }
 
@@ -105,14 +104,13 @@ void display_inc_prod(t_prod *lst_prod)
   lab_name = gtk_label_new(new_name);
   lab_quantity = gtk_label_new(lst_prod->quantity);
 
-  gtk_fixed_put(GTK_FIXED(fixed), lab_nb, 350, 10);
+  gtk_fixed_put(GTK_FIXED(fixed), lab_nb, 450, 10);
   gtk_fixed_put(GTK_FIXED(fixed), lab_name, 10, 10);
   gtk_fixed_put(GTK_FIXED(fixed), lab_quantity, 10, 50);
 
   gtk_container_add(GTK_CONTAINER(new_box), fixed);
 
   gtk_list_box_insert(box, new_box, lst_prod->index);
-  gtk_widget_show_all(page->window);
 
   return ;
 }
@@ -138,14 +136,13 @@ int add_box_product(t_prod *product)
   lab_name = gtk_label_new(new_name);
   lab_quantity = gtk_label_new(product->quantity);
 
-  gtk_fixed_put(GTK_FIXED(fixed), lab_nb, 350, 10);
+  gtk_fixed_put(GTK_FIXED(fixed), lab_nb, 450, 10);
   gtk_fixed_put(GTK_FIXED(fixed), lab_name, 10, 10);
   gtk_fixed_put(GTK_FIXED(fixed), lab_quantity, 10, 50);
 
   gtk_container_add(GTK_CONTAINER(new_box), fixed);
 
   gtk_list_box_insert(box, new_box, 0);
-  gtk_widget_show_all(page->window);
   return (0);
 }
 
@@ -162,11 +159,24 @@ void free_product(t_prod *product) {
 
 void display_error(GtkEntry *entry)
 {
+  GtkWidget *lab_ok;
+
+  page->scanner_page = GTK_WIDGET(gtk_builder_get_object(builder, "scanner_page"));
+  lab_ok = GTK_WIDGET(gtk_builder_get_object(builder, "lab_add_ok"));
+  gtk_widget_show_all(page->scanner_page);
+  gtk_widget_hide(lab_ok);
   gtk_entry_set_text(GTK_ENTRY(entry), "");
   printf("IMPOSSIBLE D'AJOUTER LE PRODUIT !\n");
 }
 
-void display_ok()
+void display_ok(GtkEntry *entry)
 {
+  GtkWidget *lab_ko;
+
+  page->scanner_page = GTK_WIDGET(gtk_builder_get_object(builder, "scanner_page"));
+  lab_ko = GTK_WIDGET(gtk_builder_get_object(builder, "lab_add_ko"));
+  gtk_widget_show_all(page->scanner_page);
+  gtk_widget_hide(lab_ko);
+  gtk_entry_set_text(GTK_ENTRY(entry), "");
   printf("AJOUT REUSSIT !\n");
 }

@@ -59,7 +59,7 @@ int           get_id_product();
 void          free_product(t_prod *product);
 void          display_inc_prod(t_prod *lst_prod);
 void          display_error(GtkEntry *entry);
-void          display_ok();
+void          display_ok(GtkEntry *entry);
 
 /****************************************************************************/
 /*                             UTILS_C                                      */

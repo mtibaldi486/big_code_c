@@ -45,10 +45,17 @@ void goto_cocktail(void)
 /****************************************************************************/
 void goto_scanner(void)
 {
+  GtkWidget *lab_ok;
+  GtkWidget *lab_ko;
+
+  lab_ok = GTK_WIDGET(gtk_builder_get_object(builder, "lab_add_ok"));
+  lab_ko = GTK_WIDGET(gtk_builder_get_object(builder, "lab_add_ko"));
   gtk_container_remove(GTK_CONTAINER(page->window), page->ressource_page);
   page->scanner_page = GTK_WIDGET(gtk_builder_get_object(builder, "scanner_page"));
   gtk_container_add(GTK_CONTAINER(page->window), page->scanner_page);
   gtk_widget_show_all(page->window);
+  gtk_widget_hide(lab_ok);
+  gtk_widget_hide(lab_ko);
   return ;
 }
 
