@@ -55,20 +55,17 @@ void          scanner_to_ressource(void);
 /****************************************************************************/
 /*                             SCANNER_C                                    */
 /****************************************************************************/
-int           add_box_product();
 int           get_id_product();
+t_prod       *check_product(t_prod **product);
 void          free_product(t_prod *product);
+
+/****************************************************************************/
+/*                       SCANNER_DISPLAY_C                                  */
+/****************************************************************************/
+int           add_box_product();
 void          display_inc_prod(t_prod *lst_prod);
 void          display_error(GtkEntry *entry);
 void          display_ok(GtkEntry *entry);
-
-/****************************************************************************/
-/*                             UTILS_C                                      */
-/****************************************************************************/
-char          *strjoin(char *s1, char *s2);
-char          *ft_strnstr(const char *s1, const char *s2, size_t len);
-//const char    *get_input_text(char*str);
-char	        *ft_itoa(int nb);
 
 /****************************************************************************/
 /*                             CALL_API_C                                   */
@@ -76,7 +73,7 @@ char	        *ft_itoa(int nb);
 void          read_file(FILE *pf, char **str);
 char          *parse_str(char *str, const char *handle);
 int           call_api(FILE *pf, char *path);
-t_prod        *get_product_name(char *id, t_prod *product);
+t_prod        *get_product_info(char *id, t_prod *product);
 char          *make_path(char *id);
 
 /****************************************************************************/
@@ -88,5 +85,13 @@ void          display_lst_prod(t_prod *lst);
 void	        lst_inc_index(t_prod *lst);
 void	        lst_dec_index(t_prod *lst);
 void          lst_del(t_prod **begin, t_prod **product);
+
+/****************************************************************************/
+/*                             UTILS_C                                      */
+/****************************************************************************/
+char          *strjoin(char *s1, char *s2);
+char          *ft_strnstr(const char *s1, const char *s2, size_t len);
+//const char    *get_input_text(char*str);
+char	        *ft_itoa(int nb);
 
 #endif

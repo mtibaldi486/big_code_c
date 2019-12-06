@@ -13,7 +13,7 @@ CFLAGS += `mysql_config --cflags --libs`
 ##CURL LIB
 LDFLAGS += $(-L/home/dast/lib -L/usr/local/ssl/lib)
 LIBS = -lcurl -lnsl
-SRCS = main.c scanner.c gui_deplacement.c lst_prod.c call_api.c \
+SRCS = main.c scanner.c scanner_display.c gui_deplacement.c lst_prod.c call_api.c \
 utils.c add_product.c
 
 OBJS = $(SRCS:.c=.o)
