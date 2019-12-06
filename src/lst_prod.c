@@ -1,21 +1,20 @@
 #include "../inc/cool.h"
-#include <unistd.h>
 
 /****************************************************************************/
 /*                  LIST FUNCTION FOR SCANNER                               */
 /****************************************************************************/
 void	ft_lstadd_back(t_prod **alst, t_prod *new)
 {
-	t_prod		*begin;
+	t_prod		*lst;
 
-	begin = *alst;
-	if (!begin)
+	lst = *alst;
+	if (!lst)
 		*alst = new;
 	else
 	{
-		while (begin->next)
-			begin = begin->next;
-		begin->next = new;
+		while (lst->next)
+			lst = lst->next;
+		lst->next = new;
 	}
   return ;
 }
@@ -35,17 +34,17 @@ t_prod	*ft_lstnew_prod(char *id)
 	return (new);
 }
 
-void display_lst_prod(t_prod *begin)
+void display_lst_prod(t_prod *lst)
 {
   printf("\n\n       /////Fonction Afficheg ////////\n\n");
-  while (begin)
+  while (lst)
   {
-    printf("id = %s\n", begin->id_product);
-    printf("name = %s\n", begin->name);
-    printf("brand = %s\n", begin->brand);
-    printf("quantity = %s\n", begin->quantity);
-    printf("nb product = %d\n\n", begin->nb);
-    begin = begin->next;
+    printf("id = %s\n", lst->id_product);
+    printf("name = %s\n", lst->name);
+    printf("brand = %s\n", lst->brand);
+    printf("quantity = %s\n", lst->quantity);
+    printf("nb product = %d\n\n", lst->nb);
+    lst = lst->next;
   }
   printf("\n\n       /////FIN ////////\n\n");
   return ;
@@ -71,12 +70,12 @@ void	lst_dec_index(t_prod *lst)
     return ;
 }
 
-void lst_del(t_prod **begin, t_prod **product)
+void lst_del(t_prod **lst, t_prod **product)
 {
   t_prod *prec;
   t_prod *current;
 
-  current = *begin;
+  current = *lst;
   prec = NULL;
   while (current)
   {
@@ -84,7 +83,7 @@ void lst_del(t_prod **begin, t_prod **product)
     {
       if (!prec && !current->next)
       {
-        *begin = NULL;
+        *lst = NULL;
         free_product(current);
         free(current);
       }
@@ -104,15 +103,15 @@ void lst_del(t_prod **begin, t_prod **product)
     prec = current;
     current = current->next;
   }
-  lst_dec_index(*begin);
+  lst_dec_index(*lst);
   return ;
 }
 
-void lst_clear(t_prod **begin)
+void lst_clear(t_prod **lst)
 {
-  while (begin)
+  while (lst)
   {
 
-    *begin = (*begin)->next;
+    *lst = (*lst)->next;
   }
 }

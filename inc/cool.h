@@ -84,7 +84,7 @@ char          *make_path(char *id);
 /****************************************************************************/
 void	        ft_lstadd_back(t_prod **alst, t_prod *new);
 t_prod      	*ft_lstnew_prod(char *id);
-void          display_lst_prod(t_prod *begin);
+void          display_lst_prod(t_prod *lst);
 void	        lst_inc_index(t_prod *lst);
 void	        lst_dec_index(t_prod *lst);
 void          lst_del(t_prod **begin, t_prod **product);
