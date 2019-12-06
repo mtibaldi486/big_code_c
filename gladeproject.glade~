@@ -601,6 +601,7 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
+        <signal name="clicked" handler="add_product" swapped="no"/>
       </object>
       <packing>
         <property name="x">191</property>
@@ -675,7 +676,6 @@
         <property name="width_request">100</property>
         <property name="height_request">80</property>
         <property name="can_focus">False</property>
-        <property name="no_show_all">True</property>
         <property name="label" translatable="yes">Produit ajouter a la liste !</property>
         <attributes>
           <attribute name="font-desc" value="Serif Bold Italic 10"/>
@@ -692,7 +692,6 @@
         <property name="width_request">100</property>
         <property name="height_request">80</property>
         <property name="can_focus">False</property>
-        <property name="no_show_all">True</property>
         <property name="label" translatable="yes">Echec de l'ajout du produit !</property>
         <attributes>
           <attribute name="font-desc" value="Serif Bold Italic 10"/>
