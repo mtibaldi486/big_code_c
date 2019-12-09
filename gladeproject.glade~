@@ -32,47 +32,44 @@
     </child>
     <child>
       <object class="GtkScrolledWindow">
-        <property name="width_request">556</property>
-        <property name="height_request">302</property>
+        <property name="width_request">790</property>
+        <property name="height_request">370</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="shadow_type">in</property>
         <child>
           <object class="GtkViewport">
-            <property name="width_request">100</property>
-            <property name="height_request">80</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkListBox">
+              <object class="GtkListBox" id="list_cocktails">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkListBoxRow">
-                    <property name="width_request">100</property>
-                    <property name="height_request">80</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="tooltip_text" translatable="yes">weshhhh
-</property>
-                    <child>
-                      <object class="GtkImage">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="icon_name">accessories-character-map</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
               </object>
             </child>
           </object>
         </child>
       </object>
       <packing>
-        <property name="x">421</property>
-        <property name="y">317</property>
+        <property name="x">283</property>
+        <property name="y">205</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="width_request">100</property>
+        <property name="height_request">80</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Nos  Cocktails </property>
+        <attributes>
+          <attribute name="font-desc" value="Serif Bold Italic 17"/>
+          <attribute name="underline" value="True"/>
+        </attributes>
+      </object>
+      <packing>
+        <property name="x">1015</property>
+        <property name="y">104</property>
       </packing>
     </child>
   </object>
@@ -184,59 +181,6 @@
       <packing>
         <property name="x">175</property>
         <property name="y">250</property>
-      </packing>
-    </child>
-  </object>
-  <object class="GtkFixed" id="model_box_product">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <child>
-      <object class="GtkLabel" id="lab_brand">
-        <property name="width_request">100</property>
-        <property name="height_request">80</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-      </object>
-      <packing>
-        <property name="x">7</property>
-        <property name="y">-14</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="lab_name">
-        <property name="width_request">100</property>
-        <property name="height_request">80</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-      </object>
-      <packing>
-        <property name="x">92</property>
-        <property name="y">-14</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel">
-        <property name="width_request">72</property>
-        <property name="height_request">35</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Expire le :</property>
-      </object>
-      <packing>
-        <property name="x">296</property>
-        <property name="y">41</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="lab_exp">
-        <property name="width_request">53</property>
-        <property name="height_request">35</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-      </object>
-      <packing>
-        <property name="x">381</property>
-        <property name="y">39</property>
       </packing>
     </child>
   </object>

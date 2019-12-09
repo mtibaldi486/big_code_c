@@ -94,4 +94,11 @@ char          *ft_strnstr(const char *s1, const char *s2, size_t len);
 //const char    *get_input_text(char*str);
 char	        *ft_itoa(int nb);
 
+/****************************************************************************/
+/*                            COCKTAILS_C                                   */
+/****************************************************************************/
+int load_lst_cocktails();
+void finish_with_error(MYSQL *con);
+
+
 #endif
