@@ -1,7 +1,7 @@
 NAME = AperoCool
 CC  = gcc
 RM = rm -f
-PTHREAD=-pthread
+PTHREAD = -pthread
 INC = inc/cool.h
 CFLAGS = -Wall -Wextra -c -g
 ##GTKLIB
