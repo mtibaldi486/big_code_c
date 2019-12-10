@@ -78,3 +78,18 @@ void lst_del(t_prod **product, t_prod **begin)
   }
   return ;
 }
+
+//recuperation de nom de cocktail
+strcpy(name, strchr(info, ' ') + 1);
+tmp = name;
+while (!(isdigit(*(strchr(tmp, ' ') + 1))))
+{
+  tmp = strchr(tmp, ' ') + 1;
+}
+tmp = strchr(tmp, ' ');
+name[tmp - name] = '\0';
+//Formatage de la note pour affichage
+strcpy(mark, "Note :");
+strcat(mark, strchr((strrchr(info, ' ') - 4), ' '));
+strcat(mark, "/5");
+printf("mark = %s\nname = '%s'\n", mark, name);

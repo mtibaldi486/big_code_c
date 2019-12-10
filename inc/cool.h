@@ -10,6 +10,7 @@
 #include "gtk/gtk.h"
 #include <curl/curl.h>
 #include <mysql.h>
+#include <ctype.h>
 
 typedef struct s_page
 {
@@ -97,8 +98,9 @@ char	        *ft_itoa(int nb);
 /****************************************************************************/
 /*                            COCKTAILS_C                                   */
 /****************************************************************************/
-int load_lst_cocktails();
-void finish_with_error(MYSQL *con);
+int           load_lst_cocktails();
+void          finish_with_error(MYSQL *con);
+int           add_cocktail_box(gchar *info);
 
 
 #endif
