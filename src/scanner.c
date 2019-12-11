@@ -4,6 +4,26 @@
 /*                 Function of :BUTTON "VALIDER" SCANNER PAGE               */
 /****************************************************************************/
 
+
+/*int add_product()
+{
+
+
+  if(!begin)
+    return 0;
+
+  t_prod *tmp = begin;
+
+  while(tmp)
+  {
+    insert_bdd(tmp);
+    tmp = tmp->next;
+  }
+
+  return 0;
+}*/
+
+
 int    get_id_product()
 {
   GtkEntry      *input_idproduct;
