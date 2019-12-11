@@ -1,8 +1,10 @@
 #include "../inc/cool.h"
 
-void load_cocktail_page(gchar **info)
+static t_cocktail  *begin_cocktail = NULL;
+
+void load_cocktail_page(GtkButton *button, gchar *info)
 {
-  printf("info = '%s'\n", *info);
+  printf("info = '%s'\n", info);
   return ;
 }
 
@@ -19,10 +21,11 @@ int load_lst_cocktails()
   MYSQL_RES     *result = NULL;
   MYSQL_ROW     row;
   int           num_fields;
-  gchar         *info;
+  gchar         info[255];
   int           i;
+  t_cocktail    *lst_cocktail;
 
-  if (!(info = malloc(sizeof(char) * 255)))
+  if (begin_cocktail)
     return (0);
   con = mysql_init(NULL);
   if (con == NULL)
@@ -53,28 +56,32 @@ int load_lst_cocktails()
 
   while ((row = mysql_fetch_row(result)))
   {
-      strcpy(info, row[0]);
-      strcat(info, " ");
+      if (!(lst_cocktail = lstnew_cocktail()))
+        return (0);
+      strcpy(lst_cocktail->info, row[0]);
+      strcat(lst_cocktail->info, " ");
       for(i = 1; i < num_fields; i++)
       {
-          strcat(info, row[i]);
-          strcat(info, " ");
+          strcat(lst_cocktail->info, row[i]);
+          strcat(lst_cocktail->info, " ");
       }
-      add_cocktail_box(info);
-    //  printf("\ninfo = %s\n", info);
+      add_cocktail_box(lst_cocktail);
+
+      lstadd_back_cocktail(&begin_cocktail, lst_cocktail);
   }
-  free(info);
+  display_lst_cocktail(begin_cocktail);
+  printf("OKKKKK");
   mysql_free_result(result);
   mysql_close(con);
   return (0);
 }
 
-int   add_cocktail_box(gchar *info)
+int   add_cocktail_box(t_cocktail *cocktail)
 {
   GtkWidget     *new_box;
   GtkWidget     *fixed;
   GtkListBox    *box;
-  char          name[200];
+  gchar         name[200];
   char          mark[30];
   char          *tmp;
   GtkWidget     *lab_name;
@@ -89,10 +96,9 @@ int   add_cocktail_box(gchar *info)
 
   //Creation du bouton pour voir la page du cocktails
   button = gtk_button_new_with_label("Voir");
-  g_signal_connect(button, "clicked", G_CALLBACK(load_cocktail_page), &info);
 
   //recuperation de nom de cocktail
-  strcpy(name, strchr(info, ' ') + 1);
+  strcpy(name, strchr(cocktail->info, ' ') + 1);
   tmp = name;
   while (!(isdigit(*(strchr(tmp, ' ') + 1))))
   {
@@ -100,9 +106,12 @@ int   add_cocktail_box(gchar *info)
   }
   tmp = strchr(tmp, ' ');
   name[tmp - name] = '\0';
+
+  printf("ON passe : '%s'", cocktail->info);
+  g_signal_connect(button, "clicked", G_CALLBACK (load_cocktail_page), cocktail->info);
   //Formatage de la note pour affichage
   strcpy(mark, "Note :");
-  strcat(mark, strchr((strrchr(info, ' ') - 4), ' '));
+  strcat(mark, strchr((strrchr(cocktail->info, ' ') - 4), ' '));
   strcat(mark, "/5");
 
   lab_name = gtk_label_new(name);

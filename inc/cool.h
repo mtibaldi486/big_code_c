@@ -36,9 +36,15 @@ typedef struct s_prod
   struct s_prod   *next;
 }              t_prod;
 
+typedef struct s_cocktail
+{
+  gchar             *info;
+  struct s_cocktail *next;
+}              t_cocktail;
+
 // GLOBAL Variables
-t_page          *page;
-GtkBuilder      *builder;
+t_page             *page;
+GtkBuilder         *builder;
 
 /****************************************************************************/
 /*                     GUI_DEPLACEMENT_C                                    */
@@ -99,9 +105,14 @@ char	        *ft_itoa(int nb);
 /****************************************************************************/
 /*                            COCKTAILS_C                                   */
 /****************************************************************************/
+void          load_cocktail_page(GtkButton *button, gchar *info);
 int           load_lst_cocktails();
 void          finish_with_error(MYSQL *con);
-int           add_cocktail_box(gchar *info);
+int           add_cocktail_box(t_cocktail *cocktail);
+
+void	        lstadd_back_cocktail(t_cocktail **alst, t_cocktail *new);
+void          display_lst_cocktail(t_cocktail *lst);
+t_cocktail  	*lstnew_cocktail();
 
 
 #endif
