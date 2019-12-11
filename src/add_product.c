@@ -18,12 +18,20 @@ char * get_date(char * date)
 char * get_peremption(char * date, int final){
   int day, month, year;
   char dayc[3], monthc[3], yearc[3];
-  char month31 []= "01,03,05,07,08,10,12";
+  char month31 []= "01,03,05,07,08,10,12,";
   char month30 []= "04,06,09,11";
-  int i = 0;
-
   sscanf(date,"%d-%d-%d", &day, &month, &year);
+
   while (final != 0){
+    day++;
+    if(day > 28 && strcmp(monthc, "02")==0 && (year%4)!=0){
+      month++;
+      day = 01;
+    }
+    if(day > 29 && strcmp(monthc, "02")==0 && (year%4) ==0){
+      month++;
+      day = 01;
+    }
     if (day > 30 && strstr(month30, monthc)!=0){
       month++;
       day = 01;
@@ -32,12 +40,11 @@ char * get_peremption(char * date, int final){
       month++;
       day = 01;
     }
+
     if( month > 12){
       month = 01;
       year ++;
     }
-    day ++;
-    i++;
     final--;
     if (day < 10)
       sprintf(dayc, "0%d", day);
@@ -50,8 +57,8 @@ char * get_peremption(char * date, int final){
     sprintf(yearc, "%d", year);
   }
   sprintf(date, "%s-%s-%s", dayc, monthc, yearc);
+  printf("%d\n", final );
   return date;
-
 }
 
 int insert_bdd(){//int insert_bdd(t_prod *tmp)
@@ -73,10 +80,9 @@ int insert_bdd(){//int insert_bdd(t_prod *tmp)
   }*/
 
 //////////////////////Convertion des données////////////////////////////
-  char name[255];
   char * date;
   char * peremption;
-  int res_per = 36;
+  int res_per = 216;
 
   date = malloc(sizeof(char) * 255);
   peremption = malloc(sizeof(char) * 255);
