@@ -47,7 +47,7 @@ int call_api(FILE *pf, char *path)
   if(curl)
   {
     curl_easy_setopt(curl, CURLOPT_URL, path);
-    /* example.com is redirected, so we tell libcurl to follow redirection */
+    /*follow redirection */
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)pf);
 
@@ -120,4 +120,6 @@ char  *make_path(char *id)
   strcat(path, id);
   strcat(path, ".json");
   return (path);
+  (void)begin;
+  (void)begin_cocktail;
 }
