@@ -52,6 +52,22 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t len)
 	}
 	return (NULL);
 }
+
+char  *mt_strccpy(char *s1, char *s2, char c)
+{
+  int i;
+
+  i = 0;
+  if (!s2)
+    return (NULL);
+  while (s2[i] && s2[i] != c)
+  {
+    s1[i] = s2[i];
+    i++;
+  }
+  s1[i] = 0;
+  return (s1);
+}
 /****************************************************************************/
 /*                              ITOA                                        */
 /****************************************************************************/

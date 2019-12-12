@@ -1,5 +1,6 @@
 #include "../inc/cool.h"
 
+/*
 int add_product()
 {
 
@@ -19,7 +20,7 @@ int add_product()
 }
 
 
-char * get_date(char * date)
+char *get_date(char * date)
 {
   int day;
   int month;
@@ -127,7 +128,7 @@ int insert_bdd(t_prod *tmp){
   if(get_peremption(peremption, res_per) == NULL){
     peremption = NULL;
   }
-  printf("date : %s\nperemption le : %s\n", date, peremption);*/
+  printf("date : %s\nperemption le : %s\n", date, peremption);
 
 
 
@@ -137,3 +138,4 @@ int insert_bdd(t_prod *tmp){
 
   return 0;
 }
+*/

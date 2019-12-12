@@ -4,11 +4,6 @@
 /*                 Function of :BUTTON "VALIDER" SCANNER PAGE               */
 /****************************************************************************/
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> f808c3e640ffd12ceccbc15749ef1e3c19eef24b
 int    get_id_product()
 {
   GtkEntry      *input_idproduct;

@@ -37,17 +37,12 @@ typedef struct s_prod
   struct s_prod   *next;
 }              t_prod;
 
-typedef struct s_cocktail
-{
-  gchar             info[255];
-  struct s_cocktail *next;
-}              t_cocktail;
 
 // GLOBAL Variables
 t_page             *page;
 GtkBuilder         *builder;
-t_cocktail  *begin_cocktail;
-t_prod      *begin;
+t_cocktail         *begin_cocktail;
+t_prod             *begin;
 
 /****************************************************************************/
 /*                     GUI_DEPLACEMENT_C                                    */
@@ -103,6 +98,7 @@ void          lst_del(t_prod **begin, t_prod **product);
 /****************************************************************************/
 char          *strjoin(char *s1, char *s2);
 char          *ft_strnstr(const char *s1, const char *s2, size_t len);
+char          *mt_strccpy(char *s1, char *s2, char c);
 //const char    *get_input_text(char*str);
 char	        *ft_itoa(int nb);
 char		    	**ft_split(char const *s, char c);
@@ -112,17 +108,14 @@ char		    	**ft_split(char const *s, char c);
 /****************************************************************************/
 int           load_lst_cocktails();
 void          finish_with_error(MYSQL *con);
-int           add_cocktail_box(t_cocktail *cocktail);
+int           add_cocktail_box(gchar  info[255]);
 
-/****************************************************************************/
-/*                           SELECT_LST_C                                   */
-/****************************************************************************/
-void	        lstadd_back_cocktail(t_cocktail **alst, t_cocktail *new);
-void          display_lst_cocktail(t_cocktail *lst);
-t_cocktail  	*lstnew_cocktail();
+//COKTAIL_C
+void          display_elem(const gchar *info);
+void          load_cocktail_page(GtkButton *button);
 
-void          display_elem(gchar info[255]);
-void          load_cocktail_page(GtkButton *button, gchar info[255]);
-
+// MYSQL_C
+MYSQL         *connection_bdd(MYSQL *con);
+gchar         *join_row(MYSQL_ROW row, int num_fields);
 
 #endif
