@@ -2,6 +2,7 @@
 
 int   main(int ac, char **av)
 {
+    printf("begin = %p\nbegin_cocktail = %p\n", begin, begin_cocktail);
     gtk_init(&ac, &av);
     if(!(page = malloc(sizeof(t_page))))
       return (0);
@@ -16,7 +17,7 @@ int   main(int ac, char **av)
     gtk_widget_show(page->window);
 
     gtk_main();
-
+    
     free(page);
     return (0);
   }

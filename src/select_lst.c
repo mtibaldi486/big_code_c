@@ -38,8 +38,6 @@ t_cocktail	*lstnew_cocktail()
 
   if (!(new = (t_cocktail *)malloc(sizeof(t_cocktail))))
     return (0);
-  if (!(new->info = malloc(sizeof(gchar) * 255)))
-    return (0);
 	new->next = NULL;
 	return (new);
 }

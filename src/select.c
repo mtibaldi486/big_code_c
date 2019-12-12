@@ -1,13 +1,5 @@
 #include "../inc/cool.h"
 
-static t_cocktail  *begin_cocktail = NULL;
-
-void load_cocktail_page(GtkButton *button, gchar *info)
-{
-  printf("info = '%s'\n", info);
-  return ;
-}
-
 void finish_with_error(MYSQL *con)
 {
   fprintf(stderr, "%s\n", mysql_error(con));
@@ -21,7 +13,6 @@ int load_lst_cocktails()
   MYSQL_RES     *result = NULL;
   MYSQL_ROW     row;
   int           num_fields;
-  gchar         info[255];
   int           i;
   t_cocktail    *lst_cocktail;
 
@@ -66,11 +57,8 @@ int load_lst_cocktails()
           strcat(lst_cocktail->info, " ");
       }
       add_cocktail_box(lst_cocktail);
-
       lstadd_back_cocktail(&begin_cocktail, lst_cocktail);
   }
-  display_lst_cocktail(begin_cocktail);
-  printf("OKKKKK");
   mysql_free_result(result);
   mysql_close(con);
   return (0);
@@ -107,7 +95,6 @@ int   add_cocktail_box(t_cocktail *cocktail)
   tmp = strchr(tmp, ' ');
   name[tmp - name] = '\0';
 
-  printf("ON passe : '%s'", cocktail->info);
   g_signal_connect(button, "clicked", G_CALLBACK (load_cocktail_page), cocktail->info);
   //Formatage de la note pour affichage
   strcpy(mark, "Note :");
@@ -127,4 +114,18 @@ int   add_cocktail_box(t_cocktail *cocktail)
 
   gtk_list_box_insert(box, new_box, 0);
   return (0);
+}
+
+void load_cocktail_page(GtkButton *button, gchar info[255])
+{
+  (void)button;
+  printf("info = '%s'\n", info);
+
+  gtk_container_remove(GTK_CONTAINER(page->window), page->select_page);
+  page->cocktail_page = GTK_WIDGET(gtk_builder_get_object(builder, "cocktail_page"));
+  gtk_container_add(GTK_CONTAINER(page->window), page->cocktail_page);
+  display_elem(info);
+  gtk_widget_show_all(page->window);
+
+  return ;
 }

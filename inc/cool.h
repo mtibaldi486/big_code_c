@@ -21,6 +21,7 @@ typedef struct s_page
   GtkWidget    *generate_page;
   GtkWidget    *ressource_page;
   GtkWidget    *scanner_page;
+  GtkWidget    *select_page;
   GtkWidget    *cocktail_page;
 }              t_page;
 
@@ -38,13 +39,15 @@ typedef struct s_prod
 
 typedef struct s_cocktail
 {
-  gchar             *info;
+  gchar             info[255];
   struct s_cocktail *next;
 }              t_cocktail;
 
 // GLOBAL Variables
 t_page             *page;
 GtkBuilder         *builder;
+t_cocktail  *begin_cocktail;
+t_prod      *begin;
 
 /****************************************************************************/
 /*                     GUI_DEPLACEMENT_C                                    */
@@ -103,16 +106,21 @@ char          *ft_strnstr(const char *s1, const char *s2, size_t len);
 char	        *ft_itoa(int nb);
 
 /****************************************************************************/
-/*                            COCKTAILS_C                                   */
+/*                               SELECT_C                                   */
 /****************************************************************************/
-void          load_cocktail_page(GtkButton *button, gchar *info);
 int           load_lst_cocktails();
 void          finish_with_error(MYSQL *con);
 int           add_cocktail_box(t_cocktail *cocktail);
+void          load_cocktail_page(GtkButton *button, gchar info[255]);
 
+/****************************************************************************/
+/*                           SELECT_LST_C                                   */
+/****************************************************************************/
 void	        lstadd_back_cocktail(t_cocktail **alst, t_cocktail *new);
 void          display_lst_cocktail(t_cocktail *lst);
 t_cocktail  	*lstnew_cocktail();
+
+void display_elem(gchar info[255]);
 
 
 #endif
