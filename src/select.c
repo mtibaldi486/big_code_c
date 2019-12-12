@@ -29,7 +29,6 @@ int load_lst_cocktails()
   while ((row = mysql_fetch_row(result)))
   {
       info = join_row(row, num_fields);
-      printf("info = ''%s'\n", info);
       add_cocktail_box(info);
   }
   free(info);

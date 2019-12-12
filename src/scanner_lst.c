@@ -34,22 +34,6 @@ t_prod	*ft_lstnew_prod(char *id)
 	return (new);
 }
 
-void display_lst_prod(t_prod *lst)
-{
-  printf("\n\n       /////Fonction Afficheg ////////\n\n");
-  while (lst)
-  {
-    printf("id = %s\n", lst->id_product);
-    printf("name = %s\n", lst->name);
-    printf("brand = %s\n", lst->brand);
-    printf("quantity = %s\n", lst->quantity);
-    printf("nb product = %d\n\n", lst->nb);
-    lst = lst->next;
-  }
-  printf("\n\n       /////FIN ////////\n\n");
-  return ;
-}
-
 void	lst_inc_index(t_prod *lst)
 {
 		while (lst)
@@ -115,3 +99,21 @@ void lst_clear(t_prod **lst)
     *lst = (*lst)->next;
   }
 }
+
+//////FONCTION DE VERIFICATION /////////////
+void display_lst_prod(t_prod *lst)
+{
+  printf("\n\n       /////Fonction Afficheg ////////\n\n");
+  while (lst)
+  {
+    printf("id = %s\n", lst->id_product);
+    printf("name = %s\n", lst->name);
+    printf("brand = %s\n", lst->brand);
+    printf("quantity = %s\n", lst->quantity);
+    printf("nb product = %d\n\n", lst->nb);
+    lst = lst->next;
+  }
+  printf("\n\n       /////FIN ////////\n\n");
+  return ;
+}
+//////////////////////////////////////////////

@@ -41,7 +41,6 @@ typedef struct s_prod
 // GLOBAL Variables
 t_page             *page;
 GtkBuilder         *builder;
-t_cocktail         *begin_cocktail;
 t_prod             *begin;
 
 /****************************************************************************/
@@ -64,6 +63,7 @@ void          cocktail_to_select(void);
 /****************************************************************************/
 int           get_id_product();
 t_prod       *check_product(t_prod **product);
+t_prod        *get_product_info(char *id, t_prod *product);
 void          free_product(t_prod *product);
 
 /****************************************************************************/
@@ -80,7 +80,6 @@ void          display_ok(GtkEntry *entry);
 void          read_file(FILE *pf, char **str);
 char          *parse_str(char *str, const char *handle);
 int           call_api(FILE *pf, char *path);
-t_prod        *get_product_info(char *id, t_prod *product);
 char          *make_path(char *id);
 
 /****************************************************************************/

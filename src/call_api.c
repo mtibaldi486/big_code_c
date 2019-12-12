@@ -1,43 +1,5 @@
 #include "../inc/cool.h"
 
-t_prod *get_product_info(char *id, t_prod *product)
-{
-  char    *str;
-  FILE    *pf;
-  char    *path;
-
-  if (!(pf = fopen("text.json", "w+")))
-    return (0);
-
-  path = make_path(id);
-  call_api(pf, path);
-  read_file(pf, &str);
-  if (!(product->name = parse_str(str, "\"product_name_fr\":")))
-  {
-    printf("IMPOSSIBLE DE TROUVER LE NOM \n");
-    free(str);
-    fclose(pf);
-    return (NULL);
-  }
-  if (!(product->brand = parse_str(str, "\"brands\":")))
-  {
-    printf("IMPOSSIBLE DE TROUVER La MARQUE \n");
-    free(str);
-    fclose(pf);
-    return (NULL);
-  }
-  if (!(product->quantity = parse_str(str, "\"quantity\":")))
-  {
-    printf("IMPOSSIBLE DE TROUVER La QUANTITE \n");
-    free(str);
-    fclose(pf);
-    return (NULL);
-  }
-  free(str);
-  fclose(pf);
-  return (product);
-}
-
 int call_api(FILE *pf, char *path)
 {
   CURL        *curl;
@@ -120,6 +82,4 @@ char  *make_path(char *id)
   strcat(path, id);
   strcat(path, ".json");
   return (path);
-  (void)begin;
-  (void)begin_cocktail;
 }

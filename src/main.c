@@ -2,7 +2,7 @@
 
 int   main(int ac, char **av)
 {
-    printf("begin = %p\nbegin_cocktail = %p\n", begin, begin_cocktail);
+    printf("begin = %p\n", begin);
     gtk_init(&ac, &av);
     if(!(page = malloc(sizeof(t_page))))
       return (0);
