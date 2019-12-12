@@ -1,13 +1,34 @@
 #include "../inc/cool.h"
 
+int add_product()
+{
+
+
+  if(!begin)
+    return 0;
+
+  t_prod *tmp = begin;
+
+  while(tmp)
+  {
+    insert_bdd(tmp);
+    tmp = tmp->next;
+  }
+
+  return 0;
+}
+
+
 char * get_date(char * date)
 {
   int day;
   int month;
   int year;
+  struct tm tm;
 
   time_t t = time(NULL);
-  struct tm tm = *localtime(&t);
+  tm = *localtime(&t);
+
   day = tm.tm_mday;
   month = tm.tm_mon + 1;
   year = tm.tm_year + 1900;
@@ -21,6 +42,10 @@ char * get_peremption(char * date, int final){
   char month30 []= "04,06,09,11";
   char month31 []= "01,03,05,07,08,10,12";
   sscanf(date,"%d-%d-%d", &day, &month, &year);
+
+  if (final == 0){
+    return NULL;
+  }
 
   while (final != 0){
     day++;
@@ -61,66 +86,54 @@ char * get_peremption(char * date, int final){
   return date;
 }
 
-int insert_bdd(){//int insert_bdd(t_prod *tmp)
-/////////////////////////CONNECTION A LA BDD///////////////////////
-  MYSQL           *con;
-  MYSQL_RES       *result = NULL;
-  int num_fields;
-  MYSQL_ROW       row;
-  con = mysql_init(NULL);
-  if (con == NULL)
-  {
-      fprintf(stderr, "mysql_init() failed\n");
-      return 1;
-  }
-  if (mysql_real_connect(con, "localhost", "root", "root",
-          "aperocool", 0, NULL, 0) == NULL)
-  {
-      finish_with_error(con);
-  }
-
+int insert_bdd(t_prod *tmp){
 //////////////////////Convertion des données////////////////////////////
   char * date;
   char * peremption;
-  int res_per;
+  int res_per = 0;
+  int id_ing;
+  int id_stock;
+  char query_check[255];
+  MYSQL * con;
 
+  connection_bdd(con);
   date = malloc(sizeof(char) * 255);
   peremption = malloc(sizeof(char) * 255);
 
-  get_date(date);
-  strcpy(peremption, date);
-  get_peremption(peremption, res_per);
-
-  printf("date : %s\nperemption le : %s\n", date, peremption);
-
-  char query_check[255];
-  if (get_date (date)){
-    strcat(strcpy(query_check, "SELECT peremption FROM ingredient WHERE nom = "), name);
-    if(mysql_query(con, query_check))
-    {
-      finish_with_error(con);
-    }
-
-    result = mysql_store_result(con);
-
-    if (result == NULL)
-    {
-      finish_with_error(con);
-    }
-
-    row = mysql_fetch_row(result);
-
-    res_per = row[2];
-
-    if(!get_peremption(strcpy(peremption, date), res_per )){
-
-    }
-
-
-
-
-
+  get_date (date);
+  strcat(strcpy(query_check, "SELECT id,peremption FROM ingredient WHERE nom = "), tmp->name);
+  if(mysql_query(con, query_check))
+  {
+    finish_with_error(con);
   }
+
+  result = mysql_store_result(con);
+
+  if (result == NULL)
+  {
+    finish_with_error(con);
+  }
+
+  row = mysql_fetch_row(result);
+
+  id_ing = row[0];
+  res_per = row[1];
+
+  get_peremption(strcpy(peremption, date), res_per );
+
+
+  /*get_date(date);
+  strcpy(peremption, date);
+  if(get_peremption(peremption, res_per) == NULL){
+    peremption = NULL;
+  }
+  printf("date : %s\nperemption le : %s\n", date, peremption);*/
+
+
+
+
+
+
 
   return 0;
 }
