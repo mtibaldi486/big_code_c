@@ -102,3 +102,84 @@ char	*ft_itoa(int nb)
 	}
 	return (str);
 }
+
+/****************************************************************************/
+/*                              SPLIT                                       */
+/****************************************************************************/
+
+static void		free_split(char **strs, int k)
+{
+	int i;
+
+	i = 0;
+	while (i < k)
+		free(strs[i]);
+	free(strs);
+}
+
+static int		count_word(char const *str, char c)
+{
+	int i;
+	int nb;
+
+	i = 0;
+	nb = 0;
+	while (str[i])
+	{
+		while (str[i] == c)
+			i++;
+		if (str[i] != c && str[i] && str[i])
+			nb++;
+		while (str[i] != c && str[i])
+			i++;
+	}
+	return (nb);
+}
+
+static char		*split_word(char *str, int deb, int fin)
+{
+	int		i;
+	char	*res;
+	int		tmp;
+
+	tmp = deb;
+	i = 0;
+	if (!(res = malloc(sizeof(char) * (fin - deb + 1))))
+		return (0);
+	while (i < fin - deb)
+	{
+		res[i] = str[tmp];
+		i++;
+		tmp++;
+	}
+	res[i] = 0;
+	return (res);
+}
+
+char			**ft_split(char const *s, char c)
+{
+	int		i;
+	int		j;
+	int		k;
+	char	**res;
+
+	if ((!s || !c))
+		return (NULL);
+	i = 0;
+	k = -1;
+	if (!(res = (char **)malloc(sizeof(char *) * (count_word(s, c) + 1))))
+		return (0);
+	while (++k < count_word(s, c))
+	{
+		while (s[i] == c)
+			i++;
+		if (s[i] != c && s[i])
+			j = i;
+		while (s[i] != c && s[i])
+			i++;
+		if (!(res[k] = split_word((char *)s, j, i)))
+			free_split(res, k);
+	}
+	res[k] = 0;
+	return (res);
+}

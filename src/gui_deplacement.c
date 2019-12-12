@@ -102,3 +102,12 @@ void scanner_to_ressource(void)
   gtk_widget_show_all(page->window);
   return ;
 }
+
+void cocktail_to_select(void)
+{
+  gtk_container_remove(GTK_CONTAINER(page->window), page->cocktail_page);
+  //page->select_page = GTK_WIDGET(gtk_builder_get_object(builder, "select_page"));
+  gtk_container_add(GTK_CONTAINER(page->window), page->select_page);
+  gtk_widget_show_all(page->window);
+  return ;
+}

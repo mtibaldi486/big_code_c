@@ -17,7 +17,9 @@ int   main(int ac, char **av)
     gtk_widget_show(page->window);
 
     gtk_main();
-    
+    /*
+    Free t'es list ici
+    */
     free(page);
     return (0);
   }

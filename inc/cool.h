@@ -62,6 +62,7 @@ void          generate_to_menu(void);
 void          ressource_to_menu(void);
 void          cocktail_to_menu(void);
 void          scanner_to_ressource(void);
+void          cocktail_to_select(void);
 
 /****************************************************************************/
 /*                             SCANNER_C                                    */
@@ -104,6 +105,7 @@ char          *strjoin(char *s1, char *s2);
 char          *ft_strnstr(const char *s1, const char *s2, size_t len);
 //const char    *get_input_text(char*str);
 char	        *ft_itoa(int nb);
+char		    	**ft_split(char const *s, char c);
 
 /****************************************************************************/
 /*                               SELECT_C                                   */
@@ -111,7 +113,6 @@ char	        *ft_itoa(int nb);
 int           load_lst_cocktails();
 void          finish_with_error(MYSQL *con);
 int           add_cocktail_box(t_cocktail *cocktail);
-void          load_cocktail_page(GtkButton *button, gchar info[255]);
 
 /****************************************************************************/
 /*                           SELECT_LST_C                                   */
@@ -120,7 +121,8 @@ void	        lstadd_back_cocktail(t_cocktail **alst, t_cocktail *new);
 void          display_lst_cocktail(t_cocktail *lst);
 t_cocktail  	*lstnew_cocktail();
 
-void display_elem(gchar info[255]);
+void          display_elem(gchar info[255]);
+void          load_cocktail_page(GtkButton *button, gchar info[255]);
 
 
 #endif

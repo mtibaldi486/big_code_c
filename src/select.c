@@ -50,12 +50,14 @@ int load_lst_cocktails()
       if (!(lst_cocktail = lstnew_cocktail()))
         return (0);
       strcpy(lst_cocktail->info, row[0]);
-      strcat(lst_cocktail->info, " ");
+      strcat(lst_cocktail->info, ";");
+      i = 1;
       for(i = 1; i < num_fields; i++)
       {
           strcat(lst_cocktail->info, row[i]);
-          strcat(lst_cocktail->info, " ");
+          strcat(lst_cocktail->info, ";");
       }
+      lst_cocktail->info[strlen(lst_cocktail->info) - 1] = 0;
       add_cocktail_box(lst_cocktail);
       lstadd_back_cocktail(&begin_cocktail, lst_cocktail);
   }
@@ -86,19 +88,19 @@ int   add_cocktail_box(t_cocktail *cocktail)
   button = gtk_button_new_with_label("Voir");
 
   //recuperation de nom de cocktail
-  strcpy(name, strchr(cocktail->info, ' ') + 1);
+  strcpy(name, strchr(cocktail->info, ';') + 1);
   tmp = name;
-  while (!(isdigit(*(strchr(tmp, ' ') + 1))))
+  while (!(isdigit(*(strchr(tmp, ';') + 1))))
   {
-    tmp = strchr(tmp, ' ') + 1;
+    tmp = strchr(tmp, ';') + 1;
   }
-  tmp = strchr(tmp, ' ');
+  tmp = strchr(tmp, ';');
   name[tmp - name] = '\0';
 
   g_signal_connect(button, "clicked", G_CALLBACK (load_cocktail_page), cocktail->info);
   //Formatage de la note pour affichage
-  strcpy(mark, "Note :");
-  strcat(mark, strchr((strrchr(cocktail->info, ' ') - 4), ' '));
+  strcpy(mark, "Note : ");
+  strcat(mark, strchr((strrchr(cocktail->info, ';') - 4), ';') + 1);
   strcat(mark, "/5");
 
   lab_name = gtk_label_new(name);
@@ -114,18 +116,4 @@ int   add_cocktail_box(t_cocktail *cocktail)
 
   gtk_list_box_insert(box, new_box, 0);
   return (0);
-}
-
-void load_cocktail_page(GtkButton *button, gchar info[255])
-{
-  (void)button;
-  printf("info = '%s'\n", info);
-
-  gtk_container_remove(GTK_CONTAINER(page->window), page->select_page);
-  page->cocktail_page = GTK_WIDGET(gtk_builder_get_object(builder, "cocktail_page"));
-  gtk_container_add(GTK_CONTAINER(page->window), page->cocktail_page);
-  display_elem(info);
-  gtk_widget_show_all(page->window);
-
-  return ;
 }

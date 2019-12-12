@@ -15,7 +15,7 @@ char * get_date(char * date)
   return date;
 }
 
-char * get_peremption(char * date, int final){
+char * get_peremption(char *date, int final){
   int day, month, year;
   char dayc[3], monthc[3], yearc[3];
   char month31 []= "01,03,05,07,08,10,12,";
