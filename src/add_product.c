@@ -17,9 +17,9 @@ char * get_date(char * date)
 
 char * get_peremption(char *date, int final){
   int day, month, year;
-  char dayc[3], monthc[3], yearc[3];
-  char month31 []= "01,03,05,07,08,10,12,";
+  char dayc[3], monthc[3], yearc[5];
   char month30 []= "04,06,09,11";
+  char month31 []= "01,03,05,07,08,10,12";
   sscanf(date,"%d-%d-%d", &day, &month, &year);
 
   while (final != 0){
@@ -28,15 +28,15 @@ char * get_peremption(char *date, int final){
       month++;
       day = 01;
     }
-    if(day > 29 && strcmp(monthc, "02")==0 && (year%4) ==0){
+    else if(day > 29 && strcmp(monthc, "02")==0 && (year%4) ==0){
       month++;
       day = 01;
     }
-    if (day > 30 && strstr(month30, monthc)!=0){
+    if ((day > 30) && (strstr(month30, monthc) != NULL)){
       month++;
       day = 01;
     }
-    if(day > 31 && strstr(month31, monthc)!=0){
+    if(day > 31 && (strstr(month31, monthc)!= NULL)){
       month++;
       day = 01;
     }
@@ -45,7 +45,6 @@ char * get_peremption(char *date, int final){
       month = 01;
       year ++;
     }
-    final--;
     if (day < 10)
       sprintf(dayc, "0%d", day);
     else
@@ -55,6 +54,7 @@ char * get_peremption(char *date, int final){
     else
       sprintf(monthc, "%d", month);
     sprintf(yearc, "%d", year);
+    final--;
   }
   sprintf(date, "%s-%s-%s", dayc, monthc, yearc);
   printf("%d\n", final );
@@ -63,7 +63,7 @@ char * get_peremption(char *date, int final){
 
 int insert_bdd(){//int insert_bdd(t_prod *tmp)
 /////////////////////////CONNECTION A LA BDD///////////////////////
-  /*MYSQL           *con;
+  MYSQL           *con;
   MYSQL_RES       *result = NULL;
   int num_fields;
   MYSQL_ROW       row;
@@ -77,12 +77,12 @@ int insert_bdd(){//int insert_bdd(t_prod *tmp)
           "aperocool", 0, NULL, 0) == NULL)
   {
       finish_with_error(con);
-  }*/
+  }
 
 //////////////////////Convertion des données////////////////////////////
   char * date;
   char * peremption;
-  int res_per = 216;
+  int res_per;
 
   date = malloc(sizeof(char) * 255);
   peremption = malloc(sizeof(char) * 255);
@@ -93,9 +93,9 @@ int insert_bdd(){//int insert_bdd(t_prod *tmp)
 
   printf("date : %s\nperemption le : %s\n", date, peremption);
 
-  /*char query_check[255];
+  char query_check[255];
   if (get_date (date)){
-    strcat(strcpy(query_check, "SELECT peremption FROM ingredient WHERE name = "), name);
+    strcat(strcpy(query_check, "SELECT peremption FROM ingredient WHERE nom = "), name);
     if(mysql_query(con, query_check))
     {
       finish_with_error(con);
@@ -103,10 +103,24 @@ int insert_bdd(){//int insert_bdd(t_prod *tmp)
 
     result = mysql_store_result(con);
 
+    if (result == NULL)
+    {
+      finish_with_error(con);
+    }
+
+    row = mysql_fetch_row(result);
+
+    res_per = row[2];
+
+    if(!get_peremption(strcpy(peremption, date), res_per )){
+
+    }
 
 
 
-  }*/
+
+
+  }
 
   return 0;
 }
