@@ -112,6 +112,9 @@ int           add_cocktail_box(gchar  info[255]);
 //COKTAIL_C
 void          display_elem(const gchar *info);
 void          load_cocktail_page(GtkButton *button);
+char          **get_quantite(char **array_cocktail);
+char          **get_ingredient(char **array_quantite);
+void          free_res(char **res, int len);
 
 // MYSQL_C
 MYSQL         *connection_bdd(MYSQL *con);
