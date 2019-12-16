@@ -226,6 +226,7 @@ int insert_bdd(t_prod *tmp){
   char id_ing[5];
   char id_stock[5];
   char request[255];
+  int number_fields;
   int i = 0;
   int j = 0;
   char **res = NULL;
@@ -237,7 +238,10 @@ int insert_bdd(t_prod *tmp){
 
   con = NULL;
 
-  connection_bdd(con);
+  if( (con = connection_bdd(con)) == NULL){
+    finish_with_error(con);
+    return 0;
+  }
   date = malloc(sizeof(char) * 255);
   peremption = malloc(sizeof(char) * 255);
 
@@ -248,7 +252,59 @@ int insert_bdd(t_prod *tmp){
   strcpy(request,"SELECT * FROM ingredient");
 
   printf("request = '%s'\n", request);
-  if (mysql_query(con, request))
+
+  write(1, "OK1\n", 4);
+
+
+
+
+  if (mysql_query(con, "SELECT * FROM ingredient"))
+      return 0;
+
+  if (!(result = mysql_store_result(con)))
+    return 0;
+
+  if (!(res = format_res(result)))
+      return 0;
+
+
+    write(1, "OK2\n", 4);
+  printf("%s\n", request);
+  while(res[i]){
+    res_split = ft_split(res[i], ';');
+    printf("%s\n", res[i] );
+    while(res_split[j]){
+      printf("%s\n", res_split[j]);
+      j++;
+    }
+    i++;
+  }
+
+  /*if(!(result = mysql_store_result(con))){
+    finish_with_error(con);
+    return 0;
+  }
+  write(1, "OK3\n", 4);
+  number_fields = mysql_num_fields(result);
+
+    while ((row = mysql_fetch_row(result)))
+       {
+           //On déclare un pointeur long non signé pour y stocker la taille des valeurs
+           unsigned long *lengths;
+
+           //On stocke ces tailles dans le pointeur
+           lengths = mysql_fetch_lengths(result);
+
+           //On fait une boucle pour avoir la valeur de chaque champs
+           for(i = 0; i < number_fields; i++)
+           {
+              //On ecrit toutes les valeurs
+              printf("[%.*s] ", (int) lengths[i], row[i] ? row[i] : "NULL");
+           }
+           printf("\n");
+       }
+
+  /*if (mysql_query(con, "SELECT * FROM ingredient"))
       return (NULL);
 
   if (!(result = mysql_store_result(con)))
@@ -265,9 +321,9 @@ int insert_bdd(t_prod *tmp){
       j++;
     }
     i++;
-  }
+  }*/
 
-    write(1, "OK1\n", 4);
+    write(1, "OK4\n", 4);
 
 /*
   result = mysql_store_result(con);
@@ -313,12 +369,12 @@ int insert_bdd(t_prod *tmp){
 
   strcpy(id_stock, row[0]);
 
-  sprintf(request, "INSERT INTO contenant ( id_stock, id_ingredient) VALUES ('%s', '%s');", id_stock, id_ing);
+  sprintf(request, "INSERT INTO contenant ( id_stock, id_ingredient) VALUES ('%s', '%s');", id_stock, id_ing);*/
 
 
 
 
-*/
+
 
 
   return 0;
