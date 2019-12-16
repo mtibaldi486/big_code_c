@@ -17,65 +17,115 @@ int add_product()
   return 0;
 }
 
-char * uniform_quantity(char * quantity){
-  char quantite[10];
-  double nbquantite;
-  char unity[] = "cl";
-  char unity2[] ="g";
-  int pt;
+char * get_date(char * date)
+{
+  int day, month, year;
+  time_t t = time(NULL);
+  struct tm tm = *localtime(&t);
+  day = tm.tm_mday;
+  month = tm.tm_mon + 1;
+  year = tm.tm_year + 1900;
+  sprintf(date,"%d-%d-%d", day, month, year);
+
+  return date;
+
+}
+char * lowercase(char * string){
   int i = 0;
 
-  while (quantity[i] != '\0'){
-    if (quantity[i] >= 65 && quantity[i] <= 90){
-      quantity[i] += 32;
+  while (string[i] != '\0'){
+    if (string[i] >= 65 && string[i] <= 90){
+      string[i] += 32;
     }
     i++;
   }
-  while (strchr(quantity, ' ') != NULL){
-    strcpy(strchr(quantity, ' '), strchr(quantity, ' ') + 1);
+  return string;
+}
+
+char * delete_space(char * string){
+  while (strchr(string, ' ') != NULL){
+    strcpy(strchr(string, ' '), (strchr(string, ' ') + 1));
   }
-  if( strstr(quantity, "ml") != NULL){
-    pt = strstr(quantity, "ml") - quantity;
-    strncpy(quantite, quantity, pt);
+
+  return string;
+}
+
+char * uniform_unit(char * quantity, char * unity){
+  char liquidunity[] = "cl";
+  char solidunity[] = "g";
+  char * string;
+  double nbquantity;
+
+  string = malloc(sizeof(char) * 50);
+  if (strstr(unity, "ml") != NULL){
+    sscanf(quantity, "%lf", &nbquantity);
+    nbquantity /= 10;
+    sprintf(string, "%.2lf %s", nbquantity, liquidunity);
+    return string;
+  }
+  else if( strstr(unity, "l") != NULL){
+    sscanf(quantity, "%lf", &nbquantity);
+    nbquantity *= 100;
+    sprintf(string, "%.2lf %s", nbquantity, liquidunity);
+    return string;
+  }
+  else if (strstr(unity, "kg") != NULL){
+    sscanf(quantity, "%lf", &nbquantity);
+    nbquantity *= 1000;
+    sprintf(string, "%.2lf %s", nbquantity, solidunity);
+    return string;
+  }
+  else if(strstr(unity, "mg") != NULL){
+    sscanf(quantity, "%lf", &nbquantity);
+    nbquantity /= 1000;
+    sprintf(string, "%.2lf %s", nbquantity, solidunity);
+    return string;
+  }
+
+}
+
+
+char * uniform_quantity(char * string){
+  char quantite[10];
+  int pt;
+
+  lowercase(string);
+  delete_space(string);
+  if( strstr(string, "ml") != NULL){
+    pt = strstr(string, "ml") - string;
+    strncpy(quantite, string, pt);
     quantite[pt] = '\0';
-    sscanf(quantite, "%lf", &nbquantite);
-    nbquantite /= 10;
-    sprintf(quantity, "%.2lf %s", nbquantite, unity);
-    return quantity;
+    strcpy(string,uniform_unit(quantite, string));
+    return string;
   }
-  else if( strstr(quantity, "cl") != NULL){
-    return quantity;
+  else if( strstr(string, "cl") != NULL){
+    return string;
   }
-  else if( strstr(quantity, "l") != NULL){
-    pt = strstr(quantity, "l") - quantity;
-    strncpy(quantite, quantity, pt);
+  else if( strstr(string, "l") != NULL){
+    pt = strstr(string, "l") - string;
+    strncpy(quantite, string, pt);
     quantite[pt] = '\0';
-    sscanf(quantite, "%lf", &nbquantite);
-    nbquantite *= 100;
-    sprintf(quantity, "%.2lf %s", nbquantite, unity);
-    return quantity;
+    strcpy(string,uniform_unit(quantite, string));
+    return string;
   }
-  else if(strstr(quantity, "kg") != NULL){
-    pt = strstr(quantity, "kg") - quantity;
-    strncpy(quantite, quantity, pt);
+  else if(strstr(string, "kg") != NULL){
+    pt = strstr(string, "kg") - string;
+    strncpy(quantite, string, pt);
     quantite[pt] = '\0';
-    sscanf(quantite, "%lf", &nbquantite);
-    nbquantite *= 1000;
-    sprintf(quantity, "%.2lf %s", nbquantite, unity2);
-    return quantity;
+    strcpy(string,uniform_unit(quantite, string));
+    return string;
   }
-  else if(strstr(quantity, "mg") != NULL){
-    pt = strstr(quantity, "mg") - quantity;
-    strncpy(quantite, quantity, pt);
+  else if(strstr(string, "mg") != NULL){
+    pt = strstr(string, "mg") - string;
+    strncpy(quantite, string, pt);
     quantite[pt] = '\0';
-    sscanf(quantite, "%lf", &nbquantite);
-    nbquantite /= 1000;
-    sprintf(quantity, "%.2lf %s", nbquantite, unity2);
-    return quantity;
+    strcpy(string,uniform_unit(quantite, string));
+    return string;
   }
   else
-    return quantity;
+    return string;
 }
+
 
 char * total_quantity(char * quantity, int nb){
   char quantite[10];
@@ -112,22 +162,7 @@ char * total_quantity(char * quantity, int nb){
   }
 }
 
-char *get_date(char * date)
-{
-  int day;
-  int month;
-  int year;
-  struct tm tm;
 
-  time_t t = time(NULL);
-  tm = *localtime(&t);
-
-  day = tm.tm_mday;
-  month = tm.tm_mon + 1;
-  year = tm.tm_year + 1900;
-  sprintf(date,"%d-%d-%d", day, month, year);
-  return date;
-}
 
 char * get_peremption(char * date, char * tmp){
   int final;
