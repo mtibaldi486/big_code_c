@@ -3,6 +3,8 @@
 
 int add_product()
 {
+
+  printf(" ENTREE DANS ADD PRODUCT\n");
   if(!begin)
     return 0;
 
@@ -81,7 +83,7 @@ char * uniform_unit(char * quantity, char * unity){
     sprintf(string, "%.2lf %s", nbquantity, solidunity);
     return string;
   }
-
+ return string;
 }
 
 
@@ -173,6 +175,11 @@ char * get_peremption(char * date, char * tmp){
   sscanf(tmp, "%d", &final);
 
   sscanf(date,"%d-%d-%d", &day, &month, &year);
+  if (final == 0){
+    strcpy(date, "NULL");
+    return date;
+  }
+  else {
   while (final != 0){
     day++;
     if(day > 28 && strcmp(monthc, "02")==0 && (year%4)!=0){
@@ -208,6 +215,7 @@ char * get_peremption(char * date, char * tmp){
   }
   sprintf(date, "%s-%s-%s", dayc, monthc, yearc);
   return date;
+  }
 }
 
 int insert_bdd(t_prod *tmp){
@@ -218,9 +226,14 @@ int insert_bdd(t_prod *tmp){
   char id_ing[5];
   char id_stock[5];
   char request[255];
+  int i = 0;
+  int j = 0;
+  char **res = NULL;
+  char **res_split = NULL;
   MYSQL * con;
   MYSQL_RES * result;
   MYSQL_ROW  row;
+
 
   con = NULL;
 
@@ -230,12 +243,38 @@ int insert_bdd(t_prod *tmp){
 
   get_date (date);
 
-  sprintf(request, "SELECT id, peremption FROM ingredient WHERE nom = %s;", tmp->name);
-  if(mysql_query(con, request))
-  {
-    finish_with_error(con);
+  printf("ENTREE INSERT BDD ET GET DATE\n" );
+
+  strcpy(request,"SELECT * FROM ingredient;");
+
+  if (mysql_query(con, request)){
+      printf("REQUETE TEST\n");
+      return (NULL);
+    }
+
+  if (!(result = mysql_store_result(con))){
+    printf("REQUETE TEST2\n");
+    return (NULL);
   }
 
+  if (!(res = format_res(result))){
+    printf("REQUETE TEST3\n");
+        return (NULL);
+    }
+
+  printf("%s\n", request);
+  while(res[i]){
+    res_split = ft_split(res[i], ';');
+    while( res_split[j]){
+      printf("%s\n", res_split[j]);
+      j++;
+    }
+    i++;
+  }
+
+    write(1, "OK1\n", 4);
+
+/*
   result = mysql_store_result(con);
 
   if (result == NULL)
@@ -284,7 +323,7 @@ int insert_bdd(t_prod *tmp){
 
 
 
-
+*/
 
 
   return 0;
