@@ -37,11 +37,11 @@ typedef struct s_prod
   struct s_prod   *next;
 }              t_prod;
 
-typedef struct s_fixed
+typedef struct s_data
 {
   GtkWidget    *fixed;
   GtkWidget    *entry;
-}              t_fixed;
+}              t_data;
 // GLOBAL Variables
 t_page             *page;
 GtkBuilder         *builder;
@@ -129,9 +129,9 @@ char          **format_res(MYSQL_RES *result_query);
 //COCKTAIL_DISPLAY_C
 void          display_picture(const gchar *info);
 int           display_elem(const gchar *info, int nb);
-GtkWidget      *display_ingredient(char **str_display);
-void          display_counter(const gchar *info, GtkWidget *fixed);
-void          inc_entry(GtkWidget *button, gpointer *data);
-void          dec_entry(GtkWidget *button, gpointer *data);
+GtkWidget     *display_ingredient(char **str_display);
+void          display_counter(const gchar *info, t_data *data, int indice);
+void          inc_entry(GtkWidget *button, gpointer *data_receive);
+void          dec_entry(GtkWidget *button, gpointer *data_receive);
 
 #endif
