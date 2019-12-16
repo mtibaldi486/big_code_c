@@ -43,3 +43,29 @@ gchar  *join_row(MYSQL_ROW row, int num_fields)
   res[strlen(res) - 1] = 0;
   return (res);
 }
+
+char **format_res(MYSQL_RES *result_query)
+{
+  MYSQL_ROW    row;
+  int          num_fields;
+  int          nb_row;
+  char         **res;
+  int          i;
+
+  i = 0;
+  nb_row = mysql_num_rows(result_query);
+  num_fields = mysql_num_fields(result_query);
+  if (!(res = malloc(sizeof(char **) * (nb_row + 1))))
+    return (NULL);
+  while ((row = mysql_fetch_row(result_query)))
+  {
+      if (!(res[i] = join_row(row, num_fields)))
+      {
+        free_res(res, i);
+        return (NULL);
+      }
+      i++;
+  }
+  res[i] = NULL;
+  return (res);
+}

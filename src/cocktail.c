@@ -15,169 +15,144 @@ void load_cocktail_page(GtkButton *button)
   backscreen = gtk_image_new_from_file("img/backscreen.png");
   gtk_fixed_put(GTK_FIXED(page->cocktail_page), backscreen, 0, 0);
   gtk_fixed_put(GTK_FIXED(page->cocktail_page),button2, 76, 41);
-  display_elem(info);
+  display_picture(info);
+  display_elem(info, 0);
   gtk_widget_show_all(page->window);
 
   return ;
 }
 
-void display_elem(const gchar *info)
+char **format_ingredient(const gchar *info, int nb)
 {
-  GtkWidget   *pic_cocktail;
-  GtkWidget   *pic_recipe;
   char        **array_cocktail;
-  char        **array_quantite;
+  char        **array_necessaire;
   char        **array_ingredient;
-  char        str_display[15][255];
+  char        **str_display;
+  char        *new_quantity;
+  int         len;
   int         i;
-
 
   i = 0;
   if (!(array_cocktail = ft_split(info, ';')))
-    return ;
-  while(array_cocktail[i])
-    {
-      printf("icocktail= '%s'\n", array_cocktail[i]);
-      i++;
-    }
-  if (!(array_quantite = get_quantite(array_cocktail)))
-    return ;
-  i = 0;
-  while(array_quantite[i])
-  {
-    printf("quantite = '%s'\n", array_quantite[i]);
+    return (NULL);
+  if (!(array_necessaire = get_necessaire(array_cocktail)))
+    return (NULL);
+  if (!(array_ingredient = get_ingredient(array_necessaire)))
+    return (NULL);
+  while (array_necessaire[i])
     i++;
-  }
-  if (!(array_ingredient = get_ingredient(array_quantite)))
-    return ;
+  if (!(str_display = malloc(sizeof(char *) * (i + 1))))
+    return (NULL);
   i = 0;
-  while(array_ingredient[i])
+  while (array_necessaire[i])
   {
-    printf("ingredient = '%s'\n", array_ingredient[i]);
-    i++;
-  }
-  i = 0;
-  while (array_quantite[i])
-  {
-    strcpy(str_display[i], strchr(strchr(array_quantite[i], ';') + 1, ';') + 1);
+    len = 0;
+    if (nb > 0)
+      new_quantity = ajust_ingredient(array_necessaire[i], nb, array_cocktail[2]);
+    else
+      new_quantity = strchr(strchr(array_necessaire[i], ';') + 1, ';') + 1;
+    len += strlen(new_quantity);
+    if (len)
+      len += 4;
+    len += strlen(strchr(array_ingredient[i], ';') + 1);
+    len -= strlen(strchr((strchr(array_ingredient[i], ';') + 1), ';'));
+    if (!(str_display[i] = malloc(sizeof(char) * (len + 1))))
+      return (NULL);
+    strcpy(str_display[i], new_quantity);
     if (str_display[i][0])
       strcat(str_display[i], " de ");
-    strcat(str_display[i], strchr(array_ingredient[i], ';') + 1);
-    str_display[i][strchr(str_display[i], ';') - str_display[i]] = 0;
-    printf("display2 = '%s'\n", str_display[i]);
+    strncat(str_display[i], strchr(array_ingredient[i], ';') + 1, len - strlen(str_display[i]));
+    str_display[i][len] = 0;
     i++;
   }
-
-  pic_cocktail = gtk_image_new_from_file(array_cocktail[3] + 3);
-  pic_recipe = gtk_image_new_from_file(array_cocktail[4] + 3);
-
-  gtk_fixed_put(GTK_FIXED(page->cocktail_page), pic_cocktail, 980, 100);
-  gtk_fixed_put(GTK_FIXED(page->cocktail_page), pic_recipe, 135, 200);
+  str_display[i] = 0;
 
   free_res(array_cocktail, 30);
-  free_res(array_quantite, 30);
+  free_res(array_necessaire, 30);
   free_res(array_ingredient, 30);
+  return (str_display);
 }
 
-char  **get_quantite(char **array_cocktail)
+char  *ajust_ingredient(char *array_necessaire, int nb, char *ref)
+{
+  int          quantity_ref;
+  int          nb_ref;
+  double       new_quantity;
+  char         buffer[20];
+  char         *tmp;
+
+  if (nb < 0)
+    return (NULL);
+  tmp = array_necessaire;
+  sprintf(buffer, "%s", strchr(strchr(strchr(tmp, ';') + 1, ';') + 1, ' '));
+  printf("buffer = %s\n", buffer);
+  quantity_ref = atoi(strchr(strchr(tmp, ';') + 1, ';') + 1);
+  nb_ref = atoi(ref);
+  new_quantity = ((double)nb * (double)quantity_ref) / (double)nb_ref;
+  if (new_quantity <= 0)
+    new_quantity = 0;
+  sprintf(tmp, "%s%s", ft_itoa(new_quantity), buffer);
+  if (!strcmp(buffer, "(null)"))
+    tmp = "";
+  return (tmp);
+}
+
+char  **get_necessaire(char **array_cocktail)
 {
   MYSQL        *con = NULL;
   MYSQL_RES    *result = NULL;
-  MYSQL_ROW    row;
   char         request[255];
   char         **res = NULL;
-  int          num_fields;
-  int          nb_row;
-  int          i = 0;
 
   if (!(con = connection_bdd(con)))
     return (NULL);
-  strcpy(request, "SELECT * FROM necessaire WHERE id_cocktail = ");
-  strcat(request, array_cocktail[0]);
+  sprintf(request, "SELECT * FROM necessaire WHERE id_cocktail = %s", array_cocktail[0]);
   printf("request = '%s'\n", request);
   if (mysql_query(con, request))
-  {
-      finish_with_error(con);
       return (NULL);
-  }
 
   if (!(result = mysql_store_result(con)))
-  {
-    finish_with_error(con);
     return (NULL);
-  }
 
-  nb_row = mysql_num_rows(result);
-  num_fields = mysql_num_fields(result);
-  if (!(res = malloc(sizeof(char **) * (nb_row + 1))))
-    return (NULL);
-  while ((row = mysql_fetch_row(result)))
-  {
-      res[i] = join_row(row, num_fields);
-      /*if (!(res[i] = join_row(row, num_fields)))
-      {
-        free_res(res, i);
-        return (NULL);
-      }*/
-      i++;
-  }
-  res[i] = NULL;
+  if (!(res = format_res(result)))
+      return (NULL);
+
   mysql_free_result(result);
   mysql_close(con);
   return (res);
 }
 
-char    **get_ingredient(char **array_quantite)
+char    **get_ingredient(char **array_necessaire)
 {
   MYSQL        *con = NULL;
   MYSQL_RES    *result = NULL;
-  MYSQL_ROW    row;
   char         request[255];
   char         tmp[5];
   char         **res = NULL;
-  int          num_fields;
-  int          nb_row;
-  int          i = 0;
+  int          i;
 
+  i = 0;
   if (!(con = connection_bdd(con)))
     return (NULL);
   strcpy(request, "SELECT * FROM ingredient WHERE id IN (");
-  while (array_quantite[i])
+  while (array_necessaire[i])
   {
-    mt_strccpy(tmp, strchr(array_quantite[i], ';') + 1, ';');
+    mt_strccpy(tmp, strchr(array_necessaire[i], ';') + 1, ';');
     strcat(request, tmp);
-    if (array_quantite[i + 1])
+    if (array_necessaire[i + 1])
       strcat(request, ", ");
     i++;
   }
   strcat(request, ")");
   if (mysql_query(con, request))
-  {
-      finish_with_error(con);
       return (NULL);
-  }
 
   if (!(result = mysql_store_result(con)))
-  {
-    finish_with_error(con);
     return (NULL);
-  }
 
-  nb_row = mysql_num_rows(result);
-  num_fields = mysql_num_fields(result);
-  if (!(res = malloc(sizeof(char **) * (nb_row + 1))))
-    return (NULL);
-  i = 0;
-  while ((row = mysql_fetch_row(result)))
-  {
-      if (!(res[i] = join_row(row, num_fields)))
-      {
-        free_res(res, i);
+  if (!(res = format_res(result)))
         return (NULL);
-      }
-      i++;
-  }
-  res[i] = NULL;
+
   mysql_free_result(result);
   mysql_close(con);
   return (res);

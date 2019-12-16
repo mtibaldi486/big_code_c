@@ -37,7 +37,11 @@ typedef struct s_prod
   struct s_prod   *next;
 }              t_prod;
 
-
+typedef struct s_fixed
+{
+  GtkWidget    *fixed;
+  GtkWidget    *entry;
+}              t_fixed;
 // GLOBAL Variables
 t_page             *page;
 GtkBuilder         *builder;
@@ -110,14 +114,24 @@ void          finish_with_error(MYSQL *con);
 int           add_cocktail_box(gchar  info[255]);
 
 //COKTAIL_C
-void          display_elem(const gchar *info);
 void          load_cocktail_page(GtkButton *button);
-char          **get_quantite(char **array_cocktail);
-char          **get_ingredient(char **array_quantite);
+char          **format_ingredient(const gchar *info, int nb);
+char          *ajust_ingredient(char *array_necessaire, int nb, char *ref);
+char          **get_necessaire(char **array_cocktail);
+char          **get_ingredient(char **array_necessaire);
 void          free_res(char **res, int len);
 
-// MYSQL_C
+//MYSQL_C
 MYSQL         *connection_bdd(MYSQL *con);
 gchar         *join_row(MYSQL_ROW row, int num_fields);
+char          **format_res(MYSQL_RES *result_query);
+
+//COCKTAIL_DISPLAY_C
+void          display_picture(const gchar *info);
+int           display_elem(const gchar *info, int nb);
+GtkWidget      *display_ingredient(char **str_display);
+void          display_counter(const gchar *info, GtkWidget *fixed);
+void          inc_entry(GtkWidget *button, gpointer *data);
+void          dec_entry(GtkWidget *button, gpointer *data);
 
 #endif
