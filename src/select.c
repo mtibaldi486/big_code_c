@@ -31,7 +31,8 @@ int load_lst_cocktails()
       info = join_row(row, num_fields);
       add_cocktail_box(info);
   }
-  free(info);
+  if (info)
+    free(info);
   mysql_free_result(result);
   mysql_close(con);
   return (0);
