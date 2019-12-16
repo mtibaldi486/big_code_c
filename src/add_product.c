@@ -231,7 +231,7 @@ int insert_bdd(t_prod *tmp){
   char **res = NULL;
   char **res_split = NULL;
   MYSQL * con;
-  MYSQL_RES * result;
+  MYSQL_RES * result = NULL;
   MYSQL_ROW  row;
 
 
@@ -245,22 +245,17 @@ int insert_bdd(t_prod *tmp){
 
   printf("ENTREE INSERT BDD ET GET DATE\n" );
 
-  strcpy(request,"SELECT * FROM ingredient;");
+  strcpy(request,"SELECT * FROM ingredient");
 
-  if (mysql_query(con, request)){
-      printf("REQUETE TEST\n");
+  printf("request = '%s'\n", request);
+  if (mysql_query(con, request))
       return (NULL);
-    }
 
-  if (!(result = mysql_store_result(con))){
-    printf("REQUETE TEST2\n");
+  if (!(result = mysql_store_result(con)))
     return (NULL);
-  }
 
-  if (!(res = format_res(result))){
-    printf("REQUETE TEST3\n");
-        return (NULL);
-    }
+  if (!(res = format_res(result)))
+      return (NULL);
 
   printf("%s\n", request);
   while(res[i]){
