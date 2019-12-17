@@ -29,7 +29,7 @@ t_prod	*ft_lstnew_prod(char *id)
   new->name = NULL;
   new->brand = NULL;
   new->quantity = NULL;
-  new->nb = 0;
+  new->nb = 1;
 	new->next = NULL;
 	return (new);
 }

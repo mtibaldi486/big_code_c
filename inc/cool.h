@@ -35,7 +35,7 @@ typedef struct s_prod
   int             nb;
   int             index;
   struct s_prod   *next;
-}              t_prod;
+}                 t_prod;
 
 typedef struct s_data
 {
@@ -133,5 +133,20 @@ GtkWidget     *display_ingredient(char **str_display);
 void          display_counter(const gchar *info, t_data *data, int indice);
 void          inc_entry(GtkWidget *button, gpointer *data_receive);
 void          dec_entry(GtkWidget *button, gpointer *data_receive);
+
+/****************************************************************************/
+/*                               SELECT_C                                   */
+/****************************************************************************/
+int           add_product();
+int           insert_bdd(t_prod *tmp);
+char          *get_date(char * date);
+char          *lowercase(char * string);
+char          *delete_space(char * string);
+char          *uniform_unit(char * quantity, char * unity);
+char          *uniform_quantity(char * string);
+char          *total_quantity(char * quantity, int nb);
+char          *get_peremption(char * date, char * tmp);
+void          request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con);
+void          request_contenant(t_prod *tmp, char * date, char * id_ing, MYSQL * con);
 
 #endif
