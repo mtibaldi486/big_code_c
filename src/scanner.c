@@ -9,17 +9,16 @@ int    get_id_product()
   GtkEntry      *input_idproduct;
   char          *id;
   t_prod        *product;
-  t_prod        *lst_prod;
 
   //////////recuperation su scan ///////////////
   input_idproduct = GTK_ENTRY(gtk_builder_get_object(builder, "input_idproduct"));
   id = (char *)gtk_entry_get_text(GTK_ENTRY(input_idproduct));
   if (!(product = ft_lstnew_prod(id)))
     return (0);
-  if ((lst_prod = check_product(&product)))
+  if (check_product(&product))
   {
     gtk_entry_set_text(GTK_ENTRY(input_idproduct), "");
-    display_inc_prod(lst_prod);
+    display_inc_prod(product);
     display_ok(input_idproduct);
     return (0);
   }

@@ -74,19 +74,24 @@ GtkWidget *display_ingredient(char **str_display)
 {
   GtkWidget   *fixed;
   GtkWidget   *label;
-  gchar       formatdisplay[200];
+  gchar       format_display[200];
+  gchar       *res;
   int         y;
   int         i;
 
   i = 0;
   y = 0;
   fixed = gtk_fixed_new();
-  gtk_fixed_put(GTK_FIXED(page->cocktail_page), fixed, 600, 500);
+  gtk_fixed_put(GTK_FIXED(page->cocktail_page), fixed, 500, 250);
   while (str_display[i])
   {
-    label = gtk_label_new(str_display[i]);
+    sprintf(format_display, "<span face=\"Verdana\" foreground=\"#ffffff\" size=\"medium\"><b>%s</b></span>\n", str_display[i]);
+    res = g_locale_to_utf8(format_display, -1, NULL, NULL, NULL);  //Convertion du texte avec les balises
+    label=gtk_label_new(res); // Application de la convertion à notre label
+    g_free(res); // Libération de la mémoire
+    gtk_label_set_use_markup(GTK_LABEL(label), TRUE); // On dit que l'on utilise les balises pango
     gtk_fixed_put(GTK_FIXED(fixed), label, 0, y);
-    y += 21 ;
+    y += 32 ;
     i++;
   }
   return (fixed);
