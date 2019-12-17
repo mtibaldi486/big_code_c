@@ -93,3 +93,42 @@ strcpy(mark, "Note :");
 strcat(mark, strchr((strrchr(info, ' ') - 4), ' '));
 strcat(mark, "/5");
 printf("mark = %s\nname = '%s'\n", mark, name);
+
+////MAXIME
+
+
+strcpy(id_ing, row[0]);
+strcpy(res_per, row[1]);
+
+if (res_per == NULL){
+  peremption = NULL;
+  get_date(date);
+}
+else{
+  get_date(date);
+  get_peremption(strcpy(peremption, date), res_per);
+
+}
+uniform_quantity(tmp->quantity);
+
+total_quantity(tmp->quantity, tmp->nb);
+
+sprintf(request, "INSERT INTO stock (nom, marque, quantite, date_ajout, date_expire) VALUES ('%s', '%s', '%s', '%s', '%s');", tmp->name, tmp->brand, tmp->quantity, date, peremption);
+
+mysql_query(con, request);
+
+sprintf(request, "SELECT id FROM stock WHERE nom = %s AND marque = %s AND date_ajout = %s ;", tmp->name, tmp->brand, date);
+if(mysql_query(con, request))
+{
+  finish_with_error(con);
+}
+result = mysql_store_result(con);
+
+if(result == NULL){
+  finish_with_error(con);
+}
+row = mysql_fetch_row(result);
+
+strcpy(id_stock, row[0]);
+
+sprintf(request, "INSERT INTO contenant ( id_stock, id_ingredient) VALUES ('%s', '%s');", id_stock, id_ing);
