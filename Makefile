@@ -8,7 +8,7 @@ CFLAGS = -Wall -Wextra -c -g
 GTKLIB = `pkg-config --cflags --libs gtk+-3.0`
 LDFLAGS = $(PTHREAD) $(GTKLIB) -export-dynamic
 ##MYSQL
-LDFLAGS += `mysql_config --cflags --libs`
+LDFLAGS += `mysql_config --cflags --libs` -fsanitize=address
 CFLAGS += `mysql_config --cflags --libs`
 ##CURL LIB
 LDFLAGS += $(-L/home/dast/lib -L/usr/local/ssl/lib)

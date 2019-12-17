@@ -1,9 +1,7 @@
 #include "../inc/cool.h"
 
-
 int add_product()
 {
-
   printf(" ENTREE DANS ADD PRODUCT\n");
   if(!begin)
     return 0;
@@ -15,7 +13,6 @@ int add_product()
     insert_bdd(tmp);
     tmp = tmp->next;
   }
-
   return 0;
 }
 

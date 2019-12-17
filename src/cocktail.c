@@ -84,8 +84,10 @@ char  *ajust_ingredient(char *array_necessaire, int nb, char *ref)
   if (nb < 0)
     return (NULL);
   tmp = array_necessaire;
+  write(1, "OKK\n", 4);
   sprintf(buffer, "%s", strchr(strchr(strchr(tmp, ';') + 1, ';') + 1, ' '));
   printf("buffer = %s\n", buffer);
+  write(1, "OK2\n", 4);
   quantity_ref = atoi(strchr(strchr(tmp, ';') + 1, ';') + 1);
   nb_ref = atoi(ref);
   new_quantity = ((double)nb * (double)quantity_ref) / (double)nb_ref;

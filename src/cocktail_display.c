@@ -105,17 +105,17 @@ void  inc_entry(GtkWidget *button, gpointer *data_receive)
 
   (void)button;
   data = (void *)data_receive;
-  gtk_widget_destroy(data->fixed);
   info = gtk_widget_get_name(data->entry);
-
   nb = gtk_entry_get_text(GTK_ENTRY(data->entry));
   res = atoi(nb) + 1;
-  if (res > 0)
-  {
-    gtk_entry_set_text(GTK_ENTRY(data->entry), ft_itoa(res));
-    display_elem(info, res);
-  }
+  if (res <= 0)
+    return ;
+  gtk_widget_destroy(data->fixed);
+
+  gtk_entry_set_text(GTK_ENTRY(data->entry), ft_itoa(res));
+  display_elem(info, res);
   gtk_widget_show_all(page->window);
+  free(data);
 }
 
 void  dec_entry(GtkWidget *button, gpointer *data_receive)
@@ -127,17 +127,17 @@ void  dec_entry(GtkWidget *button, gpointer *data_receive)
 
   (void)button;
   data = (void *)data_receive;
-  gtk_widget_destroy(data->fixed);
   info = gtk_widget_get_name(data->entry);
 
   nb = gtk_entry_get_text(GTK_ENTRY(data->entry));
   res = atoi(nb) - 1;
-  if (res > 0)
-  {
-    gtk_entry_set_text(GTK_ENTRY(data->entry), ft_itoa(res));
-    display_elem(info, res);
-  }
-  gtk_widget_show_all(page->window);
+  if (res <= 0)
+    return ;
 
+  gtk_widget_destroy(data->fixed);
+  gtk_entry_set_text(GTK_ENTRY(data->entry), ft_itoa(res));
+  display_elem(info, res);
+  gtk_widget_show_all(page->window);
+  free(data);
 
 }
