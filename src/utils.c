@@ -89,7 +89,7 @@ int		len(long nb)
 	return (len);
 }
 
-char	*ft_itoa(int nb)
+const char	*ft_itoa(int nb)
 {
 	char *str;
 	long	n;

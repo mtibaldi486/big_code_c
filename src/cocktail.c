@@ -15,6 +15,7 @@ void load_cocktail_page(GtkButton *button)
   backscreen = gtk_image_new_from_file("img/backscreen.png");
   gtk_fixed_put(GTK_FIXED(page->cocktail_page), backscreen, 0, 0);
   gtk_fixed_put(GTK_FIXED(page->cocktail_page),button2, 76, 41);
+  display_name(info);
   display_picture(info);
   display_elem(info, 0);
   gtk_widget_show_all(page->window);
@@ -79,21 +80,27 @@ char  *ajust_ingredient(char *array_necessaire, int nb, char *ref)
   int          nb_ref;
   double       new_quantity;
   char         buffer[20];
+  char         res[40];
   char         *tmp;
 
   if (nb < 0)
     return (NULL);
   tmp = array_necessaire;
-  write(1, "OKK\n", 4);
   sprintf(buffer, "%s", strchr(strchr(strchr(tmp, ';') + 1, ';') + 1, ' '));
   printf("buffer = %s\n", buffer);
-  write(1, "OK2\n", 4);
   quantity_ref = atoi(strchr(strchr(tmp, ';') + 1, ';') + 1);
   nb_ref = atoi(ref);
   new_quantity = ((double)nb * (double)quantity_ref) / (double)nb_ref;
   if (new_quantity <= 0)
     new_quantity = 0;
-  sprintf(tmp, "%s%s", ft_itoa(new_quantity), buffer);
+  if (!strcmp(buffer, "(null)"))
+  {
+      tmp = "";
+      return (tmp);
+  }
+  sprintf(res, "%s%s", ft_itoa(new_quantity), buffer);
+  strcpy(tmp, res);
+  write(1, "OK5\n", 4);
   if (!strcmp(buffer, "(null)"))
     tmp = "";
   return (tmp);

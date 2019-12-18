@@ -103,7 +103,7 @@ char          *strjoin(char *s1, char *s2);
 char          *ft_strnstr(const char *s1, const char *s2, size_t len);
 char          *mt_strccpy(char *s1, char *s2, char c);
 //const char    *get_input_text(char*str);
-char	        *ft_itoa(int nb);
+const char    *ft_itoa(int nb);
 char		    	**ft_split(char const *s, char c);
 
 /****************************************************************************/
@@ -128,6 +128,7 @@ char          **format_res(MYSQL_RES *result_query);
 
 //COCKTAIL_DISPLAY_C
 void          display_picture(const gchar *info);
+void          display_name(const gchar *info);
 int           display_elem(const gchar *info, int nb);
 GtkWidget     *display_ingredient(char **str_display);
 void          display_counter(const gchar *info, t_data *data, int indice);
