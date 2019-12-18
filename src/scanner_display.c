@@ -48,21 +48,24 @@ int add_box_product(t_prod *product)
   GtkWidget     *new_box;
   GtkWidget     *fixed;
   GtkListBox    *box;
-  char          new_name[100];
+  char          new_name[50];
   GtkWidget     *lab_nb;
   GtkWidget     *lab_name;
   GtkWidget     *lab_quantity;
 
-  printf("name = %p", product->brand);
+
+  printf("name = %p\n", product->brand);
   box = GTK_LIST_BOX(gtk_builder_get_object(builder, "list_product_box"));
   new_box = gtk_list_box_row_new();
   fixed = gtk_fixed_new();
   write(1, "OKK\n", 4);
-  printf("name = %p", product->brand);
-  //strcpy(new_name, product->brand);
-  //strcat(strcat(new_name, " : "), product->name);
+  printf("%s\n", product->brand);
+
+  strcpy(new_name, product->brand);
+  strcat(strcat(new_name, " : "), product->name);
+  printf("%s\n", new_name);
   write(1, "OK1\n", 4);
-  lab_nb = gtk_label_new("x 0");
+  lab_nb = gtk_label_new("x 1");
   lab_name = gtk_label_new(new_name);
   lab_quantity = gtk_label_new(product->quantity);
 

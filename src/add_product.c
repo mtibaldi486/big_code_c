@@ -74,126 +74,86 @@ char * lowercase(char * string)
 
 char * delete_space(char * string)
 {
-  while (strchr(string, ' ') != NULL){
-    strcpy(strchr(string, ' '), (strchr(string, ' ') + 1));
-  }
-
-  return string;
+    while(strchr(string, ' ')){
+      strcpy(strchr(string, ' '), strchr(string, ' ') + 1);
+    }
+   return string;
 }
 
-char * uniform_unit(char * quantity, char * unity)
+char * uniform_unit(char * quantity)
 {
+  char * quantite;
+  char * unity;
+  char * pt;
+  double nbquantity;
   char liquidunity[] = "cl";
   char solidunity[] = "g";
-  char * string;
-  double nbquantity;
 
-  string = malloc(sizeof(char) * 50);
-  if (strstr(unity, "ml") != NULL){
-    sscanf(quantity, "%lf", &nbquantity);
+  lowercase(quantity);
+  delete_space(quantity);
+  quantite = strdup(quantity);
+  nbquantity=strtod(quantite, &unity);
+
+  if(strstr(unity, "ml") != NULL){
     nbquantity /= 10;
-    sprintf(string, "%.2lf %s", nbquantity, liquidunity);
-    return string;
+    sprintf(quantity, "%.2lf%s", nbquantity, liquidunity);
+    free(quantite);
+    return quantity;
   }
-  else if( strstr(unity, "l") != NULL){
-    sscanf(quantity, "%lf", &nbquantity);
-    nbquantity *= 100;
-    sprintf(string, "%.2lf %s", nbquantity, liquidunity);
-    return string;
+  else if(strstr(unity, "cl") != NULL){
+    free(quantite);
+    return quantity;
   }
-  else if (strstr(unity, "kg") != NULL){
-    sscanf(quantity, "%lf", &nbquantity);
+  else if( (pt = strstr(unity, "l"))){
+    if(*pt++ == ' ' || *pt++ == '\0'){
+      nbquantity *= 100;
+      sprintf(quantity, "%.2lf%s", nbquantity, liquidunity);
+      free(quantite);
+      return quantity;
+    }
+    else{
+      free(quantite);
+      return quantity;
+    }
+  }
+  else if(strstr(unity, "kg") != NULL){
     nbquantity *= 1000;
-    sprintf(string, "%.2lf %s", nbquantity, solidunity);
-    return string;
+    sprintf(quantity, "%.2lf%s", nbquantity, solidunity);
+    free(quantite);
+    return quantity;
   }
-  else if(strstr(unity, "mg") != NULL){
-    sscanf(quantity, "%lf", &nbquantity);
+  else if (strstr(unity,"mg") != NULL){
     nbquantity /= 1000;
-    sprintf(string, "%.2lf %s", nbquantity, solidunity);
-    return string;
+    sprintf(quantity, "%.2lf%s", nbquantity, solidunity);
+    free(quantite);
+    return quantity;
   }
- return string;
+  else{
+    free(quantite);
+    return quantity;
+  }
 }
-
-
-char * uniform_quantity(char * string)
-{
-  char quantite[10];
-  int pt;
-
-  lowercase(string);
-  delete_space(string);
-  if( strstr(string, "ml") != NULL){
-    pt = strstr(string, "ml") - string;
-    strncpy(quantite, string, pt);
-    quantite[pt] = '\0';
-    strcpy(string,uniform_unit(quantite, string));
-    return string;
-  }
-  else if( strstr(string, "cl") != NULL){
-    return string;
-  }
-  else if( strstr(string, "l") != NULL){
-    pt = strstr(string, "l") - string;
-    strncpy(quantite, string, pt);
-    quantite[pt] = '\0';
-    strcpy(string,uniform_unit(quantite, string));
-    return string;
-  }
-  else if(strstr(string, "kg") != NULL){
-    pt = strstr(string, "kg") - string;
-    strncpy(quantite, string, pt);
-    quantite[pt] = '\0';
-    strcpy(string,uniform_unit(quantite, string));
-    return string;
-  }
-  else if(strstr(string, "mg") != NULL){
-    pt = strstr(string, "mg") - string;
-    strncpy(quantite, string, pt);
-    quantite[pt] = '\0';
-    strcpy(string,uniform_unit(quantite, string));
-    return string;
-  }
-  else
-    return string;
-}
-
 
 char * total_quantity(char * quantity, int nb)
 {
-  char quantite[10];
-  char unity[5];
+  char * quantite;
+  char *unity;
   double nbquantite;
-  int pt;
 
-  if(strstr(quantity, "cl") != NULL){
-    pt = strstr(quantity, "cl") - quantity;
-    strncpy(quantite, quantity, pt);
-    quantite[pt] = '\0';
-    strcpy(unity, strstr(quantity, "cl"));
-    sscanf(quantite, "%lf", &nbquantite);
+  quantite = strdup(quantity);
+  nbquantite=strtod(quantite, &unity);
+
+  if(*unity != 0){
+    printf("%s\n", unity );
     nbquantite *= nb;
     sprintf(quantity, "%.2lf %s", nbquantite, unity);
-    return quantity;
-  }
-  else if(strstr(quantity, "g") != NULL){
-    pt = strstr(quantity, "g") - quantity;
-    strncpy(quantite, quantity, pt);
-    quantite[pt] = '\0';
-    strcpy(unity, strstr(quantity, "g"));
-    sscanf(quantite, "%lf", &nbquantite);
-    nbquantite *= nb;
-    sprintf(quantity, "%.2lf %s", nbquantite, unity);
-    return quantity;
-
   }
   else{
-    sscanf(quantity, "%lf", &nbquantite);
     nbquantite *= nb;
     sprintf(quantity, "%.2lf", nbquantite);
-    return quantity;
   }
+  free(quantite);
+  return quantity;
 }
 
 
@@ -255,13 +215,16 @@ char * final_quantity(char * quantity, char * quantity_bdd)
 {
   double quantite;
   double quantite_bdd;
+  char unit [10];
 
-  sscanf(quantity, "%lf", &quantite);
+  sscanf(quantity, "%lf%s", &quantite, unit);
   sscanf(quantity_bdd, "%lf", &quantite_bdd);
   quantite += quantite_bdd;
-  sprintf(quantity, "%.2lf", quantite);
+  printf(" QUANTITE : %.2lf\n UNITE : %s\n",quantite, unit );
+  sprintf(quantity, "%.2lf%s", quantite, unit);
 
-  uniform_quantity(quantity);
+
+  uniform_unit(quantity);
 
   return quantity;
 
@@ -282,7 +245,7 @@ void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
     res_per[0] = '\0';
   else
     get_peremption(strcpy(res_per, date), peremption);
-  uniform_quantity(tmp->quantity);
+  uniform_unit(tmp->quantity);
   total_quantity(tmp->quantity, tmp->nb);
   tmp->name = put_backslash(tmp->name);
   tmp->brand = put_backslash(tmp->brand);

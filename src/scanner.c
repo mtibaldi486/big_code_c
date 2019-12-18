@@ -9,20 +9,21 @@ int    get_id_product()
   GtkEntry      *input_idproduct;
   char          *id;
   t_prod        *product;
+  t_prod        *lstprod;
 
   //////////recuperation su scan ///////////////
   input_idproduct = GTK_ENTRY(gtk_builder_get_object(builder, "input_idproduct"));
   id = (char *)gtk_entry_get_text(GTK_ENTRY(input_idproduct));
   if (!(product = ft_lstnew_prod(id)))
     return (0);
-  if (check_product(&product))
+  if ( (lstprod = check_product(&product)))
   {
     gtk_entry_set_text(GTK_ENTRY(input_idproduct), "");
-    display_inc_prod(product);
+    display_inc_prod(lstprod);
     display_ok(input_idproduct);
     return (0);
   }
-  if (!(get_product_info(product->id_product, product)))
+  else if (!(get_product_info(product->id_product, product)))
   {
     lst_del(&begin, &product);
     display_error(input_idproduct);
