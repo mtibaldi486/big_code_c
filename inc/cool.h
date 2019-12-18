@@ -135,10 +135,12 @@ void          inc_entry(GtkWidget *button, gpointer *data_receive);
 void          dec_entry(GtkWidget *button, gpointer *data_receive);
 
 /****************************************************************************/
-/*                               SELECT_C                                   */
+/*                               ADD_PRODUCT.C                                  */
 /****************************************************************************/
 int           add_product();
 int           insert_bdd(t_prod *tmp);
+char          *put_backslash(char * string);
+char          *final_quantity(char * quantity, char * quantity_bdd);
 char          *get_date(char * date);
 char          *lowercase(char * string);
 char          *delete_space(char * string);

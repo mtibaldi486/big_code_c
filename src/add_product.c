@@ -1,8 +1,10 @@
 #include "../inc/cool.h"
 
+
+
+
 int add_product()
 {
-  printf(" ENTREE DANS ADD PRODUCT\n");
   if(!begin)
     return 0;
 
@@ -13,7 +15,35 @@ int add_product()
     insert_bdd(tmp);
     tmp = tmp->next;
   }
+
   return 0;
+}
+
+char * put_backslash(char * string)
+{
+  int i = 0;
+  int length = 0;
+  int pt;
+  char * res;
+
+  while(string[i]){
+    if(string[i] == '\'')
+      length ++;
+    i++;
+  }
+  if(!(strchr(string, '\'')))
+    return string;
+  else {
+    if(!(res = malloc(sizeof(char) * (strlen(string) + length + 1))))
+      return NULL;
+    pt = strchr(string, '\'') - string;
+    strncpy(res, string, pt);
+    res[pt] = '\0';
+    strcat(strcat(res,"\\"),strchr(string, '\''));
+    free(string);
+    return res;
+  }
+
 }
 
 char * get_date(char * date)
@@ -220,11 +250,30 @@ char * get_peremption(char * date, char * tmp)
   return date;
   }
 }
+
+char * final_quantity(char * quantity, char * quantity_bdd)
+{
+  double quantite;
+  double quantite_bdd;
+
+  sscanf(quantity, "%lf", &quantite);
+  sscanf(quantity_bdd, "%lf", &quantite_bdd);
+  quantite += quantite_bdd;
+  sprintf(quantity, "%.2lf", quantite);
+
+  uniform_quantity(quantity);
+
+  return quantity;
+
+}
 void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
 {
   char * date;
   char * res_per;
   char request[200];
+  MYSQL_RES * result = NULL;
+  MYSQL_ROW row;
+
 
   date = malloc(sizeof(char) * 15);
   res_per = malloc(sizeof(char) * 15);
@@ -235,13 +284,38 @@ void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
     get_peremption(strcpy(res_per, date), peremption);
   uniform_quantity(tmp->quantity);
   total_quantity(tmp->quantity, tmp->nb);
-  sprintf(request, "INSERT INTO stock (nom, marque, quantite, date_ajout, date_expire) VALUES ('%s', '%s', '%s', '%s', '%s');", tmp->name, tmp->brand, tmp->quantity, date, res_per);
-  if(mysql_query(con, request))
-  {
+  tmp->name = put_backslash(tmp->name);
+  tmp->brand = put_backslash(tmp->brand);
+  write(1, "OK1\n", 4);
+  sprintf(request, "SELECT id, quantite FROM stock WHERE nom = '%s' AND marque = '%s' AND date_ajout = '%s'", tmp->name, tmp->brand, date );
+  printf("%s\n", request);
+  if (mysql_query(con, request)){
+      finish_with_error(con);
+      return ;
+    }
+  if (!(result = mysql_store_result(con))){
     finish_with_error(con);
+    return ;
   }
-  request_contenant(tmp, date, id_ing, con);
-  printf("REQUEST STOCK OK\n");
+
+  if ((row = mysql_fetch_row(result)) == NULL){
+    sprintf(request, "INSERT INTO stock (nom, marque, quantite, date_ajout, date_expire) VALUES ('%s', '%s', '%s', '%s', '%s');", tmp->name, tmp->brand, tmp->quantity, date, res_per);
+    if(mysql_query(con, request))
+    {
+      finish_with_error(con);
+    }
+    request_contenant(tmp, date, id_ing, con);
+    return ;
+  }
+  else{
+    final_quantity(tmp->quantity, row[1]);
+    sprintf(request, "UPDATE stock SET quantite = '%s' WHERE id = '%s'", tmp->quantity,row[0]);
+    if(mysql_query(con, request))
+    {
+      finish_with_error(con);
+    }
+    return ;
+  }
 
   //free(date);
   //free(res_per);
@@ -255,8 +329,6 @@ void request_contenant(t_prod *tmp, char * date, char * id_ing, MYSQL * con)
   MYSQL_ROW row;
   char id_stock[10];
   char request[200];
-
-  printf("%s\n", id_ing);
 
   sprintf(request, "SELECT id FROM stock WHERE nom = '%s' AND marque = '%s' AND date_ajout = '%s' ;", tmp->name, tmp->brand, date);
   if(mysql_query(con, request))
@@ -273,7 +345,6 @@ void request_contenant(t_prod *tmp, char * date, char * id_ing, MYSQL * con)
   }
 
   row = mysql_fetch_row(result);
-  printf("%s\n", row[0]);
   strcpy(id_stock, row[0]);
   sprintf(request, "INSERT INTO contenant ( id_stock, id_ingredient) VALUES ('%s', '%s');", id_stock, id_ing);
   if(mysql_query(con, request))
@@ -301,6 +372,7 @@ int insert_bdd(t_prod *tmp)
     return 0;
   }
 
+
   if (mysql_query(con, "SELECT * FROM ingredient"))
       return 0;
   if (!(result = mysql_store_result(con)))
@@ -310,15 +382,14 @@ int insert_bdd(t_prod *tmp)
 
   while(res[i]){
     res_split = ft_split(res[i], ';');
-    if(!(strstr(lowercase(tmp->name), lowercase(res_split[1]) ) ) ){
+    if((strstr(lowercase(tmp->name), lowercase(res_split[1])))){
+      printf("PRODUIT TROUVE\n");
       request_stock(tmp, res_split[0], res_split[2], con);
     }
-    printf("\n");
     i++;
   }
 
 //  free_res(res);
   //free_res(res_split);
-
   return 0;
 }
