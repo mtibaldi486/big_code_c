@@ -93,6 +93,5 @@ int generate_cocktail()
     i++;
   }
   mysql_free_result(result);
-  free_res(res);
   return 0;
 }
