@@ -20,7 +20,7 @@ LIBS = -lcurl -lnsl
 SRCS = main.c gui_deplacement.c utils.c mysql.c\
 scanner.c scanner_display.c scanner_lst.c call_api.c \
 select.c cocktail.c cocktail_display.c\
-add_product.c
+add_product.c generate.c
 
 OBJS = $(SRCS:.c=.o)
 

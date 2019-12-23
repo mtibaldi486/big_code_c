@@ -18,6 +18,7 @@ void goto_generate(void)
   page->generate_page = GTK_WIDGET(gtk_builder_get_object(builder, "generate_page"));
   gtk_container_add(GTK_CONTAINER(page->window), page->generate_page);
   gtk_widget_show_all(page->window);
+  generate_cocktail();
   return ;
 }
 

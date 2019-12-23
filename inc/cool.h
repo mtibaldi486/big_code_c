@@ -151,4 +151,11 @@ char          *get_peremption(char * date, char * tmp);
 void          request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con);
 void          request_contenant(t_prod *tmp, char * date, char * id_ing, MYSQL * con);
 
+/****************************************************************************/
+/*                               GENERATE.C                                 */
+/****************************************************************************/
+
+int           generate_cocktail();
+char          *get_id_ing(char * id_cocktail, MYSQL * con);
+char          *check_stock(char * id_ingredient, MYSQL * con);
 #endif
