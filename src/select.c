@@ -85,7 +85,7 @@ void del_lst_cocktail()
   GtkListBox    *list;
 
   list = GTK_LIST_BOX(gtk_builder_get_object(builder, "list_cocktails"));
-  while (box = gtk_list_box_get_row_at_index(list, 0))
+  while ( (box = gtk_list_box_get_row_at_index(list, 0)))
     gtk_widget_destroy(GTK_WIDGET(box));
   return ;
 }

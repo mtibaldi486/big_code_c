@@ -110,9 +110,9 @@ char		    	**ft_split(char const *s, char c);
 /*                               SELECT_C                                   */
 /****************************************************************************/
 int           load_lst_cocktails();
+void          finish_with_error(MYSQL *con);
 int           add_cocktail_box(gchar  info[255]);
 void          del_lst_cocktail();
-void          finish_with_error(MYSQL *con);
 
 //COKTAIL_C
 void          load_cocktail_page(GtkButton *button);
@@ -141,14 +141,6 @@ void          dec_entry(GtkWidget *button, gpointer *data_receive);
 /****************************************************************************/
 int           add_product();
 int           insert_bdd(t_prod *tmp);
-char          *put_backslash(char * string);
-char          *final_quantity(char * quantity, char * quantity_bdd);
-char          *get_date(char * date);
-char          *lowercase(char * string);
-char          *delete_space(char * string);
-char          *uniform_unit(char * quantity);
-char          *total_quantity(char * quantity, int nb);
-char          *get_peremption(char * date, char * tmp);
 void          request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con);
 void          request_contenant(t_prod *tmp, char * date, char * id_ing, MYSQL * con);
 
@@ -158,6 +150,21 @@ void          mark_up(GtkButton *button, gpointer *data);
 void          mark_down(GtkButton *button, gpointer *data);
 void          update_mark(char *mark, char *id);
 
+/****************************************************************************/
+/*                               FORM.C                                 */
+/****************************************************************************/
+char          *lowercase(char * string);
+char          *delete_space(char * string);
+char          *put_backslash(char * string);
+char          *get_date(char * date);
+char          *get_peremption(char * date, char * tmp);
+
+/****************************************************************************/
+/*                               QUANTITY.C                               */
+/****************************************************************************/
+char          *total_quantity(char * quantity, int nb);
+char          *final_quantity(char * quantity, char * quantity_bdd);
+char          *uniform_unit(char * quantity);
 
 /****************************************************************************/
 /*                               GENERATE.C                                 */
@@ -168,10 +175,11 @@ char          *get_id_ing(char * id_cocktail, MYSQL * con);
 char          *check_stock(char * id_ingredient, MYSQL * con);
 
 /****************************************************************************/
-/*                               inventory_page.c                            */
+/*                               INVENTORY_PAGE.C                          */
 /****************************************************************************/
 
 int           select_ingredient();
 char          *verify_nature(MYSQL * con);
+int           add_inventory_box(char **result, int type);
 
 #endif
