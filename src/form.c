@@ -166,16 +166,18 @@ void adjust_stock()
     date = malloc(sizeof(char) * 15);
     connection_bdd(con);
     get_date(date);
-
-
-
-    if(mysql_query(con, "SELECT * FROM stock"))
+    if(mysql_query(con, "SELECT * FROM stock")){
+      finish_with_error(con);
       return ;
-    write(1, "OK2\n",4);
-    if (!(result = mysql_store_result(con)))
+    }
+    if (!(result = mysql_store_result(con))) {
+      finish_with_error(con);
       return ;
+    }
+    write(1,"OK2\n", 4);
     if (!(res = format_res(result)))
       return ;
+
 
     while( res[i] ){
       res_split = ft_split(res[i], ';');
