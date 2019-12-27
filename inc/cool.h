@@ -151,6 +151,12 @@ char          *get_peremption(char * date, char * tmp);
 void          request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con);
 void          request_contenant(t_prod *tmp, char * date, char * id_ing, MYSQL * con);
 
+//COCKTAIL_MARK_C
+void          display_mark(const gchar *mark, char *id);
+void          mark_up(GtkButton *button, gpointer *data);
+void          mark_down(GtkButton *button, gpointer *data);
+
+
 /****************************************************************************/
 /*                               GENERATE.C                                 */
 /****************************************************************************/
@@ -158,4 +164,5 @@ void          request_contenant(t_prod *tmp, char * date, char * id_ing, MYSQL *
 int           generate_cocktail();
 char          *get_id_ing(char * id_cocktail, MYSQL * con);
 char          *check_stock(char * id_ingredient, MYSQL * con);
+
 #endif

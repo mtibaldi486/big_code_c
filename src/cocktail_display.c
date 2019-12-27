@@ -65,7 +65,6 @@ int     display_elem(const gchar *info, int nb)
     i++;
   }
 
-
   free(str_display);
   return 1;
 }

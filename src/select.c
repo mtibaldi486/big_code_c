@@ -54,7 +54,7 @@ int   add_cocktail_box(gchar  *info)
   new_box = gtk_list_box_row_new();
   fixed = gtk_fixed_new();
 
-  //Creation du bouton pour voir la page du cocktails
+  //Creation du bouton pour voir la page du cocktail
   button = gtk_button_new_with_label("Voir");
   gtk_widget_set_name (button, info);
 
