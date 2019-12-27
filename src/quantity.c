@@ -1,10 +1,10 @@
 #include "../inc/cool.h"
 
-char * total_quantity(char * quantity, int nb)
+char * total_quantity(char *quantity, int nb)
 {
-  char * quantite;
-  char *unity;
-  double nbquantite;
+  char    *quantite;
+  char    *unity;
+  double  nbquantite;
 
   quantite = strdup(quantity);
   nbquantite=strtod(quantite, &unity);
@@ -21,7 +21,7 @@ char * total_quantity(char * quantity, int nb)
   return quantity;
 }
 
-char * final_quantity(char * quantity, char * quantity_bdd)
+char *final_quantity(char * quantity, char * quantity_bdd)
 {
   double quantite;
   double quantite_bdd;
@@ -38,12 +38,12 @@ char * final_quantity(char * quantity, char * quantity_bdd)
 
 char * uniform_unit(char * quantity)
 {
-  char * quantite;
-  char * unity;
-  char * pt;
+  char   *quantite;
+  char   *unity;
+  char   *pt;
   double nbquantity;
-  char liquidunity[] = "cl";
-  char solidunity[] = "g";
+  char   liquidunity[] = "cl";
+  char   solidunity[] = "g";
 
   lowercase(quantity);
   delete_space(quantity);

@@ -16,6 +16,39 @@ int add_product()
   return 0;
 }
 
+int insert_bdd(t_prod *tmp)
+{
+  int i = 0;
+  char **res = NULL;
+  char **res_split = NULL;
+  MYSQL * con;
+  MYSQL_RES * result = NULL;
+
+  con = NULL;
+  if( (con = connection_bdd(con)) == NULL){
+    finish_with_error(con);
+    return 0;
+  }
+
+
+  if (mysql_query(con, "SELECT * FROM ingredient"))
+      return 0;
+  if (!(result = mysql_store_result(con)))
+    return 0;
+  if (!(res = format_res(result)))
+      return 0;
+
+  while(res[i]){
+    res_split = ft_split(res[i], ';');
+    if((strstr(lowercase(tmp->name), lowercase(res_split[1])))){
+      request_stock(tmp, res_split[0], res_split[2], con);
+    }
+    i++;
+  }
+
+  return 0;
+}
+
 void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
 {
   char * date;
@@ -38,39 +71,30 @@ void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
   sprintf(request, "SELECT id, quantite FROM stock WHERE nom = '%s' AND marque = '%s' AND date_ajout = '%s'", tmp->name, tmp->brand, date );
   if (mysql_query(con, request)){
       finish_with_error(con);
-      free(res_per);
-      free(date);
+      free_add_product(result, res_per, date);
       return ;
     }
   if (!(result = mysql_store_result(con))){
     finish_with_error(con);
-    free(res_per);
-    free(date);
+    free_add_product(result, res_per, date);
     return ;
   }
 
-  if ((row = mysql_fetch_row(result)) == NULL){
+  if (!(row = mysql_fetch_row(result))){
     sprintf(request, "INSERT INTO stock (nom, marque, quantite, date_ajout, date_expire) VALUES ('%s', '%s', '%s', '%s', '%s');", tmp->name, tmp->brand, tmp->quantity, date, res_per);
     if(mysql_query(con, request))
-    {
       finish_with_error(con);
-    }
     request_contenant(tmp, date, id_ing, con);
-    mysql_free_result(result);
-    free(res_per);
-    free(date);
+    free_add_product(result, res_per, date);
     return ;
   }
-  else{
+  else
+  {
     final_quantity(tmp->quantity, row[1]);
     sprintf(request, "UPDATE stock SET quantite = '%s' WHERE id = '%s'", tmp->quantity,row[0]);
     if(mysql_query(con, request))
-    {
       finish_with_error(con);
-    }
-    mysql_free_result(result);
-    free(res_per);
-    free(date);
+    free_add_product(result, res_per, date);
     return ;
   }
   return ;
@@ -109,36 +133,10 @@ void request_contenant(t_prod *tmp, char * date, char * id_ing, MYSQL * con)
   return ;
 }
 
-
-int insert_bdd(t_prod *tmp)
+void free_add_product(MYSQL_RES result, char *res_per, char *date)
 {
-  int i = 0;
-  char **res = NULL;
-  char **res_split = NULL;
-  MYSQL * con;
-  MYSQL_RES * result = NULL;
-
-  con = NULL;
-  if( (con = connection_bdd(con)) == NULL){
-    finish_with_error(con);
-    return 0;
-  }
-
-
-  if (mysql_query(con, "SELECT * FROM ingredient"))
-      return 0;
-  if (!(result = mysql_store_result(con)))
-    return 0;
-  if (!(res = format_res(result)))
-      return 0;
-
-  while(res[i]){
-    res_split = ft_split(res[i], ';');
-    if((strstr(lowercase(tmp->name), lowercase(res_split[1])))){
-      request_stock(tmp, res_split[0], res_split[2], con);
-    }
-    i++;
-  }
-
-  return 0;
+  if (result)
+    mysql_free_result(result);
+  free(res_per);
+  free(date);
 }

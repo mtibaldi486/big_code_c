@@ -167,8 +167,6 @@ void adjust_stock()
     connection_bdd(con);
     get_date(date);
 
-
-
     if(mysql_query(con, "SELECT * FROM stock"))
       return ;
     write(1, "OK2\n",4);
