@@ -179,7 +179,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkScrolledWindow" id="ressource_alcool">
+      <object class="GtkScrolledWindow">
         <property name="width_request">304</property>
         <property name="height_request">276</property>
         <property name="visible">True</property>
@@ -190,7 +190,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkListBox">
+              <object class="GtkListBox" id="ressource_alcool">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
@@ -254,7 +254,7 @@
         </child>
       </object>
       <packing>
-        <property name="x">143</property>
+        <property name="x">300</property>
         <property name="y">198</property>
       </packing>
     </child>
@@ -270,8 +270,8 @@
         </attributes>
       </object>
       <packing>
-        <property name="x">236</property>
-        <property name="y">142</property>
+        <property name="x">200</property>
+        <property name="y">285</property>
       </packing>
     </child>
     <child>
@@ -291,32 +291,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkScrolledWindow" id="ressource_soft">
-        <property name="width_request">239</property>
-        <property name="height_request">258</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="shadow_type">in</property>
-        <child>
-          <object class="GtkViewport">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkListBox">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-              </object>
-            </child>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="x">575</property>
-        <property name="y">220</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkScrolledWindow" id="ressource_divers">
+      <object class="GtkScrolledWindow">
         <property name="width_request">304</property>
         <property name="height_request">276</property>
         <property name="visible">True</property>
@@ -327,7 +302,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkListBox">
+              <object class="GtkListBox" id="ressource_divers">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
               </object>
@@ -336,24 +311,8 @@
         </child>
       </object>
       <packing>
-        <property name="x">988</property>
+        <property name="x">775</property>
         <property name="y">203</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel">
-        <property name="width_request">100</property>
-        <property name="height_request">80</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Les softs</property>
-        <attributes>
-          <attribute name="font-desc" value="Serif Bold Italic 10"/>
-        </attributes>
-      </object>
-      <packing>
-        <property name="x">641</property>
-        <property name="y">167</property>
       </packing>
     </child>
     <child>
@@ -368,8 +327,8 @@
         </attributes>
       </object>
       <packing>
-        <property name="x">1065</property>
-        <property name="y">150</property>
+        <property name="x">625</property>
+        <property name="y">285</property>
       </packing>
     </child>
   </object>

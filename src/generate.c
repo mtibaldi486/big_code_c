@@ -63,11 +63,6 @@ char * check_stock(char * id_ing, MYSQL * con)
 
 }
 
-/*char * substract_quantity(char * quantity_bdd, char * quantity_cocktail, MYSQL * con)
-{
-  char request[255];
-
-}*/
 
 int generate_cocktail()
 {

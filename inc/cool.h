@@ -165,4 +165,11 @@ int           generate_cocktail();
 char          *get_id_ing(char * id_cocktail, MYSQL * con);
 char          *check_stock(char * id_ingredient, MYSQL * con);
 
+/****************************************************************************/
+/*                               inventory_page.c                            */
+/****************************************************************************/
+
+int           select_ingredient();
+char          *verify_nature(MYSQL * con);
+
 #endif
