@@ -136,7 +136,7 @@ void          inc_entry(GtkWidget *button, gpointer *data_receive);
 void          dec_entry(GtkWidget *button, gpointer *data_receive);
 
 /****************************************************************************/
-/*                               ADD_PRODUCT.C                                  */
+/*                               ADD_PRODUCT.C                              */
 /****************************************************************************/
 int           add_product();
 int           insert_bdd(t_prod *tmp);
