@@ -110,8 +110,9 @@ char		    	**ft_split(char const *s, char c);
 /*                               SELECT_C                                   */
 /****************************************************************************/
 int           load_lst_cocktails();
-void          finish_with_error(MYSQL *con);
 int           add_cocktail_box(gchar  info[255]);
+void          del_lst_cocktail();
+void          finish_with_error(MYSQL *con);
 
 //COKTAIL_C
 void          load_cocktail_page(GtkButton *button);
@@ -155,6 +156,7 @@ void          request_contenant(t_prod *tmp, char * date, char * id_ing, MYSQL *
 void          display_mark(const gchar *mark, char *id);
 void          mark_up(GtkButton *button, gpointer *data);
 void          mark_down(GtkButton *button, gpointer *data);
+void          update_mark(char *mark, char *id);
 
 
 /****************************************************************************/

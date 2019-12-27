@@ -35,39 +35,50 @@ void display_mark(const gchar *mark, char *id)
 void mark_up(GtkButton *button, gpointer *data)
 {
   GtkWidget     *fixed;
-  const gchar   *name;
+  const gchar   *mark;
   char          tmp[2];
   char          id[4];
 
   fixed = (void *)data;
-  name = gtk_widget_get_name(fixed);
+  mark = gtk_widget_get_name(fixed);
   strcpy(id, gtk_widget_get_name(GTK_WIDGET(button)));
-  printf("id = '%s'\n", id);
-  printf("name = '%s'\n", name);
-  if (*name == '5')
+  if (*mark == '5')
     return ;
-  strcpy(tmp, name);
+  strcpy(tmp, mark);
   tmp[0]++;
   gtk_widget_destroy(fixed);
+  update_mark(tmp, id);
   display_mark((const gchar *)tmp, id);
 }
 
 void mark_down(GtkButton *button, gpointer *data)
 {
   GtkWidget     *fixed;
-  const gchar   *name;
+  const gchar   *mark;
   char          tmp[3];
   char          id[4];
 
   fixed = (void *)data;
-  name = gtk_widget_get_name(fixed);
+  mark = gtk_widget_get_name(fixed);
   strcpy(id,  gtk_widget_get_name(GTK_WIDGET(button)));
-  printf("name = '%s'\n", name);
-  printf("id = '%s'\n", id);
-  if (*name == '0')
+  if (*mark == '0')
     return ;
-  strcpy(tmp, name);
+  strcpy(tmp, mark);
   tmp[0]--;
   gtk_widget_destroy(fixed);
+  update_mark(tmp, id);
   display_mark((const gchar *)tmp, id);
+}
+
+void update_mark(char *mark, char *id)
+{
+  MYSQL *con = NULL;
+  char  request[50];
+
+  sprintf(request, "UPDATE cocktails SET star = %s WHERE id = %s", mark, id);
+  if (!(con = connection_bdd(con)))
+    return ;
+  if (mysql_query(con, request))
+      return ;
+  return ;
 }
