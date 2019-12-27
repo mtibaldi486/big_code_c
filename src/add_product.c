@@ -249,15 +249,17 @@ void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
   total_quantity(tmp->quantity, tmp->nb);
   tmp->name = put_backslash(tmp->name);
   tmp->brand = put_backslash(tmp->brand);
-  write(1, "OK1\n", 4);
   sprintf(request, "SELECT id, quantite FROM stock WHERE nom = '%s' AND marque = '%s' AND date_ajout = '%s'", tmp->name, tmp->brand, date );
-  printf("%s\n", request);
   if (mysql_query(con, request)){
       finish_with_error(con);
+      free(res_per);
+      free(date);
       return ;
     }
   if (!(result = mysql_store_result(con))){
     finish_with_error(con);
+    free(res_per);
+    free(date);
     return ;
   }
 
@@ -268,6 +270,9 @@ void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
       finish_with_error(con);
     }
     request_contenant(tmp, date, id_ing, con);
+    mysql_free_result(result);
+    free(res_per);
+    free(date);
     return ;
   }
   else{
@@ -277,11 +282,11 @@ void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
     {
       finish_with_error(con);
     }
+    mysql_free_result(result);
+    free(res_per);
+    free(date);
     return ;
   }
-
-  //free(date);
-  //free(res_per);
   return ;
 
 }
@@ -309,14 +314,13 @@ void request_contenant(t_prod *tmp, char * date, char * id_ing, MYSQL * con)
 
   row = mysql_fetch_row(result);
   strcpy(id_stock, row[0]);
+  mysql_free_result(result);
   sprintf(request, "INSERT INTO contenant ( id_stock, id_ingredient) VALUES ('%s', '%s');", id_stock, id_ing);
   if(mysql_query(con, request))
   {
     finish_with_error(con);
     return ;
   }
-
-
   return ;
 }
 

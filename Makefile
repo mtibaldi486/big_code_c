@@ -18,8 +18,13 @@ LDFLAGS += $(-L/home/dast/lib -L/usr/local/ssl/lib)
 LIBS = -lcurl -lnsl
 SRCS = main.c gui_deplacement.c utils.c mysql.c\
 scanner.c scanner_display.c scanner_lst.c call_api.c \
+<<<<<<< HEAD
 select.c cocktail.c cocktail_display.c cocktail_mark.c\
 add_product.c
+=======
+select.c cocktail.c cocktail_display.c\
+add_product.c generate.c
+>>>>>>> abe182ced6003d8b4c115a45aa229232b3fd0d08
 
 OBJS = $(SRCS:.c=.o)
 
