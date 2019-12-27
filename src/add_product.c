@@ -133,7 +133,7 @@ void request_contenant(t_prod *tmp, char * date, char * id_ing, MYSQL * con)
   return ;
 }
 
-void free_add_product(MYSQL_RES result, char *res_per, char *date)
+void free_add_product(MYSQL_RES *result, char *res_per, char *date)
 {
   if (result)
     mysql_free_result(result);

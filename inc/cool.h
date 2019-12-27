@@ -143,6 +143,7 @@ int           add_product();
 int           insert_bdd(t_prod *tmp);
 void          request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con);
 void          request_contenant(t_prod *tmp, char * date, char * id_ing, MYSQL * con);
+void          free_add_product(MYSQL_RES *result, char *res_per, char *date);
 
 //COCKTAIL_MARK_C
 void          display_mark(const gchar *mark, char *id);
