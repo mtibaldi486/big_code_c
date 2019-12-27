@@ -17,6 +17,7 @@ int   main(int ac, char **av)
     gtk_widget_show(page->window);
 
     gtk_main();
+    adjust_stock();
     /*
     Free tes list ici
     */

@@ -31,8 +31,6 @@ char * final_quantity(char * quantity, char * quantity_bdd)
   sscanf(quantity_bdd, "%lf", &quantite_bdd);
   quantite += quantite_bdd;
   sprintf(quantity, "%.2lf%s", quantite, unit);
-
-
   uniform_unit(quantity);
 
   return quantity;

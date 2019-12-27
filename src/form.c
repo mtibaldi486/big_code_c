@@ -156,11 +156,14 @@ void adjust_stock()
     MYSQL_RES * result = NULL;
     int i = 0;
 
+
     date = malloc(sizeof(char) * 15);
     connection_bdd(con);
     get_date(date);
+    write(1, "OK2\n",4);
 
-    if (mysql_query(con, " SELECT * FROM stock"))
+
+    if(mysql_query(con, "SELECT * FROM stock"))
       return ;
     if (!(result = mysql_store_result(con)))
       return ;

@@ -74,7 +74,6 @@ void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
     return ;
   }
   return ;
-
 }
 
 void request_contenant(t_prod *tmp, char * date, char * id_ing, MYSQL * con)
