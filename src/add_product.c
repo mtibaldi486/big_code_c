@@ -24,7 +24,6 @@ void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
   MYSQL_RES * result = NULL;
   MYSQL_ROW row;
 
-
   date = malloc(sizeof(char) * 15);
   res_per = malloc(sizeof(char) * 15);
   get_date(date);

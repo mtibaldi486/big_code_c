@@ -149,13 +149,16 @@ void delete_stock(char * id, MYSQL * con)
 
 void adjust_stock()
 {
+    char * date;
     char ** res = NULL;
     char ** res_split;
     MYSQL * con = NULL;
     MYSQL_RES * result = NULL;
     int i = 0;
 
+    date = malloc(sizeof(char) * 15);
     connection_bdd(con);
+    get_date(date);
 
     if (mysql_query(con, " SELECT * FROM stock"))
       return ;
@@ -166,7 +169,7 @@ void adjust_stock()
 
     while( res[i] ){
       res_split = ft_split(res[i], ';');
-      if( verify_peremption( res_split[4], res_split[5]) == 1){
+      if( verify_peremption( date , res_split[5]) == 1){
         delete_stock(res_split[0], con);
       }
       i++;
