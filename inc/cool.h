@@ -184,5 +184,6 @@ char          *check_stock(char * id_ingredient, MYSQL * con);
 int           select_ingredient();
 char          *verify_nature(MYSQL * con);
 int           add_inventory_box(char **result, int type);
+void          del_inventory_page();
 
 #endif

@@ -39,6 +39,21 @@ char * verify_nature(MYSQL * con)
   return NULL;
 }
 
+void del_inventory_page()
+{
+  GtkListBoxRow *box;
+  GtkListBox    *list;
+
+  list = GTK_LIST_BOX(gtk_builder_get_object(builder, "ressource_alcool"));
+  while ( (box = gtk_list_box_get_row_at_index(list, 0)))
+    gtk_widget_destroy(GTK_WIDGET(box));
+
+  list = GTK_LIST_BOX(gtk_builder_get_object(builder, "ressource_divers"));
+  while ( (box = gtk_list_box_get_row_at_index(list, 0)))
+    gtk_widget_destroy(GTK_WIDGET(box));
+  return ;
+}
+
 int add_inventory_box(char **result, int type)
 {
   GtkListBox    *box;
@@ -91,6 +106,8 @@ int add_inventory_box(char **result, int type)
     gtk_list_box_insert(box, new_box, 0);
   }
 
+  gtk_widget_show_all(page->window);
+
   return (0);
 }
 
@@ -104,7 +121,7 @@ int select_ingredient()
     finish_with_error(con);
     return 0;
   }
-
+  del_inventory_page();
   verify_nature(con);
 
 
