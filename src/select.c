@@ -7,14 +7,11 @@ int load_lst_cocktails()
   MYSQL_ROW     row;
   int           num_fields;
   gchar         *info;
-  static int    i;
 
-  if (i)
-    return (0);
-  i++;
+  del_lst_cocktail();
   if (!(con = connection_bdd(con)))
     return (0);
-  if (mysql_query(con, "SELECT * FROM cocktails"))
+  if (mysql_query(con, "SELECT * FROM cocktails ORDER BY star ASC"))
   {
       finish_with_error(con);
       return (0);
@@ -58,7 +55,7 @@ int   add_cocktail_box(gchar  *info)
   button = gtk_button_new_with_label("Voir");
   gtk_widget_set_name (button, info);
 
-  //recuperation de nom de cocktail
+  //recuperation du nom de cocktail
   mt_strccpy(name, strchr(info, ';') + 1, ';');
 
   g_signal_connect(button, "clicked", G_CALLBACK(load_cocktail_page), NULL);
@@ -80,6 +77,17 @@ int   add_cocktail_box(gchar  *info)
 
   gtk_list_box_insert(box, new_box, 0);
   return (0);
+}
+
+void del_lst_cocktail()
+{
+  GtkListBoxRow *box;
+  GtkListBox    *list;
+
+  list = GTK_LIST_BOX(gtk_builder_get_object(builder, "list_cocktails"));
+  while (box = gtk_list_box_get_row_at_index(list, 0))
+    gtk_widget_destroy(GTK_WIDGET(box));
+  return ;
 }
 
 void finish_with_error(MYSQL *con)
