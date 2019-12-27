@@ -18,7 +18,7 @@ int   main(int ac, char **av)
 
     gtk_main();
     /*
-    Free t'es list ici
+    Free tes list ici
     */
     free(page);
     return (0);

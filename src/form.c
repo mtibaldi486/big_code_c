@@ -112,3 +112,66 @@ char * get_peremption(char * date, char * tmp)
   return date;
   }
 }
+
+int verify_peremption(char * date, char * peremption)
+{
+    int dayn, monthn, yearn;
+    int daye, monthe, yeare;
+
+    if( strstr(peremption, "NULL") || peremption[0] == '\0')
+      return 0;
+
+    sscanf(date,"%d-%d-%d", &dayn, &monthn, &yearn);
+    sscanf(peremption,"%d-%d-%d", &daye, &monthe, &yeare);
+
+    if(yearn > yeare)
+      return 1;
+    if(monthn > monthe)
+      return 1;
+    if( (dayn > daye) && (monthn == monthe) && (yearn == yeare))
+      return 1;
+    else
+      return 0;
+}
+
+void delete_stock(char * id, MYSQL * con)
+{
+  char request[200];
+
+  sprintf(request, "DELETE FROM stock WHERE id = '%s'", id);
+  if(mysql_query(con, request))
+  {
+    finish_with_error(con);
+  }
+
+  return ;
+}
+
+void adjust_stock()
+{
+    char ** res = NULL;
+    char ** res_split;
+    MYSQL * con = NULL;
+    MYSQL_RES * result = NULL;
+    int i = 0;
+
+    connection_bdd(con);
+
+    if (mysql_query(con, " SELECT * FROM stock"))
+      return ;
+    if (!(result = mysql_store_result(con)))
+      return ;
+    if (!(res = format_res(result)))
+      return ;
+
+    while( res[i] ){
+      res_split = ft_split(res[i], ';');
+      if( verify_peremption( res_split[4], res_split[5]) == 1){
+        delete_stock(res_split[0], con);
+      }
+      i++;
+    }
+
+    mysql_free_result(result);
+    return ;
+}

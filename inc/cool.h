@@ -158,6 +158,9 @@ char          *delete_space(char * string);
 char          *put_backslash(char * string);
 char          *get_date(char * date);
 char          *get_peremption(char * date, char * tmp);
+int           verify_peremption(char * date, char * peremption);
+void          delete_stock(char * id, MYSQL * con);
+void          adjust_stock();
 
 /****************************************************************************/
 /*                               QUANTITY.C                               */
