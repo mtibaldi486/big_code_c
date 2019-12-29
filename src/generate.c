@@ -95,7 +95,7 @@ int   generate_cocktail_box(gchar  *info)
   //recuperation du nom de cocktail
   mt_strccpy(name, strchr(info, ';') + 1, ';');
 
-  g_signal_connect(button, "clicked", G_CALLBACK(load_cocktail_page), NULL);
+  g_signal_connect(button, "clicked", G_CALLBACK(generate_to_cocktail), NULL);
   //Formatage de la note pour affichage
   strcpy(mark, "Note : ");
   strcat(mark, strchr((strrchr(info, ';') - 4), ';') + 1);

@@ -1,22 +1,11 @@
 #include "../inc/cool.h"
 
-void load_cocktail_page(GtkButton *button)
+void load_cocktail_page(const gchar *info)
 {
-  GtkWidget   *backscreen;
-  GtkWidget   *button2;
-  const gchar *info;
   char          id[3];
 
-  info = gtk_widget_get_name(GTK_WIDGET(button));
   mt_strccpy(id, (char *)info, ';');
-  gtk_container_remove(GTK_CONTAINER(page->window), page->select_page);
-  page->cocktail_page = GTK_WIDGET(gtk_builder_get_object(builder, "cocktail_page"));
-  button2 = gtk_button_new_with_label ("Retour");
-  g_signal_connect(button2, "clicked", G_CALLBACK(cocktail_to_select), NULL);
-  gtk_container_add(GTK_CONTAINER(page->window), page->cocktail_page);
-  backscreen = gtk_image_new_from_file("img/backscreen.png");
-  gtk_fixed_put(GTK_FIXED(page->cocktail_page), backscreen, 0, 0);
-  gtk_fixed_put(GTK_FIXED(page->cocktail_page),button2, 76, 41);
+
   display_name(info);
   display_mark(strchr((strrchr(info, ';') - 4), ';') + 1, id);
   display_picture(info);

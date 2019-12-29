@@ -61,6 +61,9 @@ void          ressource_to_menu(void);
 void          cocktail_to_menu(void);
 void          scanner_to_ressource(void);
 void          cocktail_to_select(void);
+void          cocktail_to_generate(void);
+void          select_to_cocktail(GtkButton *button);
+void          generate_to_cocktail(GtkButton *button);
 
 /****************************************************************************/
 /*                             SCANNER_C                                    */
@@ -115,7 +118,7 @@ int           add_cocktail_box(gchar  info[255]);
 void          del_lst_cocktail();
 
 //COKTAIL_C
-void          load_cocktail_page(GtkButton *button);
+void          load_cocktail_page(const gchar *info);
 char          **format_ingredient(const gchar *info, int nb);
 char          *ajust_ingredient(char *array_necessaire, int nb, char *ref);
 char          **get_necessaire(char **array_cocktail);
@@ -173,7 +176,6 @@ char          *uniform_unit(char * quantity);
 /****************************************************************************/
 /*                               GENERATE.C                                 */
 /****************************************************************************/
-
 void           generate_cocktail();
 char          *get_id_ing(char * id_cocktail, MYSQL * con);
 char          *check_stock(char * id_ingredient, MYSQL * con);
@@ -182,7 +184,6 @@ int           get_coktail(MYSQL *con, char * res);
 /****************************************************************************/
 /*                               INVENTORY_PAGE.C                          */
 /****************************************************************************/
-
 int           select_ingredient();
 char          *verify_nature(MYSQL * con);
 int           add_inventory_box(char **result, int type);
