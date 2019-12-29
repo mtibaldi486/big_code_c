@@ -12,15 +12,6 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkImage">
-        <property name="width_request">100</property>
-        <property name="height_request">80</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="pixbuf">img/backscreen.png</property>
-      </object>
-    </child>
-    <child>
       <object class="GtkButton" id="btn_return_menu">
         <property name="label" translatable="yes">Retour</property>
         <property name="width_request">99</property>
@@ -34,6 +25,40 @@
       <packing>
         <property name="x">76</property>
         <property name="y">41</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkImage">
+        <property name="width_request">100</property>
+        <property name="height_request">80</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="pixbuf">img/backscreen.png</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow">
+        <property name="width_request">790</property>
+        <property name="height_request">370</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkViewport">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkListBox" id="generated_cocktail">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="x">283</property>
+        <property name="y">205</property>
       </packing>
     </child>
   </object>

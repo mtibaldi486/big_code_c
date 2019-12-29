@@ -63,10 +63,64 @@ char * check_stock(char * id_ing, MYSQL * con)
 
 }
 
+int verify_cocktail(MYSQL *con, char * res)
+{
+  if(get_id_ing(res, con) == NULL)
+    return 0;
+  else
+    return 1;
+}
 
-int generate_cocktail()
+int   generate_cocktail_box(gchar  *info)
+{
+  GtkWidget     *new_box;
+  GtkWidget     *fixed;
+  GtkWidget     *lab_name;
+  GtkWidget     *lab_mark;
+  GtkWidget     *lab_delim;
+  GtkWidget     *button;
+  GtkListBox    *box;
+  gchar         name[200];
+  char          mark[30];
+
+  printf("RENTRER\n");
+  box = GTK_LIST_BOX(gtk_builder_get_object(builder, "generated_cocktail"));
+  new_box = gtk_list_box_row_new();
+  fixed = gtk_fixed_new();
+
+  //Creation du bouton pour voir la page du cocktail
+  button = gtk_button_new_with_label("Voir");
+  gtk_widget_set_name (button, info);
+
+  //recuperation du nom de cocktail
+  mt_strccpy(name, strchr(info, ';') + 1, ';');
+
+  g_signal_connect(button, "clicked", G_CALLBACK(load_cocktail_page), NULL);
+  //Formatage de la note pour affichage
+  strcpy(mark, "Note : ");
+  strcat(mark, strchr((strrchr(info, ';') - 4), ';') + 1);
+  strcat(mark, "/5");
+
+  lab_name = gtk_label_new(name);
+  lab_mark = gtk_label_new(mark);
+  lab_delim = gtk_label_new("     ___________________     ");
+
+  gtk_fixed_put(GTK_FIXED(fixed), lab_name, 10, 10);
+  gtk_fixed_put(GTK_FIXED(fixed), lab_mark, 10, 50);
+  gtk_fixed_put(GTK_FIXED(fixed), lab_delim, 250, 75);
+  gtk_fixed_put(GTK_FIXED(fixed), button, 450, 40);
+
+  gtk_container_add(GTK_CONTAINER(new_box), fixed);
+
+  gtk_list_box_insert(box, new_box, 0);
+  gtk_widget_show_all(page->window);
+  return (0);
+}
+
+void generate_cocktail()
 {
   int i = 0;
+  char **res_split = NULL;
   char **res = NULL;
   MYSQL * con;
   MYSQL_RES * result = NULL;
@@ -74,25 +128,28 @@ int generate_cocktail()
   con = NULL;
   if( (con = connection_bdd(con)) == NULL){
     finish_with_error(con);
-    return 0;
+    return ;
   }
 
 
-  if (mysql_query(con, "SELECT id FROM cocktails"))
-      return 0;
+  if (mysql_query(con, "SELECT * FROM cocktails"))
+      return ;
   if (!(result = mysql_store_result(con)))
-    return 0;
+    return ;
   if (!(res = format_res(result)))
-      return 0;
+      return ;
 
   while(res[i]){
-    printf("coktail : %s\n", res[i]);
-    if(get_id_ing(res[i], con) == NULL)
-      printf("non dispo\n");
+    res_split = ft_split(res[i], ';');
+    if (verify_cocktail(con, res_split[0]) == 1){
+      printf("ON EST LA \n");
+      generate_cocktail_box(res[i]);
+    }
     else
-      printf("dispo\n");
+      printf("COCKTAIL NON DISPO\n");
+
     i++;
   }
   mysql_free_result(result);
-  return 0;
+  return ;
 }

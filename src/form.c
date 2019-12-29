@@ -138,7 +138,7 @@ void delete_stock(char * id, MYSQL * con)
 {
   char request[200];
 
-  sprintf(request, "DELETE FROM stock WHERE id_stock = '%s'", id);
+  sprintf(request, "DELETE FROM contenant WHERE id_stock = '%s'", id);
   if(mysql_query(con, request))
   {
     finish_with_error(con);
