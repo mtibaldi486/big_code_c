@@ -49,6 +49,7 @@ int insert_bdd(t_prod *tmp)
   return 0;
 }
 
+
 void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
 {
   char * date;

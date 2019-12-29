@@ -29,6 +29,12 @@ int    get_id_product()
     display_error(input_idproduct);
     return (0);
   }
+  else if(check_necessary(product->name) == 0)
+  {
+    lst_del(&begin,&product);
+    display_error(input_idproduct);
+    return (0);
+  }
 
   add_box_product(product);
   display_ok(input_idproduct);
@@ -81,21 +87,18 @@ t_prod *get_product_info(char *id, t_prod *product)
   read_file(pf, &str);
   if (!(product->name = parse_str(str, "\"product_name_fr\":")))
   {
-    printf("IMPOSSIBLE DE TROUVER LE NOM \n");
     free(str);
     fclose(pf);
     return (NULL);
   }
   if (!(product->brand = parse_str(str, "\"brands\":")))
   {
-    printf("IMPOSSIBLE DE TROUVER La MARQUE \n");
     free(str);
     fclose(pf);
     return (NULL);
   }
   if (!(product->quantity = parse_str(str, "\"quantity\":")))
   {
-    printf("IMPOSSIBLE DE TROUVER La QUANTITE \n");
     free(str);
     fclose(pf);
     return (NULL);
@@ -115,4 +118,46 @@ void   free_product(t_prod *product)
     free(product->brand);
   if (product->quantity)
     free(product->quantity);
+}
+
+int check_necessary(char * name)
+{
+  int i = 0;
+  char **res = NULL;
+  char **res_split = NULL;
+  char * tmp;
+  MYSQL * con;
+  MYSQL_RES * result = NULL;
+
+  tmp = strdup(name);
+  con = NULL;
+  if( (con = connection_bdd(con)) == NULL){
+    finish_with_error(con);
+    return 0;
+  }
+
+  if (mysql_query(con, "SELECT * FROM ingredient"))
+      return 0;
+  if (!(result = mysql_store_result(con)))
+    return 0;
+  if (!(res = format_res(result)))
+      return 0;
+
+  while(res[i]){
+    res_split= ft_split(res[i], ';');
+    if((strstr(lowercase(dup), lowercase(res_split[1]) ) ) ){
+      free(tmp);
+      free_res(res, 2000);
+      free_res(res, 2000);
+      mysql_free_result(result);
+      mysql_close(con);
+      return 1;
+    }
+  }
+  free(tmp);
+  free_res(res, 2000);
+  free_res(res, 2000);
+  mysql_free_result(result);
+  mysql_close(con);
+  return 0;
 }

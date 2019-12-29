@@ -68,8 +68,8 @@ char **format_ingredient(const gchar *info, int nb)
 
 char  *ajust_ingredient(char *array_necessaire, int nb, char *ref)
 {
-  int          quantity_ref;
-  int          nb_ref;
+  double       quantity_ref;
+  double       nb_ref;
   double       new_quantity;
   char         buffer[20];
   char         res[40];
@@ -79,10 +79,10 @@ char  *ajust_ingredient(char *array_necessaire, int nb, char *ref)
     return (NULL);
   tmp = array_necessaire;
   sprintf(buffer, "%s", strchr(strchr(strchr(tmp, ';') + 1, ';') + 1, ' '));
-  printf("buffer = %s\n", buffer);
-  quantity_ref = atoi(strchr(strchr(tmp, ';') + 1, ';') + 1);
-  nb_ref = atoi(ref);
-  new_quantity = ((double)nb * (double)quantity_ref) / (double)nb_ref;
+  quantity_ref = atof(strchr(strchr(tmp, ';') + 1, ';') + 1);
+  nb_ref = atof(ref);
+
+  new_quantity = (double)nb * (quantity_ref / nb_ref);
   if (new_quantity <= 0)
     new_quantity = 0;
   if (!strcmp(buffer, "(null)"))
@@ -90,9 +90,8 @@ char  *ajust_ingredient(char *array_necessaire, int nb, char *ref)
       tmp = "";
       return (tmp);
   }
-  sprintf(res, "%s%s", ft_itoa(new_quantity), buffer);
+  sprintf(res, "%.2lf%s", new_quantity, buffer);
   strcpy(tmp, res);
-  write(1, "OK5\n", 4);
   if (!strcmp(buffer, "(null)"))
     tmp = "";
   return (tmp);
@@ -108,7 +107,6 @@ char  **get_necessaire(char **array_cocktail)
   if (!(con = connection_bdd(con)))
     return (NULL);
   sprintf(request, "SELECT * FROM necessaire WHERE id_cocktail = %s", array_cocktail[0]);
-  printf("request = '%s'\n", request);
   if (mysql_query(con, request))
       return (NULL);
 

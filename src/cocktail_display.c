@@ -59,11 +59,6 @@ int     display_elem(const gchar *info, int nb)
   data->fixed = display_ingredient(str_display);
   gtk_widget_show_all(page->window);
   display_counter(info, data, nb);
-  while (str_display[i])
-  {
-    printf("display = '%s'\n", str_display[i]);
-    i++;
-  }
 
   free(str_display);
   return 1;

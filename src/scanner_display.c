@@ -54,16 +54,13 @@ int add_box_product(t_prod *product)
   GtkWidget     *lab_quantity;
 
 
-  printf("name = %p\n", product->brand);
   box = GTK_LIST_BOX(gtk_builder_get_object(builder, "list_product_box"));
   new_box = gtk_list_box_row_new();
   fixed = gtk_fixed_new();
   write(1, "OKK\n", 4);
-  printf("%s\n", product->brand);
 
   strcpy(new_name, product->brand);
   strcat(strcat(new_name, " : "), product->name);
-  printf("%s\n", new_name);
   write(1, "OK1\n", 4);
   lab_nb = gtk_label_new("x 1");
   lab_name = gtk_label_new(new_name);
@@ -88,7 +85,6 @@ void display_error(GtkEntry *entry)
   gtk_widget_show_all(page->scanner_page);
   gtk_widget_hide(lab_ok);
   gtk_entry_set_text(GTK_ENTRY(entry), "");
-  printf("IMPOSSIBLE D'AJOUTER LE PRODUIT !\n");
 }
 
 void display_ok(GtkEntry *entry)
@@ -100,5 +96,4 @@ void display_ok(GtkEntry *entry)
   gtk_widget_show_all(page->scanner_page);
   gtk_widget_hide(lab_ko);
   gtk_entry_set_text(GTK_ENTRY(entry), "");
-  printf("AJOUT REUSSIT !\n");
 }

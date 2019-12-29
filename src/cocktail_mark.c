@@ -8,7 +8,6 @@ void display_mark(const gchar *mark, char *id)
   GtkWidget     *img;
   const gchar   path_img[25];
 
-  printf("display mark = %s\n", mark);
   fixed = gtk_fixed_new();
   gtk_widget_set_name (fixed, mark);
   button_pos = gtk_button_new_with_label("+");
@@ -18,7 +17,6 @@ void display_mark(const gchar *mark, char *id)
   strcpy((char *)path_img, "img/mark/");
   strcat((char *)path_img, mark);
   strcat((char *)path_img, ".png");
-  printf("path = '%s'\n", path_img);
   img = gtk_image_new_from_file(path_img);
 
   gtk_fixed_put(GTK_FIXED(page->cocktail_page), fixed, 120, 550);

@@ -24,16 +24,13 @@ char * verify_nature(MYSQL * con)
     strcpy(tmp, res_split[1]);
     while( j < 11 ){
       if( ( strstr( lowercase(tmp), lowercase(alcohol[j]) ) ) != NULL ) {
-        printf("ALCOOL : %s\n", res_split[1]);
         add_inventory_box(res_split, 1);
         break;
       }
       j++;
     }
-    if( j == 11){
+    if( j == 11)
       add_inventory_box(res_split, 0);
-      printf("NON ALCOOL : %s\n", res_split[1]);
-    }
     i++;
   }
   return NULL;

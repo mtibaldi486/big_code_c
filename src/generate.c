@@ -83,7 +83,6 @@ int   generate_cocktail_box(gchar  *info)
   gchar         name[200];
   char          mark[30];
 
-  printf("RENTRER\n");
   box = GTK_LIST_BOX(gtk_builder_get_object(builder, "generated_cocktail"));
   new_box = gtk_list_box_row_new();
   fixed = gtk_fixed_new();
@@ -142,11 +141,8 @@ void generate_cocktail()
   while(res[i]){
     res_split = ft_split(res[i], ';');
     if (verify_cocktail(con, res_split[0]) == 1){
-      printf("ON EST LA \n");
       generate_cocktail_box(res[i]);
     }
-    else
-      printf("COCKTAIL NON DISPO\n");
 
     i++;
   }
