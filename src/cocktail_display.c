@@ -47,9 +47,7 @@ int     display_elem(const gchar *info, int nb)
   char      **str_display;
   char      **cocktail;
   t_data    *data;
-  int       i;
-
-  i = 0;
+  
   if (!(data = malloc(sizeof(t_data))))
     return (0);
   if (!(cocktail = ft_split(info, ';')))

@@ -69,7 +69,8 @@ void          generate_to_cocktail(GtkButton *button);
 /*                             SCANNER_C                                    */
 /****************************************************************************/
 int           get_id_product();
-t_prod       *check_product(t_prod **product);
+int           check_necessary(char * name);
+t_prod        *check_product(t_prod **product);
 t_prod        *get_product_info(char *id, t_prod *product);
 void          free_product(t_prod *product);
 

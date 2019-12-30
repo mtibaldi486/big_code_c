@@ -148,7 +148,7 @@ int check_necessary(char * name)
 
   while(res[i]){
     res_split= ft_split(res[i], ';');
-    if((strstr(lowercase(dup), lowercase(res_split[1]) ) ) ){
+    if((strstr(lowercase(tmp), lowercase(res_split[1]) ) ) ){
       free(tmp);
       free_res(res, 2000);
       free_res(res, 2000);
