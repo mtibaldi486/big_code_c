@@ -83,6 +83,7 @@ int   generate_cocktail_box(gchar  *info)
   gchar         name[200];
   char          mark[30];
 
+  del_generated_box();
   box = GTK_LIST_BOX(gtk_builder_get_object(builder, "generated_cocktail"));
   new_box = gtk_list_box_row_new();
   fixed = gtk_fixed_new();
@@ -114,6 +115,18 @@ int   generate_cocktail_box(gchar  *info)
   gtk_list_box_insert(box, new_box, 0);
   gtk_widget_show_all(page->window);
   return (0);
+}
+
+void del_generated_box()
+{
+  GtkListBoxRow *box;
+  GtkListBox    *list;
+
+  list = GTK_LIST_BOX(gtk_builder_get_object(builder, "generated_cocktail"));
+  while ( (box = gtk_list_box_get_row_at_index(list, 0)))
+    gtk_widget_destroy(GTK_WIDGET(box));
+
+  return ;
 }
 
 void generate_cocktail()

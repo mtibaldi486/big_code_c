@@ -61,7 +61,6 @@ int add_box_product(t_prod *product)
 
   strcpy(new_name, product->brand);
   strcat(strcat(new_name, " : "), product->name);
-  write(1, "OK1\n", 4);
   lab_nb = gtk_label_new("x 1");
   lab_name = gtk_label_new(new_name);
   lab_quantity = gtk_label_new(product->quantity);

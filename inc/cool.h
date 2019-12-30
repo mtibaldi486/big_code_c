@@ -177,7 +177,8 @@ char          *uniform_unit(char * quantity);
 /****************************************************************************/
 /*                               GENERATE.C                                 */
 /****************************************************************************/
-void           generate_cocktail();
+void          generate_cocktail();
+void          del_generated_box();
 char          *get_id_ing(char * id_cocktail, MYSQL * con);
 char          *check_stock(char * id_ingredient, MYSQL * con);
 int           get_coktail(MYSQL *con, char * res);

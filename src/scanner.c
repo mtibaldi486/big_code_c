@@ -33,7 +33,7 @@ int    get_id_product()
   }
   else if(!(check_necessary(product->name)))
   {
-    free(product->id_product);
+    free_product(product);
     free(product);
     display_error(input_idproduct);
     return (0);
@@ -128,11 +128,11 @@ int check_necessary(char * name)
   int i = 0;
   char **res = NULL;
   char **res_split = NULL;
-  char * tmp;
+  char tmp[255];
   MYSQL * con;
   MYSQL_RES * result = NULL;
 
-  tmp = strdup(name);
+  strcpy(tmp,name);
   con = NULL;
   if( (con = connection_bdd(con)) == NULL){
     finish_with_error(con);
@@ -148,18 +148,17 @@ int check_necessary(char * name)
 
   while(res[i]){
     res_split= ft_split(res[i], ';');
-    if((strstr(lowercase(tmp), lowercase(res_split[1]) ) ) ){
-      free(tmp);
+    if((strstr(lowercase(tmp), lowercase(res_split[1])))){
       free_res(res, 2000);
-      free_res(res, 2000);
+      free_res(res_split, 2000);
       mysql_free_result(result);
       mysql_close(con);
       return 1;
     }
+    i++;
   }
-  free(tmp);
   free_res(res, 2000);
-  free_res(res, 2000);
+  free_res(res_split, 2000);
   mysql_free_result(result);
   mysql_close(con);
   return 0;

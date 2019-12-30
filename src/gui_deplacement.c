@@ -102,6 +102,7 @@ void scanner_to_ressource(void)
   //page->ressource_page = GTK_WIDGET(gtk_builder_get_object(builder, "ressource_page"));
   gtk_container_add(GTK_CONTAINER(page->window), page->ressource_page);
   gtk_widget_show_all(page->window);
+  select_ingredient();
   return ;
 }
 

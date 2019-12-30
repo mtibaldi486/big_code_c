@@ -12,11 +12,11 @@ int get_contenant(char * id, int quantity_needed)
   sprintf(request, "SELECT * FROM contenant WHERE id_ingredient = '%s'", id);
 
   if (mysql_query(con, request))
-      return NULL;
+    return 0;
   if (!(result = mysql_store_result(con)))
-    return NULL;
+    return 0;
   if (!(res = format_res(result)))
-      return NULL;
+    return 0;
 
   use_quantity(res, con, quantity_needed);
 
