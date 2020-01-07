@@ -53,10 +53,12 @@ char * uniform_unit(char * quantity)
   if(strstr(unity, "ml") != NULL){
     nbquantity /= 10;
     sprintf(quantity, "%.2lf%s", nbquantity, liquidunity);
+    free(unity);
     free(quantite);
     return quantity;
   }
   else if(strstr(unity, "cl") != NULL){
+    free(unity);
     free(quantite);
     return quantity;
   }
@@ -64,27 +66,33 @@ char * uniform_unit(char * quantity)
     if(*pt++ == ' ' || *pt++ == '\0'){
       nbquantity *= 100;
       sprintf(quantity, "%.2lf%s", nbquantity, liquidunity);
+      free(unity);
       free(quantite);
       return quantity;
     }
     else{
+      free(unity);
       free(quantite);
       return quantity;
     }
   }
+
   else if(strstr(unity, "kg") != NULL){
     nbquantity *= 1000;
     sprintf(quantity, "%.2lf%s", nbquantity, solidunity);
+    free(unity);
     free(quantite);
     return quantity;
   }
   else if (strstr(unity,"mg") != NULL){
     nbquantity /= 1000;
     sprintf(quantity, "%.2lf%s", nbquantity, solidunity);
+    free(unity);
     free(quantite);
     return quantity;
   }
   else{
+    free(unity);
     free(quantite);
     return quantity;
   }

@@ -1,9 +1,12 @@
 #include "../inc/cool.h"
 
-int get_contenant(char * id, int quantity_needed)
+int get_contenant(char * id, char * quantity_needed)
 {
   char request[255];
   char **res = NULL;
+  char * quantite;
+  char * unity;
+  double quantity;
   MYSQL * con;
   MYSQL_RES * result = NULL;
 
