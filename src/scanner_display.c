@@ -57,7 +57,6 @@ int add_box_product(t_prod *product)
   box = GTK_LIST_BOX(gtk_builder_get_object(builder, "list_product_box"));
   new_box = gtk_list_box_row_new();
   fixed = gtk_fixed_new();
-  write(1, "OKK\n", 4);
 
   strcpy(new_name, product->brand);
   strcat(strcat(new_name, " : "), product->name);
