@@ -2,22 +2,21 @@
 
 char * total_quantity(char *quantity, int nb)
 {
-  char    *quantite;
   char    *unity;
   double  nbquantite;
 
-  quantite = strdup(quantity);
-  nbquantite=strtod(quantite, &unity);
+  nbquantite=strtod(quantity, &unity);
 
   if(*unity != 0){
+
     nbquantite *= nb;
+    printf("%.2lf %s\n",nbquantite, unity);
     sprintf(quantity, "%.2lf %s", nbquantite, unity);
   }
   else{
     nbquantite *= nb;
     sprintf(quantity, "%.2lf", nbquantite);
   }
-  free(quantite);
   return quantity;
 }
 
@@ -56,12 +55,11 @@ char * uniform_unit(char * quantity)
     ;
   }
   else if( (pt = strstr(unity, "l"))){
-    if(*pt++ == ' ' || *pt++ == '\0'){
+    if(*(pt+1) == ' ' || *(pt+1) == '\0'){
       nbquantity *= 100;
       sprintf(quantity, "%.2lf%s", nbquantity, liquidunity);
     }
   }
-
   else if(strstr(unity, "kg") != NULL){
     nbquantity *= 1000;
     sprintf(quantity, "%.2lf%s", nbquantity, solidunity);
@@ -71,6 +69,5 @@ char * uniform_unit(char * quantity)
     sprintf(quantity, "%.2lf%s", nbquantity, solidunity);
   }
 
-  free(unity);
   return quantity;
 }
