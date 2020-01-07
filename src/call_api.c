@@ -66,7 +66,7 @@ void read_file(FILE *pf, char **str)
   while (fread(buff, 1023, 1, pf), !feof(pf))
   {
     buff[1023] = 0;
-    *str = strjoin(*str, buff);
+    *str = strjoin(*str, buff, 1);
   }
   remove("text.json");
 }
@@ -75,7 +75,7 @@ char  *make_path(char *id)
 {
   char *path;
 
-  if (!(path = malloc(1 * 200)))
+  if (!(path = malloc(200)))
     return (0);
   memcpy((void *)path, (void *)"http://fr.openfoodfacts.org/api/v0/product/", 44);
   *(path + 43) = 0;

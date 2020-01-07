@@ -12,28 +12,12 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkButton" id="btn_return_menu">
-        <property name="label" translatable="yes">Retour</property>
-        <property name="width_request">99</property>
-        <property name="height_request">60</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">True</property>
-        <property name="always_show_image">True</property>
-        <signal name="clicked" handler="generate_to_menu" swapped="no"/>
-      </object>
-      <packing>
-        <property name="x">76</property>
-        <property name="y">41</property>
-      </packing>
-    </child>
-    <child>
       <object class="GtkImage">
         <property name="width_request">100</property>
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="pixbuf">img/backscreen.png</property>
+        <property name="pixbuf">img/background/red_screen.png</property>
       </object>
     </child>
     <child>
@@ -61,6 +45,22 @@
         <property name="y">205</property>
       </packing>
     </child>
+    <child>
+      <object class="GtkButton" id="btn_return_menu">
+        <property name="label" translatable="yes">Retour</property>
+        <property name="width_request">100</property>
+        <property name="height_request">80</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="always_show_image">True</property>
+        <signal name="clicked" handler="generate_to_menu" swapped="no"/>
+      </object>
+      <packing>
+        <property name="x">76</property>
+        <property name="y">41</property>
+      </packing>
+    </child>
   </object>
   <object class="GtkFixed" id="home_page">
     <property name="visible">True</property>
@@ -78,7 +78,7 @@
           <object class="GtkImage" id="home_image1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="pixbuf">img/welcome.png</property>
+            <property name="pixbuf">img/background/red_screen.png</property>
           </object>
         </child>
       </object>
@@ -95,7 +95,7 @@
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="pixbuf">img/backscreen.png</property>
+        <property name="pixbuf">img/background/red_screen.png</property>
       </object>
     </child>
     <child>
@@ -153,7 +153,7 @@
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="pixbuf">img/backscreen.png</property>
+        <property name="pixbuf">img/background/red_screen.png</property>
       </object>
     </child>
     <child>
@@ -366,7 +366,7 @@
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="pixbuf">img/backscreen.png</property>
+        <property name="pixbuf">img/background/red_screen.png</property>
       </object>
     </child>
     <child>
@@ -576,7 +576,7 @@
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="pixbuf">img/backscreen.png</property>
+        <property name="pixbuf">img/background/red_screen.png</property>
       </object>
     </child>
     <child>
