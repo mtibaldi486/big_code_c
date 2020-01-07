@@ -29,10 +29,12 @@ char * get_id_ing(char * id_cocktail, MYSQL * con)
         i++;
   }
   if(j != i){
+    free_res(res, 1);
     mysql_free_result(result);
     return NULL;
   }
   else{
+    free_res(res, 1);
     mysql_free_result(result);
     return id_cocktail;
   }
@@ -146,10 +148,14 @@ void generate_cocktail()
 
   if (mysql_query(con, "SELECT * FROM cocktails"))
       return ;
-  if (!(result = mysql_store_result(con)))
+  if (!(result = mysql_store_result(con))){
+    mysql_free_result(result);
     return ;
-  if (!(res = format_res(result)))
+  }
+  if (!(res = format_res(result))){
+      mysql_free_result(result);
       return ;
+  }
 
   while(res[i]){
     res_split = ft_split(res[i], ';');
@@ -159,6 +165,9 @@ void generate_cocktail()
 
     i++;
   }
+  free_res(res, 100);
+  free_res(res_split, 100);
   mysql_free_result(result);
+  mysql_close(con);
   return ;
 }

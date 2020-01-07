@@ -33,6 +33,10 @@ char * verify_nature(MYSQL * con)
       add_inventory_box(res_split, 0);
     i++;
   }
+
+  free_res(res, 100);
+  free_res(res_split, 100);
+  mysql_free_result(result);
   return NULL;
 }
 
@@ -121,8 +125,7 @@ int select_ingredient()
   del_inventory_page();
   verify_nature(con);
 
-
-
+  mysql_close(con);
   return 0;
 
 }
