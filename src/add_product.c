@@ -88,13 +88,48 @@ int check_date_per (t_prod * tmp, MYSQL * con)
   }
 }
 
+void make_query(t_prod *tmp, char * date, char * per, char * id_ing, MYSQL *con)
+{
+  char request[200];
+  MYSQL_ROW row;
+  MYSQL_RES *result;
+
+  sprintf(request, "SELECT id, quantite FROM stock WHERE nom = '%s' AND marque = '%s' AND date_ajout = '%s'", tmp->name, tmp->brand, date );
+  if (mysql_query(con, request)){
+      finish_with_error(con);
+      free(per);
+      free(date);
+      return ;
+    }
+  if (!(result = mysql_store_result(con))){
+    finish_with_error(con);
+    free_add_product(result, per, date);
+    return ;
+  }
+
+  if (!(row = mysql_fetch_row(result))){
+    sprintf(request, "INSERT INTO stock (nom, marque, quantite, date_ajout, date_expire) VALUES ('%s', '%s', '%s', '%s', '%s');", tmp->name, tmp->brand, tmp->quantity, date, per);
+    if(mysql_query(con, request))
+      finish_with_error(con);
+    request_contenant(tmp, date, id_ing, con);
+    free_add_product(result, per, date);
+    return ;
+  }
+  else
+  {
+    final_quantity(tmp->quantity, row[1]);
+    sprintf(request, "UPDATE stock SET quantite = '%s' WHERE id = '%s'", tmp->quantity,row[0]);
+    if(mysql_query(con, request))
+      finish_with_error(con);
+    free_add_product(result, per, date);
+    return ;
+  }
+
+}
 void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
 {
   char * date;
   char * res_per;
-  char request[200];
-  MYSQL_RES * result = NULL;
-  MYSQL_ROW row;
 
   date = malloc(sizeof(char) * 15);
   res_per = malloc(sizeof(char) * 15);
@@ -103,42 +138,17 @@ void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
     res_per[0] = '\0';
   else
     get_peremption(strcpy(res_per, date), peremption);
+
   uniform_unit(tmp->quantity);
   total_quantity(tmp->quantity, tmp->nb);
   tmp->name = put_backslash(tmp->name);
   tmp->brand = put_backslash(tmp->brand);
 
   if( check_date_per( tmp, con ) == 0){
-    sprintf(request, "SELECT id, quantite FROM stock WHERE nom = '%s' AND marque = '%s' AND date_ajout = '%s'", tmp->name, tmp->brand, date );
-    if (mysql_query(con, request)){
-        finish_with_error(con);
-        free_add_product(result, res_per, date);
-        return ;
-      }
-    if (!(result = mysql_store_result(con))){
-      finish_with_error(con);
-      free_add_product(result, res_per, date);
-      return ;
-    }
-
-    if (!(row = mysql_fetch_row(result))){
-      sprintf(request, "INSERT INTO stock (nom, marque, quantite, date_ajout, date_expire) VALUES ('%s', '%s', '%s', '%s', '%s');", tmp->name, tmp->brand, tmp->quantity, date, res_per);
-      if(mysql_query(con, request))
-        finish_with_error(con);
-      request_contenant(tmp, date, id_ing, con);
-      free_add_product(result, res_per, date);
-      return ;
-    }
-    else
-    {
-      final_quantity(tmp->quantity, row[1]);
-      sprintf(request, "UPDATE stock SET quantite = '%s' WHERE id = '%s'", tmp->quantity,row[0]);
-      if(mysql_query(con, request))
-        finish_with_error(con);
-      free_add_product(result, res_per, date);
-      return ;
-    }
+    make_query(tmp, date, res_per, id_ing, con);
   }
+  free(date);
+  free(res_per);
   return ;
 }
 

@@ -145,10 +145,11 @@ void          dec_entry(GtkWidget *button, gpointer *data_receive);
 /****************************************************************************/
 int           add_product();
 int           insert_bdd(t_prod *tmp);
+int           check_date_per (t_prod * tmp, MYSQL * con);
 void          request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con);
 void          request_contenant(t_prod *tmp, char * date, char * id_ing, MYSQL * con);
 void          free_add_product(MYSQL_RES *result, char *res_per, char *date);
-
+void          make_query(t_prod *tmp, char * date, char * per, char * id_ing, MYSQL *con);
 //COCKTAIL_MARK_C
 void          display_mark(const gchar *mark, char *id);
 void          mark_up(GtkButton *button, gpointer *data);
