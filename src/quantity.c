@@ -38,7 +38,6 @@ char *final_quantity(char * quantity, char * quantity_bdd)
 
 char * uniform_unit(char * quantity)
 {
-  char   *quantite;
   char   *unity;
   char   *pt;
   double nbquantity;
@@ -47,53 +46,31 @@ char * uniform_unit(char * quantity)
 
   lowercase(quantity);
   delete_space(quantity);
-  quantite = strdup(quantity);
-  nbquantity=strtod(quantite, &unity);
+  nbquantity=strtod(quantity, &unity);
 
   if(strstr(unity, "ml") != NULL){
     nbquantity /= 10;
     sprintf(quantity, "%.2lf%s", nbquantity, liquidunity);
-    free(unity);
-    free(quantite);
-    return quantity;
   }
   else if(strstr(unity, "cl") != NULL){
-    free(unity);
-    free(quantite);
-    return quantity;
+    ;
   }
   else if( (pt = strstr(unity, "l"))){
     if(*pt++ == ' ' || *pt++ == '\0'){
       nbquantity *= 100;
       sprintf(quantity, "%.2lf%s", nbquantity, liquidunity);
-      free(unity);
-      free(quantite);
-      return quantity;
-    }
-    else{
-      free(unity);
-      free(quantite);
-      return quantity;
     }
   }
 
   else if(strstr(unity, "kg") != NULL){
     nbquantity *= 1000;
     sprintf(quantity, "%.2lf%s", nbquantity, solidunity);
-    free(unity);
-    free(quantite);
-    return quantity;
   }
   else if (strstr(unity,"mg") != NULL){
     nbquantity /= 1000;
     sprintf(quantity, "%.2lf%s", nbquantity, solidunity);
-    free(unity);
-    free(quantite);
-    return quantity;
   }
-  else{
-    free(unity);
-    free(quantite);
-    return quantity;
-  }
+
+  free(unity);
+  return quantity;
 }
