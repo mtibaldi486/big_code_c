@@ -13,9 +13,19 @@
 #include <mysql.h>
 #include <ctype.h>
 
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+
+
+
 typedef struct s_page
 {
   GtkWidget    *window;
+  GtkWidget    *img;
+  GtkWidget    *fixed;
   GtkWidget    *home_page;
   GtkWidget    *menu_page;
   GtkWidget    *generate_page;
@@ -103,7 +113,7 @@ void          lst_del(t_prod **begin, t_prod **product);
 /****************************************************************************/
 /*                             UTILS_C                                      */
 /****************************************************************************/
-char          *strjoin(char *s1, char *s2);
+char          *strjoin(char *s1, char *s2, int f);
 char          *ft_strnstr(const char *s1, const char *s2, size_t len);
 char          *mt_strccpy(char *s1, char *s2, char c);
 //const char    *get_input_text(char*str);
@@ -139,6 +149,8 @@ GtkWidget     *display_ingredient(char **str_display);
 void          display_counter(const gchar *info, t_data *data, int indice);
 void          inc_entry(GtkWidget *button, gpointer *data_receive);
 void          dec_entry(GtkWidget *button, gpointer *data_receive);
+void          nothing(GtkEntry *entry);
+void          substract_quantity(GtkButton *button);
 
 /****************************************************************************/
 /*                               ADD_PRODUCT.C                              */

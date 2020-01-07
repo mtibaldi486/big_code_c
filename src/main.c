@@ -1,5 +1,18 @@
 #include "../inc/cool.h"
 
+const gchar *load_conf(void)
+{
+  int     fd;
+  int     ret;
+  char    buff[1024];
+
+  if ((fd = open("conf.con" , O_RDONLY)) == -1)
+    return (NULL);
+
+  return (NULL);
+}
+
+
 int   main(int ac, char **av)
 {
     printf("begin = %p\n", begin);
@@ -8,9 +21,14 @@ int   main(int ac, char **av)
       return (0);
 
     builder = gtk_builder_new_from_file("gladeproject.glade");
-    page->window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));
-    g_signal_connect(page->window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
+      page->window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));
+      g_signal_connect(page->window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
     gtk_builder_connect_signals(builder, NULL);
+
+  /*  page->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    page->fixed = gtk_fixed_new();
+    page->image = gtk_image_new_from_file(load_conf());
+    g_signal_connect(page->window, "destroy", G_CALLBACK(gtk_main_quit), NULL);*/
 
     page->home_page = GTK_WIDGET(gtk_builder_get_object(builder, "home_page"));
     gtk_container_add(GTK_CONTAINER(page->window), GTK_WIDGET(page->home_page));

@@ -44,10 +44,10 @@ void display_name(const gchar *info)
 
 int     display_elem(const gchar *info, int nb)
 {
-  char      **str_display;
-  char      **cocktail;
-  t_data    *data;
-  
+  char        **str_display;
+  char        **cocktail;
+  t_data      *data;
+
   if (!(data = malloc(sizeof(t_data))))
     return (0);
   if (!(cocktail = ft_split(info, ';')))
@@ -58,6 +58,7 @@ int     display_elem(const gchar *info, int nb)
   gtk_widget_show_all(page->window);
   display_counter(info, data, nb);
 
+
   free(str_display);
   return 1;
 }
@@ -67,7 +68,9 @@ GtkWidget *display_ingredient(char **str_display)
   GtkWidget   *fixed;
   GtkWidget   *label;
   gchar       format_display[200];
+  gchar       buff[1024] = {0};
   gchar       *res;
+  GtkWidget   *button;
   int         y;
   int         i;
 
@@ -86,6 +89,20 @@ GtkWidget *display_ingredient(char **str_display)
     y += 32 ;
     i++;
   }
+  i = 0;
+  strcpy(buff, str_display[i++]);
+  while(str_display[i])
+  {
+    printf("str = %s\n", str_display[i]);
+    strcat(buff, ";");
+    strcat(buff, str_display[i]);
+    i++;
+  }
+  printf("BUF = %s\n", buff);
+  button = gtk_button_new_with_label("Do it !");
+  gtk_widget_set_name(button, buff);
+  g_signal_connect(button, "clicked", G_CALLBACK(substract_quantity), NULL);
+  gtk_fixed_put(GTK_FIXED(page->cocktail_page), button, 1100, 500);
   return (fixed);
 }
 
@@ -116,6 +133,8 @@ void  display_counter(const gchar *info, t_data *data, int indice)
 
   g_signal_connect(button_pos, "clicked", G_CALLBACK(inc_entry), (void *)data);
   g_signal_connect(button_neg, "clicked", G_CALLBACK(dec_entry), (void *)data);
+  g_signal_connect(data->entry, "activate", G_CALLBACK(nothing), NULL);
+
 }
 
 void  inc_entry(GtkWidget *button, gpointer *data_receive)
@@ -161,5 +180,19 @@ void  dec_entry(GtkWidget *button, gpointer *data_receive)
   display_elem(info, res);
   gtk_widget_show_all(page->window);
   free(data);
+}
 
+void substract_quantity(GtkButton *button)
+{
+  const gchar *res;
+
+  res = gtk_widget_get_name(GTK_WIDGET(button));
+  printf("RESULT = %s\n", res);
+  return ;
+}
+
+void nothing(GtkEntry *entry)
+{
+  (void *)entry;
+  return ;
 }

@@ -165,14 +165,11 @@ void request_contenant(t_prod *tmp, char * date, char * id_ing, MYSQL * con)
     finish_with_error(con);
     return ;
   }
-
   result = mysql_store_result(con);
-
   if(result == NULL){
     finish_with_error(con);
     return ;
   }
-
   row = mysql_fetch_row(result);
   strcpy(id_stock, row[0]);
   mysql_free_result(result);

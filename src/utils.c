@@ -3,7 +3,7 @@
 /****************************************************************************/
 /*                        FUNCTION FOR STRING                               */
 /****************************************************************************/
-char *strjoin(char *s1, char *s2)
+char *strjoin(char *s1, char *s2, int f)
 {
   int		len1;
 	int		len2;
@@ -27,7 +27,8 @@ char *strjoin(char *s1, char *s2)
 		newstr[i++] = s2[j];
 		j++;
 	}
-	free(s1);
+  if (f)
+	 free(s1);
 	newstr[i] = 0;
 	return (newstr);
 }

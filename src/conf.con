@@ -1,0 +1,13 @@
+##########################################################################################
+#      Fichier de configuration de l'interface graphique, laisser décommenter            #
+#               une ligne par propriété afin de l'utiliser.                              #
+##########################################################################################
+
+##### Background color #####
+pink
+#green
+#red
+#orange
+#black
+#yellow
+#bleu
