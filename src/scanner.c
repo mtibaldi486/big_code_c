@@ -41,6 +41,7 @@ int    get_id_product()
 
   add_box_product(product);
   display_ok(input_idproduct);
+  free(id);
   return (0);
 }
 
@@ -91,22 +92,26 @@ t_prod *get_product_info(char *id, t_prod *product)
   if (!(product->name = parse_str(str, "\"product_name_fr\":")))
   {
     free(str);
+    free(path);
     fclose(pf);
     return (NULL);
   }
   if (!(product->brand = parse_str(str, "\"brands\":")))
   {
     free(str);
+    free(path);
     fclose(pf);
     return (NULL);
   }
   if (!(product->quantity = parse_str(str, "\"quantity\":")))
   {
     free(str);
+    free(path);
     fclose(pf);
     return (NULL);
   }
   free(str);
+  free(path);
   fclose(pf);
   return (product);
 }
@@ -150,7 +155,7 @@ int check_necessary(char * name)
     res_split= ft_split(res[i], ';');
     if((strstr(lowercase(tmp), lowercase(res_split[1])))){
       free_res(res, 2000);
-      free_res(res_split, 2000);
+      free_res(res_split, 10);
       mysql_free_result(result);
       mysql_close(con);
       return 1;
@@ -158,7 +163,7 @@ int check_necessary(char * name)
     i++;
   }
   free_res(res, 2000);
-  free_res(res_split, 2000);
+  free_res(res_split, 10);
   mysql_free_result(result);
   mysql_close(con);
   return 0;

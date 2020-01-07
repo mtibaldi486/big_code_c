@@ -18,15 +18,12 @@ void display_mark(const gchar *mark, char *id)
   strcat((char *)path_img, mark);
   strcat((char *)path_img, ".png");
   img = gtk_image_new_from_file(path_img);
-
   gtk_fixed_put(GTK_FIXED(page->cocktail_page), fixed, 120, 550);
   gtk_fixed_put(GTK_FIXED(fixed), button_neg, 0, 0);
   gtk_fixed_put(GTK_FIXED(fixed), button_pos, 260, 0);
   gtk_fixed_put(GTK_FIXED(fixed), img, 40, 0);
-
   g_signal_connect(button_pos, "clicked", G_CALLBACK(mark_up), (void *)fixed);
   g_signal_connect(button_neg, "clicked", G_CALLBACK(mark_down), (void *)fixed);
-
   gtk_widget_show_all(page->window);
 }
 
