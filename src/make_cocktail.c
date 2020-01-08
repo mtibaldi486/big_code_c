@@ -61,6 +61,7 @@ int use_quantity(char ** res, MYSQL * con, double quantity_needed)
       return 0;
     }
     if(!(row = mysql_fetch_row(result))){
+      printf("PLUS DE PRODUIT\n");
       mysql_free_result(result);
       return 0;
     }
@@ -84,19 +85,6 @@ int use_quantity(char ** res, MYSQL * con, double quantity_needed)
     }
   }
 }
-
-/*void destroy_stock(char * id, MYSQL * con)
-{
-  char request[255];
-
-  sprintf(request, "DELETE FROM contenant WHERE id_stock = '%s'", id);
-  if (mysql_query(con, request))
-    return ;
-  sprintf(request, "DELETE FROM stock WHERE id = '%s'", id);
-  if (mysql_query(con, request))
-    return ;
-
-}*/
 
 void update_stock(char * id, MYSQL * con, double new_quantity, char * unity)
 {
