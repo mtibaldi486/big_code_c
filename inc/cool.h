@@ -217,10 +217,6 @@ void          del_inventory_page();
 
 int           get_contenant(char * ing);
 int           use_quantity(char ** res, MYSQL * con, double quantity_needed);
-<<<<<<< HEAD
-//void        destroy_stock(char * id, MYSQL * con);
-=======
->>>>>>> 589d1b18f0f35b08b2af0379dc0d3c66f629d729
 void          update_stock(char * id, MYSQL * con, double new_quantity, char * unity);
 
 #endif
