@@ -189,27 +189,14 @@ void substract_quantity(GtkButton *button)
   int i = 0;
 
   res = gtk_widget_get_name(GTK_WIDGET(button));
-  printf("RESULT = %s\n", res);
   res_split = ft_split(res, ';');
   while(res_split[i]){
-    printf("RESULT SPLIT : %s\n", res_split[i]);
     find_ingredient(res_split[i]);
-    find_quantity(res_split[i]);
-    printf("%s\n", res_split[i]);
+    printf("RESULT SPLIT : %s\n", res_split[i]);
+    get_contenant(res_split[i]);
     i++;
   }
   return ;
-}
-
-char * find_quantity(char * string)
-{
-
-  strcat( (strchr(string, ' ')), (strchr(string, ' ') + 1) );
-//  strcat((strchr(string, ' '), ' '), strchr(string, ';'));
-  printf("%s\n", string);
-
-  return NULL;
-
 }
 
 char * find_ingredient(char * string)

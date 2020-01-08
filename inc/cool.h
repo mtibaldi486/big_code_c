@@ -199,11 +199,20 @@ char          *check_stock(char * id_ingredient, MYSQL * con);
 int           get_coktail(MYSQL *con, char * res);
 
 /****************************************************************************/
-/*                               INVENTORY_PAGE.C                          */
+/*                               INVENTORY_PAGE.C                           */
 /****************************************************************************/
 int           select_ingredient();
 char          *verify_nature(MYSQL * con);
 int           add_inventory_box(char **result, int type);
 void          del_inventory_page();
+
+/****************************************************************************/
+/*                               MAKE_COCKTAIL.C                            */
+/****************************************************************************/
+
+int           get_contenant(char * ing);
+int           use_quantity(char ** res, MYSQL * con, double quantity_needed);
+//void          destroy_stock(char * id, MYSQL * con);
+void          update_stock(char * id, MYSQL * con, double new_quantity, char * unity);
 
 #endif

@@ -1,20 +1,23 @@
 #include "../inc/cool.h"
 
-int get_contenant(char * id, char * quantity_needed)
+int get_contenant(char * ing)
 {
   char request[255];
   char **res = NULL;
+  char ** ing_split;
   char * unity;
   double quantity;
   MYSQL * con;
   MYSQL_RES * result = NULL;
 
+  ing_split = ft_split(ing, ';');
   con = NULL;
-  connection_bdd(con);
+  con = connection_bdd(con);
+  quantity = strtod(ing_split[0], &unity);
 
-  quantity = strtod(quantity_needed, &unity);
+  printf("%s\n", ing_split[1]);
 
-  sprintf(request, "SELECT * FROM contenant WHERE id_ingredient = '%s'", id);
+  sprintf(request, "SELECT * FROM contenant WHERE id_ingredient = '%s'", ing_split[1]);
 
   if (mysql_query(con, request))
     return 0;
@@ -23,19 +26,25 @@ int get_contenant(char * id, char * quantity_needed)
   if (!(res = format_res(result)))
     return 0;
 
-  if(use_quantity(res, con, quantity, unity) == 1){
+  printf("%s\n", res[0]);
+
+  if(use_quantity(res, con, quantity) == 1){
     mysql_free_result(result);
     free_res(res, 1);
+    free_res(ing_split, 2);
     mysql_close(con);
     return 0;
   }
 
+  return 0;
+
 }
 
-int use_quantity(char ** res, MYSQL * con, double quantity_needed, char * unity)
+int use_quantity(char ** res, MYSQL * con, double quantity_needed)
 {
   int i = 0;
-  int tmp;
+  double tmp;
+  char * unity;
   char request[255];
   char ** res_split;
   MYSQL_RES * result;
@@ -55,7 +64,8 @@ int use_quantity(char ** res, MYSQL * con, double quantity_needed, char * unity)
       mysql_free_result(result);
       return 0;
     }
-    quantity_needed -= row[1];
+    tmp = strtod(row[1], &unity);
+    quantity_needed -= tmp;
     if(quantity_needed > 0){
       delete_stock(row[0], con);
       i++;
@@ -75,23 +85,24 @@ int use_quantity(char ** res, MYSQL * con, double quantity_needed, char * unity)
   }
 }
 
-void delete_stock(char * id, MYSQL * con)
+/*void destroy_stock(char * id, MYSQL * con)
 {
   char request[255];
 
   sprintf(request, "DELETE FROM contenant WHERE id_stock = '%s'", id);
   if (mysql_query(con, request))
     return ;
-  sprinf(request, "DELETE FROM stock WHERE id = '%s'", id);
+  sprintf(request, "DELETE FROM stock WHERE id = '%s'", id);
   if (mysql_query(con, request))
     return ;
 
-}
+}*/
 
-void update_stock(char * id, MYSQL * con, double new_quantity, unity)
+void update_stock(char * id, MYSQL * con, double new_quantity, char * unity)
 {
   char request[255];
   char quantity[100];
+
 
   if(new_quantity != 0)
     new_quantity = fabs(new_quantity);
