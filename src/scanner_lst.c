@@ -91,13 +91,20 @@ void lst_del(t_prod **lst, t_prod **product)
   return ;
 }
 
-void lst_clear(t_prod **lst)
+void lst_clear()
 {
-  while (lst)
-  {
+	t_prod *tmp;
 
-    *lst = (*lst)->next;
+	if (!begin)
+		return ;
+  while (begin)
+  {
+    tmp = begin->next;
+		free_product(begin);
+		free(begin);
+		begin = tmp;
   }
+	begin = NULL;
 }
 
 //////FONCTION DE VERIFICATION /////////////

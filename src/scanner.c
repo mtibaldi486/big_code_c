@@ -111,18 +111,6 @@ t_prod *get_product_info(char *id, t_prod *product)
   return (product);
 }
 
-void   free_product(t_prod *product)
-{
-  if (product->id_product)
-    free(product->id_product);
-  if (product->name)
-    free(product->name);
-  if (product->brand)
-    free(product->brand);
-  if (product->quantity)
-    free(product->quantity);
-}
-
 int check_necessary(char * name)
 {
   int i = 0;
@@ -162,4 +150,33 @@ int check_necessary(char * name)
   mysql_free_result(result);
   mysql_close(con);
   return 0;
+}
+
+void vider_list()
+{
+  lst_clear();
+}
+
+void   free_product(t_prod *product)
+{
+  if (product->id_product)
+  {
+    free(product->id_product);
+    product->id_product = NULL;
+  }
+  if (product->name)
+  {
+    free(product->name);
+    product->name = NULL;
+  }
+  if (product->brand)
+  {
+    free(product->brand);
+    product->brand = NULL;
+  }
+  if (product->quantity)
+  {
+    free(product->quantity);
+    product->quantity = NULL;
+  }
 }

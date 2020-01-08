@@ -82,6 +82,7 @@ int           get_id_product();
 int           check_necessary(char * name);
 t_prod        *check_product(t_prod **product);
 t_prod        *get_product_info(char *id, t_prod *product);
+void          vider_list();
 void          free_product(t_prod *product);
 
 /****************************************************************************/
@@ -101,7 +102,7 @@ int           call_api(FILE *pf, char *path);
 char          *make_path(char *id);
 
 /****************************************************************************/
-/*                             LST_PROD_C                                   */
+/*                             SCANNER_LST_C                                */
 /****************************************************************************/
 void	        ft_lstadd_back(t_prod **alst, t_prod *new);
 t_prod      	*ft_lstnew_prod(char *id);
@@ -109,6 +110,7 @@ void          display_lst_prod(t_prod *lst);
 void	        lst_inc_index(t_prod *lst);
 void	        lst_dec_index(t_prod *lst);
 void          lst_del(t_prod **begin, t_prod **product);
+void          lst_clear();
 
 /****************************************************************************/
 /*                             UTILS_C                                      */
@@ -149,8 +151,8 @@ GtkWidget     *display_ingredient(char **str_display);
 void          display_counter(const gchar *info, t_data *data, int indice);
 void          inc_entry(GtkWidget *button, gpointer *data_receive);
 void          dec_entry(GtkWidget *button, gpointer *data_receive);
-void          nothing(GtkEntry *entry);
 void          substract_quantity(GtkButton *button);
+void          nothing();
 
 /****************************************************************************/
 /*                               ADD_PRODUCT.C                              */
@@ -162,14 +164,17 @@ void          request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL
 void          request_contenant(t_prod *tmp, char * date, char * id_ing, MYSQL * con);
 void          free_add_product(MYSQL_RES *result, char *res_per, char *date);
 void          make_query(t_prod *tmp, char * date, char * per, char * id_ing, MYSQL *con);
-//COCKTAIL_MARK_C
+
+/****************************************************************************/
+/*                               COCKTAIL_MARK_C                            */
+/****************************************************************************/
 void          display_mark(const gchar *mark, char *id);
 void          mark_up(GtkButton *button, gpointer *data);
 void          mark_down(GtkButton *button, gpointer *data);
 void          update_mark(char *mark, char *id);
 
 /****************************************************************************/
-/*                               FORM.C                                 */
+/*                               FORM.C                                     */
 /****************************************************************************/
 char          *lowercase(char * string);
 char          *delete_space(char * string);
