@@ -52,11 +52,11 @@ char * get_date(char * date)
   int day, month, year;
   time_t t = time(NULL);
   struct tm tm = *localtime(&t);
+
   day = tm.tm_mday;
   month = tm.tm_mon + 1;
   year = tm.tm_year + 1900;
   sprintf(date,"%d-%d-%d", day, month, year);
-
   return date;
 }
 
@@ -67,8 +67,8 @@ char * get_peremption(char * date, char * tmp)
   char dayc[3], monthc[3], yearc[5];
   char month30 []= "04,06,09,11";
   char month31 []= "01,03,05,07,08,10,12";
-  sscanf(tmp, "%d", &final);
 
+  sscanf(tmp, "%d", &final);
   sscanf(date,"%d-%d-%d", &day, &month, &year);
   if (final == 0){
     strcpy(date, "NULL");
@@ -120,10 +120,8 @@ int verify_peremption(char * date, char * peremption)
 
     if( strstr(peremption, "NULL") || peremption[0] == '\0')
       return 0;
-
     sscanf(date,"%d-%d-%d", &dayn, &monthn, &yearn);
     sscanf(peremption,"%d-%d-%d", &daye, &monthe, &yeare);
-
     if(yearn > yeare)
       return 1;
     if(monthn > monthe)
@@ -143,13 +141,11 @@ void delete_stock(char * id, MYSQL * con)
   {
     finish_with_error(con);
   }
-
   sprintf(request, "DELETE FROM stock WHERE id = '%s'", id);
   if(mysql_query(con, request))
   {
     finish_with_error(con);
   }
-
   return ;
 }
 
@@ -161,7 +157,6 @@ void adjust_stock()
     MYSQL * con = NULL;
     MYSQL_RES * result = NULL;
     int i = 0;
-
 
     date = malloc(sizeof(char) * 15);
     if (!(con = connection_bdd(con)))
@@ -180,7 +175,6 @@ void adjust_stock()
     }
     if (!(res = format_res(result)))
       return ;
-
     while( res[i] ){
       res_split = ft_split(res[i], ';');
       if( verify_peremption( date , res_split[5]) == 1){
@@ -188,7 +182,10 @@ void adjust_stock()
       }
       i++;
     }
-
+    free(date);
+    free_res(res, 100);
+    free_res(res_split, 10);
     mysql_free_result(result);
+    mysql_close(con);
     return ;
 }

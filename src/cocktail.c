@@ -5,13 +5,11 @@ void load_cocktail_page(const gchar *info)
   char          id[3];
 
   mt_strccpy(id, (char *)info, ';');
-
   display_name(info);
   display_mark(strchr((strrchr(info, ';') - 4), ';') + 1, id);
   display_picture(info);
   display_elem(info, 0);
   gtk_widget_show_all(page->window);
-
   return ;
 }
 
@@ -59,7 +57,6 @@ char **format_ingredient(const gchar *info, int nb)
     i++;
   }
   str_display[i] = 0;
-
   free_res(array_cocktail, 30);
   free_res(array_necessaire, 30);
   free_res(array_ingredient, 30);
@@ -81,7 +78,6 @@ char  *ajust_ingredient(char *array_necessaire, int nb, char *ref)
   sprintf(buffer, "%s", strchr(strchr(strchr(tmp, ';') + 1, ';') + 1, ' '));
   quantity_ref = atof(strchr(strchr(tmp, ';') + 1, ';') + 1);
   nb_ref = atof(ref);
-
   new_quantity = (double)nb * (quantity_ref / nb_ref);
   if (new_quantity <= 0)
     new_quantity = 0;
@@ -109,13 +105,10 @@ char  **get_necessaire(char **array_cocktail)
   sprintf(request, "SELECT * FROM necessaire WHERE id_cocktail = %s", array_cocktail[0]);
   if (mysql_query(con, request))
       return (NULL);
-
   if (!(result = mysql_store_result(con)))
     return (NULL);
-
   if (!(res = format_res(result)))
       return (NULL);
-
   mysql_free_result(result);
   mysql_close(con);
   return (res);
@@ -145,13 +138,10 @@ char    **get_ingredient(char **array_necessaire)
   strcat(request, ")");
   if (mysql_query(con, request))
       return (NULL);
-
   if (!(result = mysql_store_result(con)))
     return (NULL);
-
   if (!(res = format_res(result)))
         return (NULL);
-
   mysql_free_result(result);
   mysql_close(con);
   return (res);

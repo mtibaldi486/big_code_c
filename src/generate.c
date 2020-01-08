@@ -19,7 +19,6 @@ char * get_id_ing(char * id_cocktail, MYSQL * con)
     mysql_free_result(result);
     return NULL;
   }
-
   while(res[i]){
       if(check_stock(res[i], con) != NULL){
         j++;
@@ -29,10 +28,12 @@ char * get_id_ing(char * id_cocktail, MYSQL * con)
         i++;
   }
   if(j != i){
+    free_res(res, 1);
     mysql_free_result(result);
     return NULL;
   }
   else{
+    free_res(res, 1);
     mysql_free_result(result);
     return id_cocktail;
   }
@@ -45,7 +46,6 @@ char * check_stock(char * id_ing, MYSQL * con)
   MYSQL_ROW row;
 
   sprintf(request,"SELECT id_stock FROM contenant WHERE id_ingredient = '%s'", id_ing);
-
   if(mysql_query(con, request))
     return NULL;
   if (!(result = mysql_store_result(con))){
@@ -60,7 +60,6 @@ char * check_stock(char * id_ing, MYSQL * con)
     mysql_free_result(result);
     return row[0];
   }
-
 }
 
 int verify_cocktail(MYSQL *con, char * res)
@@ -142,23 +141,26 @@ void generate_cocktail()
     finish_with_error(con);
     return ;
   }
-
-
   if (mysql_query(con, "SELECT * FROM cocktails"))
       return ;
-  if (!(result = mysql_store_result(con)))
+  if (!(result = mysql_store_result(con))){
+    mysql_free_result(result);
     return ;
-  if (!(res = format_res(result)))
+  }
+  if (!(res = format_res(result))){
+      mysql_free_result(result);
       return ;
-
+  }
   while(res[i]){
     res_split = ft_split(res[i], ';');
     if (verify_cocktail(con, res_split[0]) == 1){
       generate_cocktail_box(res[i]);
     }
-
     i++;
   }
+  free_res(res, 100);
+  free_res(res_split, 10);
   mysql_free_result(result);
+  mysql_close(con);
   return ;
 }

@@ -49,6 +49,7 @@ int insert_bdd(t_prod *tmp)
   free_res(res, 500);
   free_res(res_split, 15);
   mysql_free_result(result);
+  mysql_close(con);
   return 0;
 }
 
@@ -188,4 +189,5 @@ void free_add_product(MYSQL_RES *result, char *res_per, char *date)
     mysql_free_result(result);
   free(res_per);
   free(date);
+  return ;
 }

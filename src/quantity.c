@@ -54,7 +54,7 @@ char * uniform_unit(char * quantity)
     ;
   }
   else if( (pt = strstr(unity, "l"))){
-    if(*pt++ == ' ' || *pt++ == '\0'){
+    if(*(pt+1) == ' ' || *(pt+1) == '\0'){
       nbquantity *= 100;
       sprintf(quantity, "%.2lf%s", nbquantity, liquidunity);
     }
