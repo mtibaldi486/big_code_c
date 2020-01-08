@@ -6,34 +6,48 @@ const gchar *load_conf(void)
   int     ret;
   char    buff[1024];
 
-  if ((fd = open("conf.con" , O_RDONLY)) == -1)
+  if (!(fd = open("conf.con" , O_RDONLY)))
+  {
+
     return (NULL);
+  }
+
+
+  while (fgets)
 
   return (NULL);
 }
 
+int   len;
+char  *str;
+char  buff[20];
+
+len = strchr(strchr(str, ' ') + 1, ' ') - str;
+memcpy((void *)buff, (void *)str, len);
+buff[len] = '\0';
+
 
 int   main(int ac, char **av)
 {
-    printf("begin = %p\n", begin);
     gtk_init(&ac, &av);
     if(!(page = malloc(sizeof(t_page))))
       return (0);
 
     builder = gtk_builder_new_from_file("gladeproject.glade");
-      page->window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));
-      g_signal_connect(page->window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
+    page->window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));
+    g_signal_connect(page->window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
     gtk_builder_connect_signals(builder, NULL);
 
-  /*  page->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  /*page->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     page->fixed = gtk_fixed_new();
-    page->image = gtk_image_new_from_file(load_conf());
-    g_signal_connect(page->window, "destroy", G_CALLBACK(gtk_main_quit), NULL);*/
+    page->img = gtk_image_new_from_file("img/background/red_home.png");
+    g_signal_connect(page->window, "destroy", G_CALLBACK(gtk_main_quit), NULL); */
 
     page->home_page = GTK_WIDGET(gtk_builder_get_object(builder, "home_page"));
     gtk_container_add(GTK_CONTAINER(page->window), GTK_WIDGET(page->home_page));
+
     gtk_widget_show(page->window);
-    adjust_stock();
+//    adjust_stock();
 
     gtk_main();
     /*

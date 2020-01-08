@@ -58,7 +58,6 @@ int     display_elem(const gchar *info, int nb)
   gtk_widget_show_all(page->window);
   display_counter(info, data, nb);
 
-
   free(str_display);
   return 1;
 }
@@ -174,7 +173,6 @@ void  dec_entry(GtkWidget *button, gpointer *data_receive)
   res = atoi(nb) - 1;
   if (res <= 0)
     return ;
-
   gtk_widget_destroy(data->fixed);
   gtk_entry_set_text(GTK_ENTRY(data->entry), ft_itoa(res));
   display_elem(info, res);
@@ -232,6 +230,5 @@ char * find_ingredient(char * string)
 
 void nothing(GtkEntry *entry)
 {
-  (void *)entry;
   return ;
 }
