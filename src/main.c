@@ -1,6 +1,6 @@
 #include "../inc/cool.h"
 
-const gchar *load_conf(void)
+/*const gchar *load_conf(void)
 {
   int     fd;
   int     ret;
@@ -25,7 +25,7 @@ char  buff[20];
 len = strchr(strchr(str, ' ') + 1, ' ') - str;
 memcpy((void *)buff, (void *)str, len);
 buff[len] = '\0';
-
+*/
 
 int   main(int ac, char **av)
 {

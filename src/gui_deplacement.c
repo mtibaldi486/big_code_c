@@ -64,6 +64,10 @@ void goto_scanner(void)
 
 void goto_form(void)
 {
+  gtk_container_remove(GTK_CONTAINER(page->window), page->ressource_page);
+  page->form_page = GTK_WIDGET(gtk_builder_get_object(builder, "form_page"));
+  gtk_container_add(GTK_CONTAINER(page->window), page->form_page);
+  gtk_widget_show_all(page->window);
   return ;
 }
 /****************************************************************************/
@@ -74,6 +78,15 @@ void generate_to_menu(void)
   gtk_container_remove(GTK_CONTAINER(page->window), page->generate_page);
   //page->menu_page = GTK_WIDGET(gtk_builder_get_object(builder, "menu_page"));
   gtk_container_add(GTK_CONTAINER(page->window), page->menu_page);
+  gtk_widget_show_all(page->window);
+  return ;
+}
+
+void form_to_ressource(void)
+{
+  gtk_container_remove(GTK_CONTAINER(page->window), page->form_page);
+  //page->menu_page = GTK_WIDGET(gtk_builder_get_object(builder, "menu_page"));
+  gtk_container_add(GTK_CONTAINER(page->window), page->ressource_page);
   gtk_widget_show_all(page->window);
   return ;
 }
@@ -101,6 +114,7 @@ void scanner_to_ressource(void)
   gtk_container_remove(GTK_CONTAINER(page->window), page->scanner_page);
   //page->ressource_page = GTK_WIDGET(gtk_builder_get_object(builder, "ressource_page"));
   gtk_container_add(GTK_CONTAINER(page->window), page->ressource_page);
+
   gtk_widget_show_all(page->window);
   select_ingredient();
   return ;
@@ -125,6 +139,7 @@ void cocktail_to_generate(void)
   gtk_widget_show_all(page->window);
   return ;
 }
+
 
 /****************************************************************************/
 /*                Function of:DYNAMIC BUTTON                                */
