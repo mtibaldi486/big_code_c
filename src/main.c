@@ -13,8 +13,6 @@
   }
 
 
-  while (fgets)
-
   return (NULL);
 }
 

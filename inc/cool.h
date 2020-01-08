@@ -156,6 +156,7 @@ void          dec_entry(GtkWidget *button, gpointer *data_receive);
 void          substract_quantity(GtkButton *button);
 char          *find_ingredient(char * string);
 char          *find_quantity(char * string);
+void          nothing();
 
 /****************************************************************************/
 /*                               ADD_PRODUCT.C                              */
