@@ -35,8 +35,14 @@ int get_contenant(char * ing)
     mysql_close(con);
     return 0;
   }
-
+  else{
+  printf("PLUS DE PRODUIT\n");
+  mysql_free_result(result);
+  free_res(res, 1);
+  free_res(ing_split, 2);
+  mysql_close(con);
   return 0;
+}
 
 }
 
@@ -61,7 +67,6 @@ int use_quantity(char ** res, MYSQL * con, double quantity_needed)
       return 0;
     }
     if(!(row = mysql_fetch_row(result))){
-      printf("PLUS DE PRODUIT\n");
       mysql_free_result(result);
       return 0;
     }
@@ -84,6 +89,7 @@ int use_quantity(char ** res, MYSQL * con, double quantity_needed)
       return 1;
     }
   }
+  return 1;
 }
 
 void update_stock(char * id, MYSQL * con, double new_quantity, char * unity)
