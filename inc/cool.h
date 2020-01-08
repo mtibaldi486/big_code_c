@@ -154,6 +154,7 @@ void          dec_entry(GtkWidget *button, gpointer *data_receive);
 void          substract_quantity(GtkButton *button);
 char          *find_ingredient(char * string);
 char          *find_quantity(char * string);
+void          nothing();
 
 /****************************************************************************/
 /*                               ADD_PRODUCT.C                              */
@@ -216,7 +217,7 @@ void          del_inventory_page();
 
 int           get_contenant(char * ing);
 int           use_quantity(char ** res, MYSQL * con, double quantity_needed);
-//void          destroy_stock(char * id, MYSQL * con);
+//void        destroy_stock(char * id, MYSQL * con);
 void          update_stock(char * id, MYSQL * con, double new_quantity, char * unity);
 
 #endif

@@ -228,7 +228,7 @@ char * find_ingredient(char * string)
   return NULL;
 }
 
-void nothing(GtkEntry *entry)
+void nothing()
 {
   return ;
 }
