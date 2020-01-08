@@ -197,9 +197,6 @@ void substract_quantity(GtkButton *button)
   return ;
 }
 
-<<<<<<< HEAD
-void nothing()
-=======
 char * find_ingredient(char * string)
 {
   MYSQL *con = NULL;
@@ -232,7 +229,6 @@ char * find_ingredient(char * string)
 }
 
 void nothing(GtkEntry *entry)
->>>>>>> 90173c687be575ff04a85d4891008f17f835bc0f
 {
   return ;
 }
