@@ -13,18 +13,6 @@ char * lowercase(char * string)
   return string;
 }
 
-char * delete_space(char * string)
-{
-  if( string == NULL)
-    return NULL;
-
-  while(strchr(string, ' ')){
-    if((strchr(string, ' ') + 1) != '\0')
-      strcpy(strchr(string, ' '), strchr(string, ' ') + 1);
-  }
-   return string;
-}
-
 char * put_backslash(char * string)
 {
   int i = 0;

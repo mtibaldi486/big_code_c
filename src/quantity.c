@@ -43,7 +43,6 @@ char * uniform_unit(char * quantity)
   char   solidunity[] = "g";
 
   lowercase(quantity);
-  delete_space(quantity);
   nbquantity=strtod(quantity, &unity);
 
   if(strstr(unity, "ml") != NULL){
