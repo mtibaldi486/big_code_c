@@ -72,9 +72,11 @@ GtkWidget *display_ingredient(char **str_display)
   GtkWidget   *button;
   int         y;
   int         i;
+  int         j;
 
   i = 0;
   y = 0;
+  j = 0;
   fixed = gtk_fixed_new();
   gtk_fixed_put(GTK_FIXED(page->cocktail_page), fixed, 500, 250);
   while (str_display[i])

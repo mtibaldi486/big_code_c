@@ -9,7 +9,10 @@ void substract_quantity(GtkButton *button)
   res = gtk_widget_get_name(GTK_WIDGET(button));
   res_split = ft_split(res, ';');
   while(res_split[i]){
+    printf("ON REVIENT\n");
     if (!(find_ingredient(res_split[i])))
+      return ;
+    if( (find_ingredient(res_split[i])) == NULL )
       return ;
     printf("RESULT SPLIT : %s\n", res_split[i]);
     get_contenant(res_split[i]);
@@ -46,6 +49,9 @@ int get_contenant(char * ing)
 
   printf("RES : %s\n", res[0]);
 
+  if( res[0] == NULL)
+    return 0;
+
   if(use_quantity(res, con, quantity) == 1){
     printf("ON A LE PRODUIT\n");
     /*free_res(res, 1);
@@ -76,11 +82,11 @@ char * find_ingredient(char * string)
   strcpy(buff, string);
   con = connection_bdd(con);
   if (mysql_query(con, "SELECT id,nom FROM ingredient"))
-    return 0;
+    return NULL;
   if (!(result = mysql_store_result(con)))
-    return 0;
+    return NULL;
   if (!(res = format_res(result)))
-    return 0;
+    return NULL;
   while(res[i]){
     res_split = ft_split(res[i], ';');
     if(strstr(string, res_split[1]) != NULL){
@@ -89,6 +95,7 @@ char * find_ingredient(char * string)
       free_res(res_split, 2);
       mysql_free_result(result);
       mysql_close(con);
+      printf("%s\n", string);
       return string;
     }
     i++;
