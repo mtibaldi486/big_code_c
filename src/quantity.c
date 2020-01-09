@@ -10,7 +10,9 @@ char * total_quantity(char *quantity, int nb)
   nbquantite=strtod(quantite, &unity);
   if(*unity != 0){
     nbquantite *= nb;
-    sprintf(quantity, "%.2lf %s", nbquantite, unity);
+    free(quantity);
+    quantity = malloc(sizeof(char) * 30);
+    sprintf(quantity, "%.2lf%s", nbquantite, unity);
   }
   else{
     nbquantite *= nb;
@@ -29,6 +31,8 @@ char *final_quantity(char * quantity, char * quantity_bdd)
   sscanf(quantity, "%lf%s", &quantite, unit);
   sscanf(quantity_bdd, "%lf", &quantite_bdd);
   quantite += quantite_bdd;
+  free(quantity);
+  quantity = malloc(sizeof(char) * 30);
   sprintf(quantity, "%.2lf%s", quantite, unit);
   uniform_unit(quantity);
   return quantity;
