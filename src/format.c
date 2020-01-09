@@ -110,6 +110,8 @@ int verify_peremption(char * date, char * peremption)
     int dayn, monthn, yearn;
     int daye, monthe, yeare;
 
+    if (peremption == NULL)
+      return (0);
     if( strstr(peremption, "NULL") || peremption[0] == '\0')
       return 0;
     sscanf(date,"%d-%d-%d", &dayn, &monthn, &yearn);

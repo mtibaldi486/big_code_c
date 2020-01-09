@@ -15,10 +15,6 @@ int confirm_form()
   product.brand = (char *)gtk_entry_get_text(GTK_ENTRY(input_brand));
   product.quantity = (char *)gtk_entry_get_text(GTK_ENTRY(input_quantity));
   product.nb = 1;
-
-
-
-
   if(!(check_necessary(product.name)))
   {
     display_reset(input_name, input_brand, input_quantity);
