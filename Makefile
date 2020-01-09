@@ -9,7 +9,7 @@ INC = inc/cool.h
 CFLAGS = -Wall -Wextra -c -g
 ##GTKLIB
 GTKLIB = `pkg-config --cflags --libs gtk+-3.0`
-LDFLAGS = $(PTHREAD) $(GTKLIB) -export-dynamic -fsanitize=address
+LDFLAGS = $(PTHREAD) $(GTKLIB) -export-dynamic
 ##MYSQL
 LDFLAGS += `mysql_config --cflags --libs`
 CFLAGS += `mysql_config --cflags --libs`

@@ -8,13 +8,10 @@ void display_picture(const gchar *info)
 
   if (!(array_cocktail = ft_split(info, ';')))
     return ;
-
   pic_cocktail = gtk_image_new_from_file(array_cocktail[3] + 3);
   pic_recipe = gtk_image_new_from_file(array_cocktail[4] + 3);
-
   gtk_fixed_put(GTK_FIXED(page->cocktail_page), pic_cocktail, 980, 100);
   gtk_fixed_put(GTK_FIXED(page->cocktail_page), pic_recipe, 135, 200);
-
   free_res(array_cocktail, 30);
 }
 
@@ -72,11 +69,9 @@ GtkWidget *display_ingredient(char **str_display)
   GtkWidget   *button;
   int         y;
   int         i;
-  int         j;
 
   i = 0;
   y = 0;
-  j = 0;
   fixed = gtk_fixed_new();
   gtk_fixed_put(GTK_FIXED(page->cocktail_page), fixed, 500, 250);
   while (str_display[i])
