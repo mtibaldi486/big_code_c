@@ -15,7 +15,7 @@ char *strjoin(char *s1, char *s2, int f)
 	j = 0;
 	len1 = strlen((char *)s1);
 	len2 = strlen((char *)s2);
-	if (!(newstr = (char *)malloc(sizeof(char) * (len1 + len2 + 1))))
+	if (!(newstr = (char *)malloc(sizeof(char) * (len1 + len2 + 30))))
 		return (0);
 	while (i < len1)
 	{

@@ -41,7 +41,6 @@ int    get_id_product()
 
   add_box_product(product);
   display_ok(input_idproduct);
-  free(id);
   return (0);
 }
 
@@ -170,7 +169,6 @@ void empty_list()
         gtk_widget_destroy(children->data);
         children = g_list_next(children);
     }
-
     g_list_free(children);
 }
 
