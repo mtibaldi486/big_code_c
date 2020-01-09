@@ -32,7 +32,7 @@ char *final_quantity(t_prod *tmp, char *quantity_bdd)
   sscanf(tmp->quantity, "%lf%s", &quantite, unit);
   sscanf(quantity_bdd, "%lf", &quantite_bdd);
   quantite += quantite_bdd;
-  if (!(tmp->quantity = malloc(sizeof(char) * 30)))
+  if (!(new = malloc(sizeof(char) * 30)))
     return (NULL);
   sprintf(new, "%.2lf%s", quantite, unit);
   tmp->quantity = new;
