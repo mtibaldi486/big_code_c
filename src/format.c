@@ -15,9 +15,13 @@ char * lowercase(char * string)
 
 char * delete_space(char * string)
 {
-    while(strchr(string, ' ')){
+  if( string == NULL)
+    return NULL;
+
+  while(strchr(string, ' ')){
+    if((strchr(string, ' ') + 1) != '\0')
       strcpy(strchr(string, ' '), strchr(string, ' ') + 1);
-    }
+  }
    return string;
 }
 
