@@ -14,12 +14,12 @@
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
     <child>
-      <object class="GtkImage">
+      <object class="GtkImage" id="screen_img0">
         <property name="width_request">100</property>
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="pixbuf">img/background/red_screen.png</property>
+			<property name="pixbuf">img/background/yellow_screen.png</property>
       </object>
     </child>
     <child>
@@ -145,12 +145,12 @@ il n'est donc pas ajouté à notre base.</property>
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkImage" id="screen_img0">
+      <object class="GtkImage" id="screen_img1">
         <property name="width_request">100</property>
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-			<property name="pixbuf">img/background/green_screen.png</property>
+			<property name="pixbuf">img/background/yellow_screen.png</property>
       </object>
     </child>
     <child>
@@ -208,10 +208,10 @@ il n'est donc pas ajouté à notre base.</property>
         <signal name="activate" handler="go_to_menu" swapped="no"/>
         <signal name="clicked" handler="go_to_menu" swapped="no"/>
         <child>
-          <object class="GtkImage" id="home_img">
+          <object class="GtkImage" id="home_img2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-			<property name="pixbuf">img/background/green_home.png</property>
+			<property name="pixbuf">img/background/yellow_home.png</property>
           </object>
         </child>
       </object>
@@ -223,12 +223,12 @@ il n'est donc pas ajouté à notre base.</property>
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkImage" id="screen_img1">
+      <object class="GtkImage" id="screen_img2">
         <property name="width_request">100</property>
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-			<property name="pixbuf">img/background/green_screen.png</property>
+			<property name="pixbuf">img/background/yellow_screen.png</property>
       </object>
     </child>
     <child>
@@ -281,12 +281,12 @@ il n'est donc pas ajouté à notre base.</property>
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkImage" id="screen_img2">
+      <object class="GtkImage" id="screen_img3">
         <property name="width_request">100</property>
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-			<property name="pixbuf">img/background/green_screen.png</property>
+			<property name="pixbuf">img/background/yellow_screen.png</property>
       </object>
     </child>
     <child>
@@ -494,12 +494,12 @@ il n'est donc pas ajouté à notre base.</property>
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkImage" id="screen_img3">
+      <object class="GtkImage" id="screen_img4">
         <property name="width_request">100</property>
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-			<property name="pixbuf">img/background/green_screen.png</property>
+			<property name="pixbuf">img/background/yellow_screen.png</property>
       </object>
     </child>
     <child>
@@ -612,7 +612,7 @@ il n'est donc pas ajouté à notre base.</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
-        <signal name="clicked" handler="vider_list" swapped="no"/>
+        <signal name="clicked" handler="empty_list" swapped="no"/>
       </object>
       <packing>
         <property name="x">502</property>
@@ -705,12 +705,12 @@ il n'est donc pas ajouté à notre base.</property>
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkImage" id="screen_img4">
+      <object class="GtkImage" id="screen_img5">
         <property name="width_request">100</property>
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-			<property name="pixbuf">img/background/green_screen.png</property>
+			<property name="pixbuf">img/background/yellow_screen.png</property>
       </object>
     </child>
     <child>

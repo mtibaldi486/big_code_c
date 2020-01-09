@@ -131,15 +131,6 @@ const gchar *load_conf(void)
   return ("red");
 }
 
-int   len;
-char  *str;
-char  buff[20];
-
-len = strchr(strchr(str, ' ') + 1, ' ') - str;
-memcpy((void *)buff, (void *)str, len);
-buff[len] = '\0';
-*/
-
 int   main(int ac, char **av)
 {
     gtk_init(&ac, &av);
