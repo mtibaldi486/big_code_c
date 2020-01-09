@@ -193,7 +193,7 @@ void          adjust_stock();
 /*                               QUANTITY.C                               */
 /****************************************************************************/
 char          *total_quantity(char * quantity, int nb);
-char          *final_quantity(char * quantity, char * quantity_bdd);
+char          *final_quantity(t_prod *tmp, char *quantity_bdd);
 char          *uniform_unit(char * quantity);
 
 /****************************************************************************/

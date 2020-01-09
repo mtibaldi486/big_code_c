@@ -22,20 +22,22 @@ char * total_quantity(char *quantity, int nb)
   return quantity;
 }
 
-char *final_quantity(char * quantity, char * quantity_bdd)
+char *final_quantity(t_prod *tmp, char *quantity_bdd)
 {
   double quantite;
   double quantite_bdd;
-  char unit [10];
+  char   unit[10];
+  char  *new;
 
-  sscanf(quantity, "%lf%s", &quantite, unit);
+  sscanf(tmp->quantity, "%lf%s", &quantite, unit);
   sscanf(quantity_bdd, "%lf", &quantite_bdd);
   quantite += quantite_bdd;
-  free(quantity);
-  quantity = malloc(sizeof(char) * 30);
-  sprintf(quantity, "%.2lf%s", quantite, unit);
-  uniform_unit(quantity);
-  return quantity;
+  if (!(tmp->quantity = malloc(sizeof(char) * 30)))
+    return (NULL);
+  sprintf(new, "%.2lf%s", quantite, unit);
+  tmp->quantity = new;
+  uniform_unit(tmp->quantity);
+  return tmp->quantity;
 }
 
 char * uniform_unit(char * quantity)

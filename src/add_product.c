@@ -49,7 +49,6 @@ int insert_bdd(t_prod *tmp)
     }
     i++;
   }
-
   free_res(res, 500);
   free_res(res_split, 15);
   mysql_free_result(result);
@@ -81,7 +80,7 @@ int check_date_per (t_prod * tmp, MYSQL * con)
 
 
   if( strstr(row[1], "NULL") ){
-    final_quantity(tmp->quantity, row[2]);
+    final_quantity(tmp, row[2]);
     sprintf(request, "UPDATE stock SET quantite = '%s' WHERE id = '%s'", tmp->quantity, row[0]);
     mysql_query(con, request);
     mysql_free_result(result);
@@ -91,6 +90,32 @@ int check_date_per (t_prod * tmp, MYSQL * con)
       mysql_free_result(result);
       return 0;
   }
+}
+
+void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
+{
+  char * date;
+  char * res_per;
+
+  date = malloc(sizeof(char) * 15);
+  res_per = malloc(sizeof(char) * 15);
+  get_date(date);
+  if( peremption[0] == '\0')
+    res_per[0] = '\0';
+  else
+    get_peremption(strcpy(res_per, date), peremption);
+
+  uniform_unit(tmp->quantity);
+  total_quantity(tmp->quantity, tmp->nb);
+  tmp->name = put_backslash(tmp->name);
+  tmp->brand = put_backslash(tmp->brand);
+
+  if( check_date_per( tmp, con ) == 0){
+    make_query(tmp, date, res_per, id_ing, con);
+  }
+  free(date);
+  free(res_per);
+  return ;
 }
 
 void make_query(t_prod *tmp, char * date, char * per, char * id_ing, MYSQL *con)
@@ -122,40 +147,14 @@ void make_query(t_prod *tmp, char * date, char * per, char * id_ing, MYSQL *con)
   }
   else
   {
-    final_quantity(tmp->quantity, row[1]);
+    final_quantity(tmp, row[1]);
     sprintf(request, "UPDATE stock SET quantite = '%s' WHERE id = '%s'", tmp->quantity,row[0]);
     if(mysql_query(con, request))
       finish_with_error(con);
     free_add_product(result, per, date);
     return ;
   }
-
-}
-void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
-{
-  char * date;
-  char * res_per;
-
-  date = malloc(sizeof(char) * 15);
-  res_per = malloc(sizeof(char) * 15);
-  get_date(date);
-  if( peremption[0] == '\0')
-    res_per[0] = '\0';
-  else
-    get_peremption(strcpy(res_per, date), peremption);
-
-  uniform_unit(tmp->quantity);
-  total_quantity(tmp->quantity, tmp->nb);
-  tmp->name = put_backslash(tmp->name);
-  tmp->brand = put_backslash(tmp->brand);
-
-  if( check_date_per( tmp, con ) == 0){
-    make_query(tmp, date, res_per, id_ing, con);
-  }
-  free(date);
-  free(res_per);
-  return ;
-}
+} 
 
 void request_contenant(t_prod *tmp, char * date, char * id_ing, MYSQL * con)
 {
