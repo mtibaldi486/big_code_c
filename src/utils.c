@@ -161,7 +161,7 @@ static char		*split_word(char *str, int deb, int fin)
 
 	tmp = deb;
 	i = 0;
-	if (!(res = malloc(sizeof(char) * (fin - deb + 1))))
+	if (!(res = malloc(sizeof(char) * (fin - deb + 30))))
 		return (0);
 	while (i < fin - deb)
 	{

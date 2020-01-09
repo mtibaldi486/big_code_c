@@ -1,5 +1,23 @@
 #include "../inc/cool.h"
 
+void substract_quantity(GtkButton *button)
+{
+  const gchar *res;
+  char ** res_split;
+  int i = 0;
+
+  res = gtk_widget_get_name(GTK_WIDGET(button));
+  res_split = ft_split(res, ';');
+  while(res_split[i]){
+    if (!(find_ingredient(res_split[i])))
+      return ;
+    printf("RESULT SPLIT : %s\n", res_split[i]);
+    get_contenant(res_split[i]);
+    i++;
+  }
+  return ;
+}
+
 int get_contenant(char * ing)
 {
   char request[255];
@@ -31,20 +49,51 @@ int get_contenant(char * ing)
   if(use_quantity(res, con, quantity) == 1){
     printf("ON A LE PRODUIT\n");
     /*free_res(res, 1);
-    free_res(ing_split, 2);
+    free_res(ing_split, 2);*/
     mysql_free_result(result);
-    mysql_close(con);*/
+    mysql_close(con);
     return 0;
   }
   else{
   printf("PLUS DE PRODUIT\n");
   /*free_res(res, 1);
-  free_res(ing_split, 2);
+  free_res(ing_split, 2);*/
   mysql_free_result(result);
-  mysql_close(con);*/
+  mysql_close(con);
   return 0;
+  }
 }
 
+char * find_ingredient(char * string)
+{
+  MYSQL *con = NULL;
+  MYSQL_RES *result;
+  int i = 0;
+  char ** res;
+  char ** res_split;
+  char    buff[20];
+
+  strcpy(buff, string);
+  con = connection_bdd(con);
+  if (mysql_query(con, "SELECT id,nom FROM ingredient"))
+    return 0;
+  if (!(result = mysql_store_result(con)))
+    return 0;
+  if (!(res = format_res(result)))
+    return 0;
+  while(res[i]){
+    res_split = ft_split(res[i], ';');
+    if(strstr(string, res_split[1]) != NULL){
+      sprintf(string, "%s;%s", buff, res_split[0]);
+      free_res(res, 50);
+      free_res(res_split, 2);
+      mysql_free_result(result);
+      mysql_close(con);
+      return string;
+    }
+    i++;
+  }
+  return NULL;
 }
 
 int use_quantity(char ** res, MYSQL * con, double quantity_needed)
@@ -59,7 +108,8 @@ int use_quantity(char ** res, MYSQL * con, double quantity_needed)
 
   while(quantity_needed > 0)
   {
-    res_split = ft_split(res[i], ';');
+    if(!(res_split = ft_split(res[i], ';')))
+      return 0;
     sprintf(request, "SELECT id,quantite FROM stock WHERE id = '%s'", res_split[0]);
     if (mysql_query(con, request))
       return 0;

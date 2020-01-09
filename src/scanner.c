@@ -38,7 +38,6 @@ int    get_id_product()
     display_error(input_idproduct);
     return (0);
   }
-
   add_box_product(product);
   display_ok(input_idproduct);
   return (0);
