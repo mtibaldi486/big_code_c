@@ -26,21 +26,22 @@ int get_contenant(char * ing)
   if (!(res = format_res(result)))
     return 0;
 
-  printf("%s\n", res[0]);
+  printf("RES : %s\n", res[0]);
 
   if(use_quantity(res, con, quantity) == 1){
-    mysql_free_result(result);
-    free_res(res, 1);
+    printf("ON A LE PRODUIT\n");
+    /*free_res(res, 1);
     free_res(ing_split, 2);
-    mysql_close(con);
+    mysql_free_result(result);
+    mysql_close(con);*/
     return 0;
   }
   else{
   printf("PLUS DE PRODUIT\n");
-  mysql_free_result(result);
-  free_res(res, 1);
+  /*free_res(res, 1);
   free_res(ing_split, 2);
-  mysql_close(con);
+  mysql_free_result(result);
+  mysql_close(con);*/
   return 0;
 }
 
@@ -78,14 +79,14 @@ int use_quantity(char ** res, MYSQL * con, double quantity_needed)
     }
     else if (quantity_needed < 0){
       update_stock(row[0], con, quantity_needed, unity);
-      mysql_free_result(result);
       free_res(res_split, 3);
+      mysql_free_result(result);
       return 1;
     }
     else if (quantity_needed == 0){
       update_stock(row[0], con, quantity_needed, unity);
-      mysql_free_result(result);
       free_res(res_split, 3);
+      mysql_free_result(result);
       return 1;
     }
   }

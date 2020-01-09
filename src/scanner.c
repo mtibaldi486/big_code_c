@@ -159,7 +159,19 @@ int check_necessary(char * name)
 
 void vider_list()
 {
+  GList         *children;
+  GtkListBox    *box;
+
+  box = GTK_LIST_BOX(gtk_builder_get_object(builder, "list_product_box"));
+  children = gtk_container_get_children(GTK_CONTAINER(box));
+
   lst_clear();
+    while (children) {
+        gtk_widget_destroy(children->data);
+        children = g_list_next(children);
+    }
+
+    g_list_free(children);
 }
 
 void   free_product(t_prod *product)
