@@ -44,7 +44,7 @@ char *parse_str(char *str, const char *handle)
         str = strchr(str + i, ':');
         add_del = strchr(str + 2, '"');
         del = (add_del - str) - 2;
-        if (!(new = calloc(1, (del + 1))))
+        if (!(new = calloc(1, (del + 30))))
           return (NULL);
         strncpy(new, str + 2, del);
         *(new + del) = 0;

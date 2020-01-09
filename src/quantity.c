@@ -27,15 +27,11 @@ char *final_quantity(t_prod *tmp, char *quantity_bdd)
   double quantite;
   double quantite_bdd;
   char   unit[10];
-  char  *new;
 
   sscanf(tmp->quantity, "%lf%s", &quantite, unit);
   sscanf(quantity_bdd, "%lf", &quantite_bdd);
   quantite += quantite_bdd;
-  if (!(new = malloc(sizeof(char) * 30)))
-    return (NULL);
-  sprintf(new, "%.2lf%s", quantite, unit);
-  tmp->quantity = new;
+  sprintf(tmp->quantity, "%.2lf%s", quantite, unit);
   uniform_unit(tmp->quantity);
   return tmp->quantity;
 }

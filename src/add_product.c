@@ -120,7 +120,7 @@ void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
 
 void make_query(t_prod *tmp, char * date, char * per, char * id_ing, MYSQL *con)
 {
-  char request[200];
+  char request[400];
   MYSQL_ROW row;
   MYSQL_RES *result;
 
@@ -149,12 +149,13 @@ void make_query(t_prod *tmp, char * date, char * per, char * id_ing, MYSQL *con)
   {
     final_quantity(tmp, row[1]);
     sprintf(request, "UPDATE stock SET quantite = '%s' WHERE id = '%s'", tmp->quantity,row[0]);
+    //printf("new quant = '%s'\n", tmp->quantity);
     if(mysql_query(con, request))
       finish_with_error(con);
     free_add_product(result, per, date);
     return ;
   }
-} 
+}
 
 void request_contenant(t_prod *tmp, char * date, char * id_ing, MYSQL * con)
 {
