@@ -6,13 +6,13 @@ int add_product()
     return 0;
 
   t_prod *tmp = begin;
-
+  printf("add1 = %p", begin);
   while(tmp)
   {
     insert_bdd(tmp);
     tmp = tmp->next;
   }
-
+  printf("add2 = %p", begin);
   empty_list();
   return 0;
 }
@@ -56,6 +56,32 @@ int insert_bdd(t_prod *tmp)
   return 0;
 }
 
+void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
+{
+  char * date;
+  char * res_per;
+
+  date = malloc(sizeof(char) * 15);
+  res_per = malloc(sizeof(char) * 15);
+  get_date(date);
+  if( peremption[0] == '\0')
+    res_per[0] = '\0';
+  else
+    get_peremption(strcpy(res_per, date), peremption);
+
+  uniform_unit(tmp->quantity);
+  total_quantity(tmp->quantity, tmp->nb);
+  tmp->name = put_backslash(tmp->name);
+  tmp->brand = put_backslash(tmp->brand);
+
+  if( check_date_per( tmp, con ) == 0){
+    make_query(tmp, date, res_per, id_ing, con);
+  }
+  free(date);
+  free(res_per);
+  return ;
+}
+
 int check_date_per (t_prod * tmp, MYSQL * con)
 {
   char request[200];
@@ -92,35 +118,9 @@ int check_date_per (t_prod * tmp, MYSQL * con)
   }
 }
 
-void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
-{
-  char * date;
-  char * res_per;
-
-  date = malloc(sizeof(char) * 15);
-  res_per = malloc(sizeof(char) * 15);
-  get_date(date);
-  if( peremption[0] == '\0')
-    res_per[0] = '\0';
-  else
-    get_peremption(strcpy(res_per, date), peremption);
-
-  uniform_unit(tmp->quantity);
-  total_quantity(tmp->quantity, tmp->nb);
-  tmp->name = put_backslash(tmp->name);
-  tmp->brand = put_backslash(tmp->brand);
-
-  if( check_date_per( tmp, con ) == 0){
-    make_query(tmp, date, res_per, id_ing, con);
-  }
-  free(date);
-  free(res_per);
-  return ;
-}
-
 void make_query(t_prod *tmp, char * date, char * per, char * id_ing, MYSQL *con)
 {
-  char request[400];
+  char request[200];
   MYSQL_ROW row;
   MYSQL_RES *result;
 
@@ -149,7 +149,7 @@ void make_query(t_prod *tmp, char * date, char * per, char * id_ing, MYSQL *con)
   {
     final_quantity(tmp, row[1]);
     sprintf(request, "UPDATE stock SET quantite = '%s' WHERE id = '%s'", tmp->quantity,row[0]);
-    //printf("new quant = '%s'\n", tmp->quantity);
+    printf("new quant = '%s'\n", tmp->quantity);
     if(mysql_query(con, request))
       finish_with_error(con);
     free_add_product(result, per, date);

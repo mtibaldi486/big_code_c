@@ -10,8 +10,6 @@ char * total_quantity(char *quantity, int nb)
   nbquantite=strtod(quantite, &unity);
   if(*unity != 0){
     nbquantite *= nb;
-    free(quantity);
-    quantity = malloc(sizeof(char) * 30);
     sprintf(quantity, "%.2lf%s", nbquantite, unity);
   }
   else{
