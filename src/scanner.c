@@ -16,6 +16,7 @@ int    get_id_product()
   id = (char *)gtk_entry_get_text(GTK_ENTRY(input_idproduct));
   if (!(product = ft_lstnew_prod(id)))
     return (0);
+  display_lst_prod(begin);
   if ((lstprod = check_product(&product)))
   {
     free(product->id_product);
@@ -33,8 +34,7 @@ int    get_id_product()
   }
   else if(!(check_necessary(product->name)))
   {
-    free_product(product);
-    free(product);
+    lst_del(&begin, &product);
     display_error(input_idproduct);
     return (0);
   }
@@ -61,7 +61,7 @@ t_prod  *check_product(t_prod **product)
     tmp = begin;
     while (tmp)
     {
-      if (!strcmp(tmp->id_product, (*product)->id_product))
+      if (!(strcmp(tmp->id_product, (*product)->id_product)))
       {
         tmp->nb++;
         return (tmp);
