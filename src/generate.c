@@ -141,7 +141,7 @@ void generate_cocktail()
     finish_with_error(con);
     return ;
   }
-  if (mysql_query(con, "SELECT * FROM cocktails"))
+  if (mysql_query(con, "SELECT * FROM cocktails ORDER BY star ASC"))
       return ;
   if (!(result = mysql_store_result(con))){
     mysql_free_result(result);

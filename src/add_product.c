@@ -14,7 +14,6 @@ int add_product()
   }
 
   empty_list();
-
   return 0;
 }
 
@@ -43,6 +42,9 @@ int insert_bdd(t_prod *tmp)
   while(res[i]){
     res_split = ft_split(res[i], ';');
     if((strstr(lowercase(tmp->name), lowercase(res_split[1])))){
+      request_stock(tmp, res_split[0], res_split[2], con);
+    }
+    else if((strstr( lowercase(res_split[1]), lowercase(tmp->name)))){
       request_stock(tmp, res_split[0], res_split[2], con);
     }
     i++;
