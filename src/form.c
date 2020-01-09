@@ -17,19 +17,22 @@ int confirm_form()
   product.nb = 1;
 
 
+
+
   if(!(check_necessary(product.name)))
   {
     display_reset(input_name, input_brand, input_quantity);
     return 0;
   }
 
-  while( i < 10)
+  while( product.quantity[i])
   {
-    if ( (strchr(product.quantity, i)) != 0){
+    if ( product.quantity[i] >= '0' && product.quantity[i] <= '9'){
       insert_bdd(&product);
       display_confirm(input_name, input_brand, input_quantity);
       return 1;
     }
+    i++;
   }
 
   display_reset(input_name, input_brand, input_quantity);
@@ -43,7 +46,7 @@ void display_reset(GtkEntry *entry, GtkEntry *entry2, GtkEntry *entry3)
   page->form_page = GTK_WIDGET(gtk_builder_get_object(builder, "form_page"));
   lab_ok = GTK_WIDGET(gtk_builder_get_object(builder, "lab_possible"));
   gtk_widget_show_all(page->form_page);
-  gtk_widget_hide(lab_ok);
+  gtk_widget_set_visible(lab_ok, FALSE);
   gtk_entry_set_text(GTK_ENTRY(entry), "");
   gtk_entry_set_text(GTK_ENTRY(entry2), "");
   gtk_entry_set_text(GTK_ENTRY(entry3), "");
@@ -53,11 +56,11 @@ void display_confirm(GtkEntry *entry, GtkEntry *entry2, GtkEntry *entry3)
 {
   GtkWidget *lab_ko;
 
-  printf("CA RENTRE\n");
+
   page->form_page = GTK_WIDGET(gtk_builder_get_object(builder, "form_page"));
   lab_ko = GTK_WIDGET(gtk_builder_get_object(builder, "lab_impossible"));
   gtk_widget_show_all(page->form_page);
-  gtk_widget_hide(lab_ko);
+  gtk_widget_set_visible(lab_ko, FALSE);
   gtk_entry_set_text(GTK_ENTRY(entry), "");
   gtk_entry_set_text(GTK_ENTRY(entry2), "");
   gtk_entry_set_text(GTK_ENTRY(entry3), "");

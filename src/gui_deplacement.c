@@ -64,10 +64,17 @@ void goto_scanner(void)
 
 void goto_form(void)
 {
+  GtkWidget *lab_ok;
+  GtkWidget *lab_ko;
+
+  lab_ok = GTK_WIDGET(gtk_builder_get_object(builder, "lab_possible"));
+  lab_ko = GTK_WIDGET(gtk_builder_get_object(builder, "lab_impossible"));
   gtk_container_remove(GTK_CONTAINER(page->window), page->ressource_page);
   page->form_page = GTK_WIDGET(gtk_builder_get_object(builder, "form_page"));
   gtk_container_add(GTK_CONTAINER(page->window), page->form_page);
   gtk_widget_show_all(page->window);
+  gtk_widget_hide(lab_ok);
+  gtk_widget_hide(lab_ko);
   return ;
 }
 /****************************************************************************/
