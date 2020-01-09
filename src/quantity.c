@@ -53,7 +53,7 @@ char * uniform_unit(char * quantity)
     ;
   }
   else if( (pt = strstr(unity, "l"))){
-    if(*(pt+1) == ' ' || *(pt+1) == '\0' || (*(pt+1) <=122 && *(pt+1) >= 97)){
+    if(*(pt+1) == ' ' || *(pt+1) == '\0' || !(*(pt+1) <=122 && *(pt+1) >= 97)){
       nbquantity *= 100;
       sprintf(quantity, "%.2lf%s", nbquantity, liquidunity);
     }

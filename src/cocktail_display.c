@@ -204,7 +204,9 @@ char * find_ingredient(char * string)
   int i = 0;
   char ** res;
   char ** res_split;
+  char    buff[20];
 
+  strcpy(buff, string);
   con = connection_bdd(con);
   if (mysql_query(con, "SELECT id,nom FROM ingredient"))
     return 0;
@@ -215,7 +217,7 @@ char * find_ingredient(char * string)
   while(res[i]){
     res_split = ft_split(res[i], ';');
     if(strstr(string, res_split[1]) != NULL){
-      sprintf(string, "%s;%s", string, res_split[0]);
+      sprintf(string, "%s;%s", buff, res_split[0]);
       free_res(res, 50);
       free_res(res_split, 2);
       mysql_free_result(result);
