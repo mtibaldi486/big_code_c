@@ -13,6 +13,8 @@ int add_product()
     tmp = tmp->next;
   }
 
+  empty_list();
+
   return 0;
 }
 

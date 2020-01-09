@@ -1,6 +1,10 @@
 #include "../inc/cool.h"
 
+<<<<<<< HEAD
 char *make_path_screen(char *path, char *color, int c)
+=======
+/*const gchar *load_conf(void)
+>>>>>>> 9b2238dce4ee37b138f79d1472477cac0f76199f
 {
   int len;
   char *res = NULL;
@@ -130,6 +134,15 @@ const gchar *load_conf(void)
   page->img = path_screen;
   return ("red");
 }
+
+int   len;
+char  *str;
+char  buff[20];
+
+len = strchr(strchr(str, ' ') + 1, ' ') - str;
+memcpy((void *)buff, (void *)str, len);
+buff[len] = '\0';
+*/
 
 int   main(int ac, char **av)
 {

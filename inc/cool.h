@@ -33,6 +33,7 @@ typedef struct s_page
   GtkWidget    *scanner_page;
   GtkWidget    *select_page;
   GtkWidget    *cocktail_page;
+  GtkWidget    *form_page;
 }              t_page;
 
 typedef struct s_prod
@@ -67,6 +68,7 @@ void          goto_cocktail(void);
 void          goto_scanner(void);
 void          goto_form(void);
 void          generate_to_menu(void);
+void          form_to_ressource(void);
 void          ressource_to_menu(void);
 void          cocktail_to_menu(void);
 void          scanner_to_ressource(void);
@@ -82,7 +84,7 @@ int           get_id_product();
 int           check_necessary(char * name);
 t_prod        *check_product(t_prod **product);
 t_prod        *get_product_info(char *id, t_prod *product);
-void          vider_list();
+void          empty_list();
 void          free_product(t_prod *product);
 
 /****************************************************************************/
@@ -218,5 +220,13 @@ void          del_inventory_page();
 int           get_contenant(char * ing);
 int           use_quantity(char ** res, MYSQL * con, double quantity_needed);
 void          update_stock(char * id, MYSQL * con, double new_quantity, char * unity);
+
+/****************************************************************************/
+/*                               FORM.C                                     */
+/****************************************************************************/
+
+int           confirm_form();
+void          display_reset(GtkEntry *entry, GtkEntry *entry2, GtkEntry *entry3);
+void          display_confirm(GtkEntry *entry, GtkEntry *entry2, GtkEntry *entry3);
 
 #endif

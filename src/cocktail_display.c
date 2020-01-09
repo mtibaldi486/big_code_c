@@ -132,7 +132,7 @@ void  display_counter(const gchar *info, t_data *data, int indice)
 
   g_signal_connect(button_pos, "clicked", G_CALLBACK(inc_entry), (void *)data);
   g_signal_connect(button_neg, "clicked", G_CALLBACK(dec_entry), (void *)data);
-  g_signal_connect(data->entry, "activate", G_CALLBACK(nothing), NULL);
+  //g_signal_connect(data->entry, "activate", G_CALLBACK(nothing), NULL);
 
 }
 
