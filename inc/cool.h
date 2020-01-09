@@ -216,7 +216,6 @@ void          del_inventory_page();
 /****************************************************************************/
 /*                               MAKE_COCKTAIL.C                            */
 /****************************************************************************/
-
 int           get_contenant(char * ing);
 int           use_quantity(char ** res, MYSQL * con, double quantity_needed);
 void          update_stock(char * id, MYSQL * con, double new_quantity, char * unity);
@@ -224,9 +223,15 @@ void          update_stock(char * id, MYSQL * con, double new_quantity, char * u
 /****************************************************************************/
 /*                               FORM.C                                     */
 /****************************************************************************/
-
 int           confirm_form();
 void          display_reset(GtkEntry *entry, GtkEntry *entry2, GtkEntry *entry3);
 void          display_confirm(GtkEntry *entry, GtkEntry *entry2, GtkEntry *entry3);
 
+/****************************************************************************/
+/*                      CONFIGURATION.C                                     */
+/****************************************************************************/
+const     gchar *load_conf(void);
+int       change_path_home(char *path_home);
+int       change_path_screen(char *path_screen);
+char      *make_path_screen(char *path, char *color, int c);
 #endif
