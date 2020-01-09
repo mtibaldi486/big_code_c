@@ -97,7 +97,6 @@ GtkWidget *display_ingredient(char **str_display)
     strcat(buff, str_display[i]);
     i++;
   }
-  printf("BUF = %s\n", buff);
   button = gtk_button_new_with_label("Do it !");
   gtk_widget_set_name(button, buff);
   g_signal_connect(button, "clicked", G_CALLBACK(substract_quantity), NULL);
