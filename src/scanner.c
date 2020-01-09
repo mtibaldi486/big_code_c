@@ -157,7 +157,7 @@ int check_necessary(char * name)
   return 0;
 }
 
-void vider_list()
+void empty_list()
 {
   GList         *children;
   GtkListBox    *box;

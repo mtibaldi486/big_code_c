@@ -13,7 +13,7 @@ int add_product()
     tmp = tmp->next;
   }
 
-  vider_list();
+  empty_list();
 
   return 0;
 }

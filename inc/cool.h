@@ -84,7 +84,7 @@ int           get_id_product();
 int           check_necessary(char * name);
 t_prod        *check_product(t_prod **product);
 t_prod        *get_product_info(char *id, t_prod *product);
-void          vider_list();
+void          empty_list();
 void          free_product(t_prod *product);
 
 /****************************************************************************/
