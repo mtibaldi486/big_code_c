@@ -138,7 +138,7 @@ void select_to_cocktail(GtkButton *button)
   info = gtk_widget_get_name(GTK_WIDGET(button));
   button2 = gtk_button_new_with_label ("Retour");
   page->cocktail_page = GTK_WIDGET(gtk_builder_get_object(builder, "cocktail_page"));
-  backscreen = gtk_image_new_from_file("img/background/red_screen.png");
+  backscreen = gtk_image_new_from_file(page->img);
   g_signal_connect(button2, "clicked", G_CALLBACK(cocktail_to_select), NULL);
   gtk_fixed_put(GTK_FIXED(page->cocktail_page), backscreen, 0, 0);
   gtk_fixed_put(GTK_FIXED(page->cocktail_page),button2, 76, 41);

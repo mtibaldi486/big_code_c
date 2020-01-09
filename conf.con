@@ -1,13 +1,14 @@
 ##########################################################################################
 #      Fichier de configuration de l'interface graphique, laisser décommenter            #
-#               une ligne par propriété afin de l'utiliser.                              #
+#       une ligne en enlevant le '#' afin d'activer ce fond d'écran,                     #
+#            attention une seul ligne doit etre decommenter                              #
 ##########################################################################################
 
-##### Background color #####
-pink
-#green
+####Background#####
 #red
-#orange
-#black
+#pink
+green
 #yellow
-#bleu
+#black
+#blue
+#orange

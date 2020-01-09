@@ -24,7 +24,7 @@
 typedef struct s_page
 {
   GtkWidget    *window;
-  GtkWidget    *img;
+  char         *img;
   GtkWidget    *fixed;
   GtkWidget    *home_page;
   GtkWidget    *menu_page;

@@ -12,12 +12,12 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkImage">
+      <object class="GtkImage" id="screen_img">
         <property name="width_request">100</property>
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="pixbuf">img/background/red_screen.png</property>
+			<property name="pixbuf">img/background/red_screen.png</property>
       </object>
     </child>
     <child>
@@ -75,10 +75,10 @@
         <signal name="activate" handler="go_to_menu" swapped="no"/>
         <signal name="clicked" handler="go_to_menu" swapped="no"/>
         <child>
-          <object class="GtkImage" id="home_image1">
+          <object class="GtkImage" id="home_image">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="pixbuf">img/background/red_home.png</property>
+            <property name="pixbuf"></property>
           </object>
         </child>
       </object>
@@ -90,12 +90,12 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkImage">
+      <object class="GtkImage" id="screen_img">
         <property name="width_request">100</property>
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="pixbuf">img/background/red_screen.png</property>
+			<property name="pixbuf">img/background/red_screen.png</property>
       </object>
     </child>
     <child>
@@ -148,12 +148,12 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkImage">
+      <object class="GtkImage" id="screen_img">
         <property name="width_request">100</property>
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="pixbuf">img/background/red_screen.png</property>
+			<property name="pixbuf">img/background/red_screen.png</property>
       </object>
     </child>
     <child>
@@ -361,12 +361,12 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkImage">
+      <object class="GtkImage" id="screen_img">
         <property name="width_request">100</property>
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="pixbuf">img/background/red_screen.png</property>
+			<property name="pixbuf">img/background/red_screen.png</property>
       </object>
     </child>
     <child>
@@ -479,7 +479,7 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
-        <signal name="clicked" handler="del_lst" swapped="no"/>
+        <signal name="clicked" handler="vider_list" swapped="no"/>
       </object>
       <packing>
         <property name="x">502</property>
@@ -492,7 +492,7 @@
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Valider le contenue de 
+        <property name="label" translatable="yes">Valider le contenue de
              la liste</property>
         <attributes>
           <attribute name="font-desc" value="Serif Bold Italic 11"/>
@@ -572,12 +572,12 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkImage">
+      <object class="GtkImage" id="screen_img">
         <property name="width_request">100</property>
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="pixbuf">img/background/red_screen.png</property>
+			<property name="pixbuf">img/background/red_screen.png</property>
       </object>
     </child>
     <child>
