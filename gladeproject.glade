@@ -19,7 +19,7 @@
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-			<property name="pixbuf">img/background/yellow_screen.png</property>
+			<property name="pixbuf">img/background/red_screen.png</property>
       </object>
     </child>
     <child>
@@ -150,7 +150,7 @@ il n'est donc pas ajouté à notre base.</property>
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-			<property name="pixbuf">img/background/yellow_screen.png</property>
+			<property name="pixbuf">img/background/red_screen.png</property>
       </object>
     </child>
     <child>
@@ -211,7 +211,7 @@ il n'est donc pas ajouté à notre base.</property>
           <object class="GtkImage" id="home_img2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-			<property name="pixbuf">img/background/yellow_home.png</property>
+			<property name="pixbuf">img/background/red_home.png</property>
           </object>
         </child>
       </object>
@@ -228,7 +228,7 @@ il n'est donc pas ajouté à notre base.</property>
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-			<property name="pixbuf">img/background/yellow_screen.png</property>
+			<property name="pixbuf">img/background/red_screen.png</property>
       </object>
     </child>
     <child>
@@ -286,7 +286,7 @@ il n'est donc pas ajouté à notre base.</property>
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-			<property name="pixbuf">img/background/yellow_screen.png</property>
+			<property name="pixbuf">img/background/red_screen.png</property>
       </object>
     </child>
     <child>
@@ -499,7 +499,7 @@ il n'est donc pas ajouté à notre base.</property>
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-			<property name="pixbuf">img/background/yellow_screen.png</property>
+			<property name="pixbuf">img/background/red_screen.png</property>
       </object>
     </child>
     <child>
@@ -710,7 +710,7 @@ il n'est donc pas ajouté à notre base.</property>
         <property name="height_request">80</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-			<property name="pixbuf">img/background/yellow_screen.png</property>
+			<property name="pixbuf">img/background/red_screen.png</property>
       </object>
     </child>
     <child>
