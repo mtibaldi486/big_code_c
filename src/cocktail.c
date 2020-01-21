@@ -8,8 +8,9 @@ void load_cocktail_page(const gchar *info)
   display_name(info);
   display_mark(strchr((strrchr(info, ';') - 4), ';') + 1, id);
   display_picture(info);
-  display_elem(info, 0);
+  display_elem(info, 0, id);
   gtk_widget_show_all(page->window);
+
   return ;
 }
 

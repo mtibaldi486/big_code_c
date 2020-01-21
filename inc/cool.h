@@ -148,8 +148,9 @@ char          **format_res(MYSQL_RES *result_query);
 //COCKTAIL_DISPLAY_C
 void          display_picture(const gchar *info);
 void          display_name(const gchar *info);
-int           display_elem(const gchar *info, int nb);
-GtkWidget     *display_ingredient(char **str_display);
+int           display_elem(const gchar *info, int nb, char *id);
+GtkWidget     *display_ingredient(char **str_display, char *id);
+int           check_display_button( char *id);
 void          display_counter(const gchar *info, t_data *data, int indice);
 void          inc_entry(GtkWidget *button, gpointer *data_receive);
 void          dec_entry(GtkWidget *button, gpointer *data_receive);

@@ -39,7 +39,7 @@ void display_name(const gchar *info)
   gtk_fixed_put(GTK_FIXED(page->cocktail_page), lab_name, 500, 200);
 }
 
-int     display_elem(const gchar *info, int nb)
+int     display_elem(const gchar *info, int nb, char *id)
 {
   char        **str_display;
   char        **cocktail;
@@ -51,7 +51,7 @@ int     display_elem(const gchar *info, int nb)
     return (0);
   if (!(str_display = format_ingredient(info, nb)))
     return (0);
-  data->fixed = display_ingredient(str_display);
+  data->fixed = display_ingredient(str_display, id);
   gtk_widget_show_all(page->window);
   display_counter(info, data, nb);
 
@@ -59,7 +59,7 @@ int     display_elem(const gchar *info, int nb)
   return 1;
 }
 
-GtkWidget *display_ingredient(char **str_display)
+GtkWidget *display_ingredient(char **str_display, char *id)
 {
   GtkWidget   *fixed;
   GtkWidget   *label;
@@ -94,11 +94,32 @@ GtkWidget *display_ingredient(char **str_display)
     strcat(buff, str_display[i]);
     i++;
   }
-  button = gtk_button_new_with_label("Do it !");
-  gtk_widget_set_name(button, buff);
-  g_signal_connect(button, "clicked", G_CALLBACK(substract_quantity), NULL);
-  gtk_fixed_put(GTK_FIXED(page->cocktail_page), button, 1100, 500);
+  if( check_display_button(id) == 1){
+    button = gtk_button_new_with_label("Do it !");
+    gtk_widget_set_name(button, buff);
+    g_signal_connect(button, "clicked", G_CALLBACK(substract_quantity), NULL);
+    gtk_fixed_put(GTK_FIXED(page->cocktail_page), button, 1100, 500);
+  }
   return (fixed);
+}
+
+int check_display_button( char *id){
+  MYSQL * con;
+
+  con = NULL;
+  if( (con = connection_bdd(con)) == NULL){
+    mysql_close(con);
+    return 0;
+  }
+
+  if( (get_id_ing(id, con)) == NULL ){
+    mysql_close(con);
+    return 0;
+  }
+  else{
+    mysql_close(con);
+    return 1;
+  }
 }
 
 void  display_counter(const gchar *info, t_data *data, int indice)
@@ -149,7 +170,7 @@ void  inc_entry(GtkWidget *button, gpointer *data_receive)
   gtk_widget_destroy(data->fixed);
 
   gtk_entry_set_text(GTK_ENTRY(data->entry), ft_itoa(res));
-  display_elem(info, res);
+  display_elem(info, res, "0");
   gtk_widget_show_all(page->window);
   free(data);
 }
@@ -171,7 +192,7 @@ void  dec_entry(GtkWidget *button, gpointer *data_receive)
     return ;
   gtk_widget_destroy(data->fixed);
   gtk_entry_set_text(GTK_ENTRY(data->entry), ft_itoa(res));
-  display_elem(info, res);
+  display_elem(info, res, "0");
   gtk_widget_show_all(page->window);
   free(data);
 }
