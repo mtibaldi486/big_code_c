@@ -94,7 +94,7 @@ GtkWidget *display_ingredient(char **str_display, char *id)
     strcat(buff, str_display[i]);
     i++;
   }
-  if( check_display_button(id) == 1){
+  if( check_display_button(id) == 1 && ((strcmp(id, "0")))){
     button = gtk_button_new_with_label("Do it !");
     gtk_widget_set_name(button, buff);
     g_signal_connect(button, "clicked", G_CALLBACK(substract_quantity), NULL);
