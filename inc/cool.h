@@ -176,7 +176,7 @@ void          mark_down(GtkButton *button, gpointer *data);
 void          update_mark(char *mark, char *id);
 
 /****************************************************************************/
-/*                               FORM.C                                     */
+/*                               FORMAT.C                                     */
 /****************************************************************************/
 char          *lowercase(char * string);
 char          *delete_space(char * string);
