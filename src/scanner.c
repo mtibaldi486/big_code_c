@@ -16,7 +16,7 @@ int    get_id_product()
   id = (char *)gtk_entry_get_text(GTK_ENTRY(input_idproduct));
   if (!(product = ft_lstnew_prod(id)))
     return (0);
-  display_lst_prod(begin);
+  //display_lst_prod(begin);
   if ((lstprod = check_product(&product)))
   {
     free(product->id_product);

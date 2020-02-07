@@ -89,7 +89,6 @@ GtkWidget *display_ingredient(char **str_display, char *id)
   strcpy(buff, str_display[i++]);
   while(str_display[i])
   {
-    printf("str = %s\n", str_display[i]);
     strcat(buff, ";");
     strcat(buff, str_display[i]);
     i++;

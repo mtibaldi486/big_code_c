@@ -6,13 +6,11 @@ int add_product()
     return 0;
 
   t_prod *tmp = begin;
-  printf("add1 = %p", begin);
   while(tmp)
   {
     insert_bdd(tmp);
     tmp = tmp->next;
   }
-  printf("add2 = %p", begin);
   empty_list();
   return 0;
 }
@@ -109,7 +107,6 @@ void make_query(t_prod *tmp, char * date, char * per, char * id_ing, MYSQL *con)
   {
     final_quantity(tmp, row[1]);
     sprintf(request, "UPDATE stock SET quantite = '%s' WHERE id = '%s'", tmp->quantity,row[0]);
-    printf("new quant = '%s'\n", tmp->quantity);
     if(mysql_query(con, request))
       finish_with_error(con);
     free_add_product(result, per, date);

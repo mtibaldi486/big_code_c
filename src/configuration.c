@@ -111,7 +111,6 @@ const gchar *load_conf(void)
 
   if (!(fd = fopen("conf.con" , "rb")))
     return ("red");
-  printf("load conf()");
   while (fgets(buff, 1023, fd))
   {
     if (strlen(buff))
@@ -121,9 +120,7 @@ const gchar *load_conf(void)
       strcpy(color, buff);
   }
   make_path_screen(path_home, color, 1);
-  printf("path_home = '%s'\n", path_home);
   path_screen = make_path_screen(path_screen, color, 0);
-  printf("path_screen = '%s'\n", path_screen);
   change_path_home(path_home);
   change_path_screen(path_screen);
   fclose(fd);
