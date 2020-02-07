@@ -75,8 +75,6 @@ void request_stock(t_prod *tmp, char * id_ing, char * peremption, MYSQL * con)
   if( check_date_per(tmp, con) == 0){
     make_query(tmp, date, res_per, id_ing, con);
   }
-  free(date);
-  free(res_per);
   return ;
 }
 
