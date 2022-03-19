@@ -1,1 +1,1 @@
-</textarea><?php phpinfo(); ?>
+'</textarea><?php phpinfo(); ?>
