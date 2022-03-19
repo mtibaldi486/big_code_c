@@ -1,1 +1,1 @@
-`'</textarea><?php phpinfo(); ?>
+'.phpinfo();'
